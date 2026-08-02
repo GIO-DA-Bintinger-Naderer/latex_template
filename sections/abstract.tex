@@ -10,26 +10,33 @@ systems and their current state is often distributed across multiple platforms.
 This makes it difficult for employees to maintain an overview and efficiently
 analyze infrastructure-related data.
 
-As part of this thesis, we present a specific solution for Primetals Technologies Austria GmbH.
-The objective of the project is the development of a Global Infrastructure Overview (GIO) system,
-which provides a centralized view over the company's IT infrastructure. Data from various sources
-is collected, aggregated and visualized in a user-friendly manner.
+As part of this thesis, a custom Grafana plugin for Primetals Technologies Austria GmbH
+was developed. The objective of the project is the implementation of a Global
+Infrastructure Overview (GIO), which provides a centralized view of the company's
+IT infrastructure. Data from various sources is collected, aggregated, and
+visualized in a user-friendly manner.
 
 \textbf{Implementation}
 
-The implementation was done using a custom grafana plugin, which visualizes the collected data
-on a world map and through detail views. The plugin allows the employees to filter and search for 
-specific information. The data is collected from various grafana datasources, including MSSQL 
-databases and enterprise APIs, through a centralized datasource layer before being provided to 
-the visualization component.
+The implementation was done using a Grafana plugin, divided into multiple
+layers for maintainability and extensibility. A centralized datasource layer
+collects and aggregates data from various Grafana data sources, including MSSQL
+databases and enterprise APIs, before providing it to the visualization layer.
+Access to the system is secured using Grafana's existing authentication and
+authorization mechanisms.
+
+The visualization layer displays the collected data on an interactive world map
+and in detailed views, with filtering and search functionality enabling employees
+to quickly locate and analyze specific infrastructure information.
 
 \textbf{Result}
 
-A system with the required functionalities was developed. The system is capable of visualizing
-the collected data, so that the employees can efficiently analyse the current situation. 
-The system has already been deployed at Primetals Technologies Austria GmbH, where it is 
-actively used by employees to monitor the company's infrastructure. The system
-can be extended with additional datasources and views.
+A Grafana plugin with the required functionalities was developed, providing a
+centralized overview of the company's distributed infrastructure through
+visualizations on a world map and in detailed views. The plugin has already
+been deployed at Primetals Technologies Austria GmbH, where it is actively used
+by employees to monitor infrastructure, and can be extended with additional
+data sources and views.
 
 \begin{figure}[h]
     \centering
@@ -38,52 +45,46 @@ can be extended with additional datasources and views.
 \end{figure}
 
 \newpage
+
 \begin{spacing}{1}
     \chapter*{Zusammenfassung}
 \end{spacing}
 
 \textbf{Aufgabenstellung}
 
-Moderne Unternehmen verfügen über komplexe IT-Infrastrukturen, welche aus einer
-Vielzahl an Servern, Diensten und weiteren Ressourcen bestehen. Durch die stetig
-wachsende Anzahl an Systemen werden relevante Informationen häufig in
-unterschiedlichen Plattformen und Datenquellen verwaltet. Dies erschwert es
-Mitarbeitern, einen zentralen Überblick über die vorhandene Infrastruktur und
-deren aktuellen Zustand zu erhalten.
+Moderne Unternehmen betreiben komplexe IT-Infrastrukturen, welche aus einer
+Vielzahl an Servern, Diensten und weiteren Ressourcen bestehen. Informationen
+über verfügbare Systeme und deren aktuellen Zustand sind häufig auf mehrere
+Plattformen verteilt, wodurch eine zentrale Übersicht über die Infrastruktur
+erschwert wird.
 
-Das Ziel dieser Arbeit ist die Entwicklung eines Global Infrastructure Overview
-(GIO) Systems für die Primetals Technologies Austria GmbH. Das System soll Daten
-aus unterschiedlichen Quellen zentral sammeln, aufbereiten und visualisieren,
-um eine effizientere Analyse und Überwachung der Unternehmensinfrastruktur zu
-ermöglichen.
+Im Rahmen dieser Arbeit wurde für die Primetals Technologies Austria GmbH ein
+Grafana-Plugin zur Umsetzung eines Global Infrastructure Overview (GIO)
+entwickelt. Ziel des Projekts ist die zentrale Darstellung von
+Infrastrukturinformationen, welche aus unterschiedlichen Datenquellen gesammelt,
+aggregiert und übersichtlich visualisiert werden.
 
 \textbf{Realisierung}
 
-Die Umsetzung erfolgte durch die Entwicklung eines zentralen Datasource-Layers
-zur Aggregation und Verarbeitung von Infrastrukturinformationen aus
-verschiedenen Quellen. Dazu werden Daten unter anderem aus MSSQL-Datenbanken und
-Enterprise APIs gesammelt, vereinheitlicht und für die weitere Verarbeitung
-bereitgestellt.
+Die Umsetzung erfolgte durch die Entwicklung eines eigenen Grafana-Plugins,
+welches zur besseren Wartbarkeit und Erweiterbarkeit in mehrere Schichten
+unterteilt wurde. Ein zentraler Datasource-Layer sammelt und aggregiert Daten
+aus verschiedenen Grafana-Datenquellen, darunter MSSQL-Datenbanken und Enterprise-APIs,
+bevor diese an die Visualisierungskomponente übergeben werden. Der Zugriff
+auf das System wird über die bestehenden Authentifizierungs- und
+Autorisierungsmechanismen von Grafana abgesichert.
 
-Für die Visualisierung wurde ein eigenes Grafana Plugin entwickelt. Dieses
-ermöglicht die Darstellung der gesammelten Informationen auf einer Weltkarte
-sowie in detaillierten Ansichten. Zusätzlich wurden Funktionen zur Filterung und
-Suche implementiert, wodurch Mitarbeiter gezielt nach bestimmten
-Infrastrukturinformationen suchen können.
+Die Darstellung der Informationen erfolgt auf einer interaktiven Weltkarte sowie
+in Detailansichten. Zusätzlich wurden Funktionen zur Suche und Filterung
+implementiert, wodurch Mitarbeiter gezielt nach Infrastrukturinformationen
+suchen und diese analysieren können.
 
 \textbf{Ergebnis}
 
-Es wurde ein System entwickelt, welches eine zentrale Übersicht über die
-IT-Infrastruktur der Primetals Technologies Austria GmbH ermöglicht. Die
-gesammelten Daten können mithilfe verschiedener Visualisierungen analysiert und
-nach relevanten Informationen gefiltert werden.
-
-Das System wurde erfolgreich in die bestehende Infrastruktur integriert und wird
-von Mitarbeitern zur Überwachung und Analyse verwendet. Die Lösung kann durch
-zusätzliche Datenquellen und weitere Visualisierungen erweitert werden.
-
-\begin{figure}[h]
-    \centering
-    \vspace{0.5em}
-    \includegraphics[width=\textwidth]{pics/abstract.png}
-\end{figure}
+Es wurde ein Grafana-Plugin mit den geforderten Funktionalitäten entwickelt,
+welches eine zentrale Übersicht über die verteilte IT-Infrastruktur bereitstellt
+und die Visualisierung aggregierter Daten auf einer Weltkarte sowie in
+Detailansichten ermöglicht. Die Lösung wird bereits bei der Primetals
+Technologies Austria GmbH produktiv eingesetzt und von Mitarbeitern zur
+Überwachung der Infrastruktur genutzt. Das Plugin kann durch zusätzliche
+Datenquellen sowie weitere Visualisierungsansichten erweitert werden.
