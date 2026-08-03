@@ -60,15 +60,22 @@
 
 \tableofcontents
 \newpage
+
+\cleardoublepage
+\phantomsection
 \setcounter{RPages}{\value{page}}
-\setcounter{page}{0}
-\pagenumbering{arabic}
+\pagenumbering{arabic} % setzt Seite auf 1 zurück
 \pagestyle{scrheadings}
 
 \begin{spacing}{1}
 \chapter{Introduction}\label{chapter:introduction}
 \end{spacing}
 \input{./sections/introduction}
+
+\begin{spacing}{1}
+\chapter{Glossary}\label{chapter:glossary}
+\end{spacing}
+
 
 \begin{spacing}{1}
 \chapter{Fundamentals of grafana}\label{chapter:grafana}
