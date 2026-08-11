@@ -1,0 +1,57 @@
+\section{Metriken}
+
+Zur Bewertung des Zustands von Netzwerken und verteilten Systemen werden unter
+anderem verschiedene Metriken verwendet.
+
+\subsection{Netzwerkmetriken}
+
+Netzwerkmetriken beschreiben den aktuellen Zustand und die Leistungsfähigkeit
+eines Netzwerks. Sie ermöglichen eine quantitative Bewertung der
+Netzwerkkommunikation und können dabei helfen, potenzielle Probleme zu
+erkennen~\cite{aruba2026userguide}.
+
+\begin{compactitem}
+    \item \textbf{Bandbreite:} Die Bandbreite beschreibt die Datenmenge,
+    die ein Gerät innerhalb eines bestimmten Zeitraums über ein Interface
+    senden oder empfangen kann~\cite{aruba2026userguide}.
+
+    \item \textbf{Latenz:} Die Latenz beschreibt die Zeit, die Daten für
+    die Übertragung zwischen zwei Geräten benötigen~\cite{aruba2026userguide}.
+\end{compactitem}
+
+\subsection{Systemmetriken}
+
+Systemmetriken beschreiben den aktuellen Zustand und die Ressourcennutzung
+eines Systems. Sie ermöglichen eine Einschätzung der Auslastung und des
+Zustands der überwachten Systeme.
+
+\begin{compactitem}
+    \item \textbf{CPU-Auslastung:} Die CPU-Auslastung beschreibt den Anteil der verfügbaren 
+    Rechenleistung, der von einem System aktuell genutzt wird. Eine dauerhaft hohe Auslastung 
+    weist auf Engpässe bei der Prozessverarbeitung hin~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{RAM-Auslastung:} Die RAM-Auslastung beschreibt die aktuelle Nutzung des 
+    verfügbaren Arbeitsspeichers eines Systems. Unzureichender Arbeitsspeicher führt häufig 
+    zu verstärktem Paging auf den Datenträger und mindert 
+    die Systemleistung deutlich~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{Speicherauslastung:} Die Speicherauslastung beschreibt den Anteil des 
+    verfügbaren Massenspeicherplatzes (z. B. SSD/HDD), der aktuell belegt ist, sowie die 
+    Auslastung der E/A-Ressourcen (I/O)~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{Problemanzahl:} Die Problemanzahl beschreibt die Anzahl der aktuell auf 
+    einem System erkannten Fehler oder Ereignisse, die die Stabilität beeinträchtigen können.
+
+    \item \textbf{Sum of missing patches:} Diese Metrik beschreibt die Anzahl der fehlenden 
+    Softwareaktualisierungen, die auf einem System installiert werden müssen, um Sicherheitslücken 
+    und Leistungsfehler zu beheben.
+
+    \item \textbf{Isolated:} Diese Metrik beschreibt den Isolationsstatus eines Systems 
+    gegenüber dem restlichen Netzwerk (z. B. zur Eindämmung von Sicherheitsrisiken).
+\end{compactitem}
+
+\section{Grafana}
+
+\subsection{Datasources}
+
+\subsection{Plugins}
