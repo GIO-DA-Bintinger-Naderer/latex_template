@@ -7,11 +7,65 @@ das die gesammelten Daten in einer übersichtlichen und interaktiven Form darste
 Das Dashboard bietet verschiedene Funktionen, die es den Benutzer:innen ermöglichen, 
 die Informationen nach ihren Bedürfnissen zu filtern und zu analysieren.
 
+\subsection{Panels}
+Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand dargestellt.
+\begin{compactitem}
+    \item \textbf{Statistiken:} Dieses Panel zeigt die Gesamtzahl der Standorte an, die in GIO erfasst sind. 
+    Auch werden die aktiven Standorte angezeigt. 
+    Als letztes wird die Anzahl der unterschiedlichen Länder in denen sich die Standorte befinden angezeigt.
+    \item \textbf{Einstufungsquellen:} Dieses Panel zeigt die unterschiedlichen Einstufungsquellen an.
+    Damit können die Benutzer:innen schnell eine Auswahl treffen, welche Einstufungsquelle sie auf dem Dashboard sehen möchten.
+
+    \begin{compactitem}
+        \item \textbf{SD-WAN:} Dieses Panel zeigt an ob es ein Problem mit der SD-WAN-Verbindung gibt.
+        \todo{SD-WAN ist ein Begriff, der in der Arbeit noch erklärt werden muss.}
+        \item \textbf{HCI:} Dieses Panel zeigt an ob es ein Problem mit der HCI Resource gibt.
+        \todo{HCI ist ein Begriff, der in der Arbeit noch erklärt werden muss.}
+        \item \textbf{Server:} Dieses Panel zeigt an ob es ein Problem mit der Server-Verbindung gibt.
+        \item \textbf{LAN:} Dieses Panel zeigt an ob es ein Problem mit der LAN-Verbindung gibt.
+    \end{compactitem}
+
+    \item \textbf{Filter:} Dieses Panel zeigt nur die Standorte an, die bestimmte Kriterien erfüllen.
+    
+    \begin{compactitem}
+        \item \textbf{Nur aktive Standorte:} Dieser Filter zeigt nur die aktiven Standorte an.
+        \item \textbf{Hat HCI:} Dieser Filter zeigt nur die Standorte an, die eine HCI Resource lagern haben.
+        \todo{HCI ist ein Begriff, der in der Arbeit noch erklärt werden muss.}
+        \item \textbf{Klassifikation:} Dieser Filter zeigt nur die Standorte an, die eine bestimmte Klasse haben. 
+        Dieser Filter ermöglich eine Mehrfachauswahl damit können mehrere Filter gleichzeitig angewendet werden.
+        
+        \begin{compactitem}
+           \item \textbf{-:} Dieser Filter zeigt alle Standorte an. Das ist der Standardfilter.
+           \item \textbf{Cloud Hub:} Dieser Filter zeigt nur die Standorte an, die ein Cloud Hub sind.
+           \item \textbf{HUB:} Dieser Filter zeigt nur die Standorte an, die ein HUB sind.
+           \item \textbf{Large Site (FMO):} Dieser Filter zeigt nur die Standorte an, die eine Large Site (FMO) sind.
+           \item \textbf{Medium Site (FMO):} Dieser Filter zeigt nur die Standorte an, die eine Medium Site (FMO) sind.
+           \item \textbf{Small Site (FMO):} Dieser Filter zeigt nur die Standorte an, die eine Small Site (FMO) sind.
+           \item \textbf{Remote Site (FMO):} Dieser Filter zeigt nur die Standorte an, die eine Remote Site (FMO) sind.
+           \item \textbf{Special Site Cloud:} Dieser Filter zeigt nur die Standorte an, die eine Special Site Cloud sind.
+           \item \textbf{Special Site DC:} Dieser Filter zeigt nur die Standorte an, die eine Special Site DC sind.
+        \end{compactitem}
+        \todo{Hier müssen noch die Klassen referenziert werden.}
+
+        \item \textbf{Kritikalität:} Dieser Filter zeigt nur die Standorte an, die eine bestimmte Kritikalität haben.
+        Dieser Filter ermöglich eine Mehrfachauswahl damit können mehrere Filter gleichzeitig angewendet werden.
+
+        \begin{compactitem}
+            \item \textbf{Stabil:} Dieser Filter zeigt nur die Standorte an, die stabil sind.
+            \item \textbf{Instabil:} Dieser Filter zeigt nur die Standorte an, die instabil sind.
+            \item \textbf{Kritisch:} Dieser Filter zeigt nur die Standorte an, die kritisch sind.
+        \end{compactitem}
+        \todo{Hier muss noch eine Beschreibung für die Zustände hinzugefügt werden.}
+
+    \end{compactitem}
+
+\end{compactitem}
 
 \subsection{Icons}
 
 Auf der Weltkarte werden die Standorte der einzelnen Standorte durch Icons dargestellt.
 \todo{Hier könnte ein Bild der Legende den Icons eingefügt werden.}
+\todo{Hier müssen noch die Standorttypen referenziert werden.}
 Dadurch können die Benutzer:innen schnell erkennen um welche Art von Standort es sich handelt.
 
 
@@ -21,11 +75,11 @@ Da die Geräte an den Standorten unterschiedliche Zustände haben können,
 werden diese Zustände durch unterschiedliche Farben der Icons dargestellt.
 Diese Farben geben den Benutzer:innen einen schnellen Überblick über den Zustand der Geräte an den Standorten.
 Der Status der Geräte kann dabei in drei Kategorien unterteilt werden:
-\begin{itemize}
+\begin{compactitem}
     \item \textbf{Grün:} Das Gerät ist in einem guten Zustand und funktioniert einwandfrei.
     \item \textbf{Gelb:} Das Gerät hat einen Warnstatus, der auf ein mögliches Problem hinweist.
     \item \textbf{Rot:} Das Gerät hat einen kritischen Status, der auf ein ernsthaftes Problem hinweist.
-\end{itemize}
+\end{compactitem}
 
 
 \subsection{Detailebenen}
@@ -33,10 +87,155 @@ Um die numerischen Informationen auf dem Dashboard mit den Standorten zu verknü
 wird bei Klick auf ein Icon die detaillierte Ansicht des jeweiligen Standorts geöffnet.
 Diese detaillierte Ansicht wird bestimmt durch das zoom level des Dashboards.
 Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
-\begin{itemize}
-    \item \textbf{Zoom Level 1:} Auf dieser Ebene werden die Standorte auf einer Weltkarte angezeigt. 
-    \item \textbf{Zoom Level 2:} Auf dieser Ebene werden die Standorte auf einer Landkarte angezeigt. 
-    \item \textbf{Zoom Level 3:} Auf dieser Ebene werden die Standorte auf einer Straßenkarte angezeigt. 
+\begin{compactitem}
+    \item \textbf{Weltkarten Ansicht:} Auf dieser Ebene werden die Standorte auf einer Weltkarte angezeigt. 
+    Die Standorte werden pro Land gruppiert, die Anzahl der Standorte entscheidet über die Größe des Icons.
+    Für die Farbe des Icons wird die schlechteste Einstufungsquelle des Standorts verwendet.
+    Bei einem Klick aif ein Land wird in die Standort Ansicht gewechselt, die alle Standorte des Landes anzeigt.
+    \item \textbf{Standort Ansicht:} Auf dieser Ebene werden die Standorte auf einer Landkarte angezeigt.
+    Die gößere der Icons wird durch die Kritikalität der Standorte in der Region bestimmt.
+
+    \begin{compactitem}
+        \item \textbf{Stabil:} Dieser Filter zeigt nur die Standorte an, die stabil sind. Das Icon ist normal groß.
+        \item \textbf{Instabil:} Dieser Filter zeigt nur die Standorte an, die instabil sind. Das Icon hat die 1,5-fache Größe.
+        \item \textbf{Kritisch:} Dieser Filter zeigt nur die Standorte an, die kritisch sind. Das Icon hat die 2-fache Größe.
+    \end{compactitem}
+    \todo{Hier müssen die Zustände referenziert werden.}
+
+    Bei einem Klick auf ein Icon wird in die Standort Detail Ansicht gewechselt, die alle Informationen des Standorts anzeigt.
+
+    \begin{compactitem}
+        \item \textbf{Standort Detail Ansicht:} Auf dieser Ebene wird ein Standort zentriert und detailliert angezeigt.
+        Es werden zu allen anderen Standorten die eine Verbindung zu dem Standort haben strichlierte Linien angezeigt, 
+        die die Verbindung darstellen.
+        Die Farbe der Linien wird durch die Qualität der Verbindung bestimmt.
+        \todo{Hier muss noch eine Beschreibung der Zustände der Verbindung hinzugefügt werden.}
+
+        Auf dem rechten Bilschirmrand gliedert sich ein neues Panel zwischen die Panels der Statistiken und Einstufungsquellen ein.
+        Auf dem neuen Panel können die Benutzer:innen die Verbindung zu einem bestimmten Standort filtern 
+        indem die den \gls{location-code} des Standorts eingeben. Es kann nur auf einen Standort gefiltert werden.
+        
+        Nachdem ein valider \gls{location-code} eingegeben wurde, 
+        reiht sich ein weiters Panel auf der rechten Seite unter dem Verbindungsfilter ein, das die Informationen der Verbindung anzeigt.
+        Auf der linken Seite des Panels wird die Appliance-ID des Empfängers angezeigt.
+        Auf der rechten Seite des Panels wird die Verbindungslatenz angezeigt.
+        Die Verbindungslatenz wird ausgehend von der Quelle des Dashboards zu dem Standort berechnet. 
+    
+        Und durch die durchschnittliche Latenz der Verbindung dargestellt.
+        Die Anzahl der Verbindungen wird durch die ANzahl der SD-WANs der beiden Standorte bestimmt.
+        \todo{Hier muss noch eine Beschreibung der SD-WANs hinzugefügt werden.}
+
+        Es öffnet sich auf der linken Seite ein Panel, das alle Informationen des Standorts anzeigt.
+        Dieses Panel ist wiederum in logische Abschnitte unterteilt, die die Informationen in einer übersichtlichen Form darstellen.
+    
+        \begin{compactitem}
+            \item \textbf{Standort Informationen:} Dieses Panel zeigt die allgemeinen Informationen des Standorts an.
+            
+            \begin{compactitem}
+                \item \textbf{\gls{location-code}:} Der interne Code des Standorts.
+                \item \textbf{Land:} Das Land in dem sich der Standort befindet. 
+                Länder werden durch die ISO 3166-1 Alpha-2 Codes dargestellt ~\cite{iso3166glossary2026}.
+                \item \textbf{Klassifikation:} Der Typ des Standorts.
+                \todo{Hier müssen die Standorttypen referenziert werden.}
+                \item \textbf{Ist Aktiv:} Zeigt an, ob der Standort aktiv ist.
+                \item \textbf{Kritikalität:} Zeigt die Kritikalität des Standorts an.
+                \todo{Hier muss noch eine Beschreibung referenziert werden.}
+
+            \end{compactitem}
+
+            \item \textbf{Netzwerk Übersicht:} Auf diesem Abschnitt werden die Standorte auf einer Netzwerkübersicht angezeigt. 
+            In der Kopfzeile wird die Gesamtanzahl der SD-WANs angezeigt, die der Standort hat.
+            Der Abschnitt ist in zwei Bereiche unterteilt. Der obere Bereich zeigt den Stauts aller SD-WANs an, die der Standort hat. 
+            Der untere Bereich zeigt den Status des Primärgerätes an.
+            
+            \begin{compactitem}
+                \item \textbf{Oberer Bereich:} In diesem Bereich werden die Anzahl der erreichbaren, 
+                unerreichbaren Geräte des Standorts angezeigt.
+                Außerdem wird den Benutzer:innen die Anzahl der Primäar und Backup SD-WANs angezeigt, die der Standort hat.
+                \item \textbf{Unterer Bereich:} In diesem Bereich werden die Appliance-IDs der Primärgeräte
+                mit der durchschnittlichen Latenz der Verbindung angezeigt.
+                \todo{Möglicherweise muss Appliance-ID noch referenziert oder geändert werden.}
+            \end{compactitem}
+            
+            \item \textbf{HCI Ansicht:} Auf dieser Ebene werden die Standorte auf einer HCI-Übersicht angezeigt.
+            Hier werden die verwendeten die HCI-Resourcen des Standorts angezeigt.
+            Links stehen die Kategorien: 
+
+            \todo{referenzieren der HCI-Resourcen muss noch hinzugefügt werden.}
+            Rechts wird die Auslastung der HCI-Resourcen in Prozent angezeigt.
+
+            Bei einem Klick auf die HCI Ansicht öffnet sich eine neue Seite, die die HCI-Resourcen des Standorts detailliert anzeigt.
+            Diese Seite ist in vier Abschnitte unterteilt.
+
+            \begin{compactitem}
+                \item \textbf{Generelle Informationen:} In diesem Abschnitt werden die allgemeinen Informationen des Standorts angezeigt.
+                Es wird der \gls{location-code} des Standorts angezeigt, 
+                die Klasse des Standorts und das Datum, die Uhrzeit der letzten Aktualisierung.
+
+                \item \textbf{Auslastung:} In diesem Abschnitt wird die Auslastung der HCI-Resourcen des Standorts
+                in Prozent und anhand einer Balkenanzeige angezeigt. 
+                Die Farbe der Balkenanzeige wird durch die Kritikalität der HCI-Resourcen bestimmt.
+
+                \item \textbf{Auslastungsverlauf:} In diesem Abschnitt wird die Auslastung der HCI-Resourcen des Standorts
+                in Prozent und anhand einer Liniendiagramm angezeigt. Um eine bessere Übersicht zu gewären wird ein D3-Linechart verwendet.
+                \todo{Zitat für D3-Linechart muss noch hinzugefügt werden.}
+
+                \item \textbf{HCI Details:} In diesem Abschnitt werden die HCI-Resourcen des Standorts detailliert angezeigt.
+                
+                \begin{compactitem}
+                    \item \textbf{:} .
+                    \todo{Hier muss noch eine Beschreibung der HCI-Resourcen hinzugefügt werden. + Zitierung}
+                \end{compactitem}
+
+            \end{compactitem}
+
+            \item \textbf{Server Ansicht:} In dieser Ansicht werden die Server des Standorts angezeigt.
+            Das Panel zeigt einen Überblick über die Server-Infrastruktur mit folgenden Informationen:
+            die Gesamtanzahl der Server, die Anzahl der Server mit Problemen, die ausstehenden Patches sowie die Anzahl der isolierten Server.
+            
+            Bei einem Klick auf die Server Ansicht öffnet sich eine neue Seite, die die Server des Standorts detailliert anzeigt.
+            Diese Seite ist in zwei Abschnitte unterteilt.
+
+            \begin{compactitem}
+                \item \textbf{Übersicht:} Dieser Abschnitt bietet einen Überblick über die wichtigsten Server-Metriken des Standorts. 
+                Dazu gehören die Gesamtanzahl der Server, die Anzahl der erfassten Probleme, die Anzahl ausstehender Aktualisierungen, 
+                die Anzahl isolierter Server sowie das Verhältnis der verfügbaren Server zur Gesamtzahl der ausgewählten Server.
+                \todo{Zabbix muss noch referenziert werden.}
+
+                \item \textbf{Server Details:} In diesem Abschnitt werden die Server des Standorts detailliert angezeigt.
+                Die Server werden in einer Tabelle dargestellt, die die wichtigsten Informationen zu jedem Server enthält.
+                Die Tabelle enthält die folgenden Spalten:
+                \begin{compactitem}
+                    \item \textbf{Servername:} Der Name des Servers.
+                    \item \textbf{Serverstatus:} Der Status des Servers: Active, Inactive.
+                    \item \textbf{CPU-Auslastung:}
+                    \item \textbf{RAM-Auslastung:} 
+                    \item \textbf{Festplattenauslastung:}
+                    \todo{Die Ferlder müssen noch referenziert werden.}
+                \end{compactitem}
+
+                Hier können die Benutzer:innen die Server nach ihren Bedürfnissen filtern.
+                Es können mehrere Filter gleichzeitig angewendet werden, um die Serverliste nach verschiedenen Kriterien einzugrenzen.
+                \begin{compactitem}
+                    \item \textbf{Servername:} Die Benutzer:innen können nach dem Namen des Servers filtern.
+                    \item \textbf{Serverstatus:} Die Benutzer:innen können nach dem Status des Servers filtern.
+                    \item \textbf{Festplattenauslastung:} Die Benutzer:innen können nach der Festplattenauslastung des Servers filtern.
+                    \item \textbf{CPU-Auslastung:} Die Benutzer:innen können nach der CPU-Auslastung des Servers filtern.
+                    \item \textbf{RAM-Auslastung:} Die Benutzer:innen können nach der RAM-Auslastung des Servers filtern.
+                    \item \textbf{Probleme:} Die Benutzer:innen können nach der Anzahl der Probleme des Servers filtern.
+                    \item \textbf{Fehlende KBs:} Die Benutzer:innen können nach der Anzahl der fehlenden KBs des Servers filtern.
+                    \todo{Die Ferlder müssen noch referenziert werden.}
+                \end{compactitem}
+
+
+            \end{compactitem}
+
+
+            \item \textbf{Geräte Ansicht:} Auf dieser Ebene werden die Standorte auf einer Geräteübersicht angezeigt.
+        \end{compactitem}
+
+    \end{compactitem}
+
     \todo{Hier muss noch eine Beschreibung der Detailebenen hinzugefügt werden.}
-\end{itemize}
+\end{compactitem}
 
