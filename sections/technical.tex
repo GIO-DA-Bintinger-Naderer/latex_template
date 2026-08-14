@@ -1,14 +1,17 @@
-\section{Metriken}
-
-Zur Bewertung des Zustands von Netzwerken und verteilten Systemen werden unter
-anderem verschiedene Metriken verwendet.
-
-\subsection{Netzwerkmetriken}
+\section{Netzwerkmetriken}
+\label{sec:netzwerkmetriken}
 
 Netzwerkmetriken beschreiben den aktuellen Zustand und die Leistungsfähigkeit
 eines Netzwerks. Sie ermöglichen eine quantitative Bewertung der
 Netzwerkkommunikation und können dabei helfen, potenzielle Probleme zu
 erkennen~\cite{aruba2026userguide}.
+
+\subsection{Aggregierte Standortwerte}
+\label{subsec:netzwerk-aggregierte-werte}
+
+Die folgenden Metriken stellen aggregierte Werte auf Standortebene dar.
+Sie werden aus den einzelnen Netzwerkmetriken der einem Standort
+zugeordneten Systeme ermittelt.
 
 \begin{compactitem}
     \item \textbf{Bandbreite:} Die Bandbreite beschreibt die Datenmenge,
@@ -17,37 +20,267 @@ erkennen~\cite{aruba2026userguide}.
 
     \item \textbf{Latenz:} Die Latenz beschreibt die Zeit, die Daten für
     die Übertragung zwischen zwei Geräten benötigen~\cite{aruba2026userguide}.
+
+    \item \textbf{Erreichbare Geräte:} Die Anzahl der erreichbaren
+    \glspl{silverpeak} an einem Standort~\cite{aruba2026userguide}.
+
+    \item \textbf{Nichterreichbare Geräte:} Die Anzahl der nicht erreichbaren
+    \glspl{silverpeak} an einem Standort~\cite{aruba2026userguide}.
+
+    \item \textbf{Primäre WAN-Verbindungen:} Die Anzahl der als primär
+    konfigurierten \glspl{wan}, über die der reguläre Datenverkehr eines
+    Standorts geleitet wird.
+
+    \item \textbf{Backup-WAN-Verbindungen:} Die Anzahl der als Backup
+    konfigurierten \glspl{wan}, die im Falle eines Ausfalls der primären
+    Verbindung den Datenverkehr übernehmen.
 \end{compactitem}
 
-\subsection{Systemmetriken}
+\subsection{Einzelwerte}
+\label{subsec:netzwerk-einzelwerte}
+
+Die folgenden Werte werden für jedes einzelne \gls{sdwan}-System erfasst.
+Sie bilden die Grundlage für die Berechnung der aggregierten Standortwerte
+(siehe Abschnitt~\ref{subsec:netzwerk-aggregierte-werte}).
+
+\begin{compactitem}
+    \item \textbf{Name:} Eindeutige Bezeichnung des \gls{sdwan}-Systems.
+
+    \item \textbf{Typ:} Beschreibt die Art des überwachten Systems,
+    beispielsweise SD-WAN-Router.
+
+    \item \textbf{LAN-IP-Adresse:} Die interne IP-Adresse des Systems
+    innerhalb des lokalen Netzwerks.
+
+    \item \textbf{WAN-IP-Adresse (WAN0):} Öffentliche beziehungsweise
+    externe IP-Adresse der primären WAN-Schnittstelle.
+
+    \item \textbf{WAN-IP-Adresse (WAN1):} Öffentliche beziehungsweise
+    externe IP-Adresse der sekundären WAN-Schnittstelle.
+
+    \item \textbf{Firmware-Version:} Version der auf dem System
+    installierten Software beziehungsweise Firmware.
+
+    \item \textbf{Erreichbarkeit:} Gibt an, ob das System aktuell über
+    das Netzwerk erreichbar ist.
+
+    \item \textbf{WAN-Status:} Beschreibt den aktuellen Status beziehungsweise
+    die Rolle der WAN-Verbindung, beispielsweise als primäre oder
+    Backup-WAN-Verbindung.
+\end{compactitem}
+
+\newpage
+
+\section{Systemmetriken}
+\label{sec:systemmetriken}
 
 Systemmetriken beschreiben den aktuellen Zustand und die Ressourcennutzung
 eines Systems. Sie ermöglichen eine Einschätzung der Auslastung und des
 Zustands der überwachten Systeme.
 
+\subsection{Aggregierte Standortwerte}
+\label{subsec:system-aggregierte-werte}
+
+Die folgenden Metriken stellen aggregierte Werte auf Standortebene dar.
+Sie werden aus den Werten der einzelnen Systeme eines Standorts ermittelt.
+
 \begin{compactitem}
-    \item \textbf{CPU-Auslastung:} Die CPU-Auslastung beschreibt den Anteil der verfügbaren 
-    Rechenleistung, der von einem System aktuell genutzt wird~\cite{microsoft2026troubleshoot}.
+    \item \textbf{Problemanzahl:} Die Problemanzahl beschreibt die Anzahl der
+    aktuell auf einem System erkannten Probleme
+    ~\cite{zabbix2026problemget}.
 
-    \item \textbf{RAM-Auslastung:} Die RAM-Auslastung beschreibt die aktuelle Nutzung des 
-    verfügbaren Arbeitsspeichers eines Systems~\cite{microsoft2026troubleshoot}.
+    \item \textbf{Anzahl fehlender Softwareaktualisierungen:} Diese Metrik
+    beschreibt die Anzahl der fehlenden Softwareaktualisierungen, die auf
+    einem System installiert werden müssen.
 
-    \item \textbf{Speicherauslastung:} Die Speicherauslastung beschreibt den Anteil des 
-    verfügbaren Massenspeicherplatzes~\cite{microsoft2026troubleshoot}.
+    \item \textbf{Isolierte Systeme:} Diese Metrik beschreibt den
+    Zugriffsstatus eines Systems gegenüber dem restlichen Netzwerk.
 
-    \item \textbf{Problemanzahl:} Die Problemanzahl beschreibt die Anzahl der aktuell auf 
-    einem System erkannten Fehler oder Ereignisse, die die Stabilität beeinträchtigen können.
+    \item \textbf{Anzahl an Systemen:} Diese Metrik beschreibt die Anzahl der
+    an einem Standort vorhandenen Systeme und Systemressourcen.
 
-    \item \textbf{Sum of missing patches:} Diese Metrik beschreibt die Anzahl der fehlenden 
-    Softwareaktualisierungen, die auf einem System installiert werden müssen, um Sicherheitslücken 
-    und Leistungsfehler zu beheben.
-
-    \item \textbf{Isolated:} Diese Metrik beschreibt den Isolationsstatus eines Systems 
-    gegenüber dem restlichen Netzwerk.
+    \item \textbf{Geräteanzahl pro Typ:} Diese Metrik beschreibt die Anzahl
+    der an einem Standort vorhandenen Geräte, gruppiert nach Gerätetypen.
 \end{compactitem}
 
+\subsection{Einzelwerte}
+\label{subsec:system-einzelwerte}
+
+Die folgenden Werte werden für die einzelnen Systeme und Geräte eines
+Standorts erfasst, darunter auch \gls{hci}-Systeme.
+
+\paragraph{\gls{hci} Information}
+\label{par:hci-information}
+
+~
+
+Die folgenden Werte beschreiben Metriken eines \gls{hci}-Systems, 
+die zur Bewertung dessen Zustands und Ressourcenauslastung herangezogen 
+werden können.
+
+\begin{compactitem}
+   \item \textbf{CPU-Auslastung:} Die CPU-Auslastung beschreibt den Anteil
+    der verfügbaren Rechenleistung, der von einer \gls{hci} aktuell genutzt wird
+    ~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{RAM-Auslastung:} Die RAM-Auslastung beschreibt die aktuelle
+    Nutzung des verfügbaren Arbeitsspeichers einer \gls{hci}
+    ~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{Speicherauslastung:} Die Speicherauslastung beschreibt den
+    Anteil des verfügbaren Massenspeicherplatzes
+    ~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{Datenspeicher-Auslastung:} Die Metrik beschreibt den Anteil
+    des verfügbaren Datenspeichers einer \gls{hci}, der aktuell genutzt wird.
+
+    \item \textbf{Speicherbereitstellung:} Die Metrik beschreibt den Anteil
+    der insgesamt verfügbaren Speicherkapazität, der von einer \gls{hci}
+    bereitgestellt beziehungsweise genutzt wird.
+
+    \item \textbf{Genutzte vSAN-Kapazität:} Diese Metrik beschreibt die aktuell 
+    belegte Speicherkapazität innerhalb des \gls{vsan}-Verbunds.
+\end{compactitem}
+
+\paragraph{\gls{hci} Konfigurationsdaten}
+\label{par:hci-configurationdata}
+
+~
+
+Die folgenden Werte beschreiben statische Konfigurations- und
+Hardwareeigenschaften eines \gls{hci}-Systems. Im Gegensatz zu den zuvor
+beschriebenen Auslastungswerten ändern sie sich nicht im laufenden Betrieb,
+sondern ergeben sich aus der jeweiligen Systemkonfiguration.
+
+\begin{compactitem}
+    \item \textbf{\gls{raid}-Stufe:} Das \gls{raid}-Level beschreibt die verwendete 
+    Redundanz- und Speicherstrategie des HCI-Systems zur Erhöhung der Ausfallsicherheit 
+    und Datenverfügbarkeit.
+
+    \item \textbf{Anzahl der \gls{hci}-Knoten:} Diese Metrik beschreibt die Anzahl der physischen Knoten, 
+    aus denen die HCI-Infrastruktur besteht.
+
+    \item \textbf{Anzahl virtueller Maschinen:} Diese Metrik beschreibt die Anzahl der 
+    auf der HCI betriebenen virtuellen Maschinen.
+
+    \item \textbf{CPU-Sockel pro Knoten:} Diese Metrik beschreibt die Anzahl der in 
+    einem einzelnen HCI-Knoten verfügbaren CPU-Sockel.
+
+    \item \textbf{Gesamtanzahl der CPU-Sockel:} Diese Metrik beschreibt die Gesamtanzahl 
+    der in der HCI-Infrastruktur verfügbaren CPU-Sockel.
+
+    \item \textbf{CPU-Kerne pro Sockel:} Diese Metrik beschreibt die Anzahl der 
+    Rechenkerne je CPU-Sockel.
+
+    \item \textbf{Gesamtanzahl der CPU-Kerne:} Diese Metrik beschreibt 
+    die Gesamtzahl der in der HCI-Infrastruktur verfügbaren CPU-Kerne.
+
+    \item \textbf{Arbeitsspeicher pro Knoten:} Diese Metrik beschreibt die Größe 
+    des in einem einzelnen HCI-Knoten verfügbaren Arbeitsspeichers.
+
+    \item \textbf{Anzahl der Cache-Datenträger pro Knoten:} Diese Metrik beschreibt die Anzahl 
+    der in einem HCI-Knoten für Caching-Zwecke verwendeten Datenträger.
+
+    \item \textbf{Größe der Cache-Datenträger:} Diese Metrik beschreibt die Speicherkapazität 
+    der für Caching-Zwecke verwendeten Datenträger.
+
+    \item \textbf{Anzahl der Kapazitätsdatenträger pro Knoten:} Diese Metrik beschreibt 
+    die Anzahl der für die dauerhafte Datenspeicherung verfügbaren Datenträger je HCI-Knoten.
+
+    \item \textbf{Anzahl der Kapazitätsdatenträger pro Datenträgergruppe:} Diese Metrik beschreibt die Anzahl 
+    der Kapazitätsdatenträger innerhalb einer Datenträgergruppe.
+
+    \item \textbf{Größe der Kapazitätsdatenträger:} Diese Metrik beschreibt die Speicherkapazität 
+    der für die dauerhafte Datenspeicherung verwendeten Datenträger.
+
+    \item \textbf{Gesamtanzahl der Datenträger pro Knoten:} Diese Metrik beschreibt die Anzahl aller in 
+    einem \gls{hci}-Knoten vorhandenen Datenträger.
+
+    \item \textbf{\gls{vsan}-Kapazität:} Diese Metrik beschreibt die insgesamt für den \gls{vsan}-Verbund 
+    verfügbare Speicherkapazität~\cite{vmware2026vsan}.
+\end{compactitem}
+
+\paragraph{Serverinformationen}
+\label{par:server-values}
+
+~
+
+Die folgenden Werte werden zur Bewertung des aktuellen Zustands und
+der Verfügbarkeit eines Servers erfasst.
+
+\begin{compactitem}
+    \item \textbf{CPU-Auslastung:} Die CPU-Auslastung beschreibt den Anteil
+    der verfügbaren Rechenleistung, der von einem Server aktuell genutzt wird
+    ~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{RAM-Auslastung:} Die RAM-Auslastung beschreibt die aktuelle
+    Nutzung des verfügbaren Arbeitsspeichers eines Servers
+    ~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{Speicherauslastung:} Die Speicherauslastung beschreibt den
+    Anteil des verfügbaren Massenspeicherplatzes
+    ~\cite{microsoft2026troubleshoot}.
+
+    \item \textbf{Defender-Status:} Der Defender-Status beschreibt den aktuellen 
+    Betriebs- und Sicherheitsstatus des auf dem Server installierten Microsoft Defenders.
+
+    \item \textbf{Zabbix-Status:} Der Zabbix-Status beschreibt die aktuelle Verfügbarkeit 
+    und Erreichbarkeit eines Servers aus Sicht des Monitoring-Systems Zabbix. Anhand des 
+    Status kann festgestellt werden, ob ein System erfolgreich überwacht werden kann oder 
+    ob Kommunikationsprobleme vorliegen~\cite{zabbix2026availability}.
+
+    \item \textbf{Zabbix-Probleme:} Diese Metrik beschreibt die Anzahl der aktuell 
+    von Zabbix für den Server erkannten Probleme ~\cite{zabbix2026problemget}.
+
+    \item \textbf{Anzahl fehlender Softwareaktualisierungen:} Diese Metrik beschreibt die Anzahl der 
+    fehlenden Softwareaktualisierungen, die auf dem Server installiert werden müssen.
+
+    \item \textbf{Isolationsstatus:} Der Isolationsstatus beschreibt, ob ein Server vom restlichen 
+    Netzwerk isoliert wurde.
+
+    \item \textbf{Isolationsart:} Die Isolationsart beschreibt die Art der Netzwerkisolierung, 
+    die für einen Server angewendet wurde.
+\end{compactitem}
+
+\paragraph{Geräteinformationen}
+\label{par:device-info}
+
+~
+
+Die folgenden Werte werden zur Bewertung von Geräten im Netzwerken und an Standorten genutzt.
+
+\begin{compactitem}
+    \item \textbf{Name:} Eindeutige Bezeichnung eines Netzwerkgeräts innerhalb der überwachten Infrastruktur.
+    
+    \item \textbf{Gerätetyp:} Beschreibt die funktionale Kategorie eines Geräts.
+    \begin{compactitem}
+        \item Firewall
+        \item Sensor
+        \item Router
+        \item Kamera
+        \item Switch
+        \item Access Point
+    \end{compactitem}
+
+    \item \textbf{Modell:} Beschreibt das konkrete Hardwaremodell eines Geräts.
+    
+    \item \textbf{LAN-IP-Adresse:} Die interne IP-Adresse eines Geräts innerhalb des lokalen Netzwerks.
+    
+    \item \textbf{Öffentliche IP-Adresse:} Die öffentliche beziehungsweise extern erreichbare IP-Adresse 
+    eines Geräts oder seines Internetzugangs.
+\end{compactitem}
+
+\section{Zabbix}
+\label{sec:zabbix}
+
+\subsection{Zabbix API}
+\label{subsec:zabbix-api}
+
 \section{Grafana}
+\label{sec:grafana}
 
 \subsection{Datasources}
+\label{subsec:grafana-datasources}
 
 \subsection{Plugins}
+\label{subsec:grafana-plugins}
