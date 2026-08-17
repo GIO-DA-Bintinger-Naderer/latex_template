@@ -273,8 +273,60 @@ Die folgenden Werte werden zur Bewertung von Geräten im Netzwerken und an Stand
 \section{Zabbix}
 \label{sec:zabbix}
 
+\gls{zabbix} ist eine Open-Source-Monitoring-Software, mit der Server und
+andere Systeme erfasst und deren Auslastung überwacht werden
+können~\cite{zabbix2026about}. Darüber hinaus ermöglicht \gls{zabbix} über
+Tags und Gruppen eine strukturierte Gruppierung der überwachten
+Systeme~\cite{zabbix2026about}.
+
 \subsection{Zabbix API}
 \label{subsec:zabbix-api}
+
+\gls{zabbix} verwendet \gls{jsonrpc} als Grundlage für die Kommunikation mit 
+der API. Dabei werden Anfragen und Antworten im JSON-Format kodiert und über 
+HTTP-POST-Anfragen an die API übermittelt~\cite{zabbix2026api}. Für die Authentifizierung 
+stehen zwei Möglichkeiten zur Verfügung. Einerseits kann über die Methode \texttt{user.login} 
+unter Angabe eines Benutzernamens und Passworts ein API-Token angefordert werden. Andererseits 
+besteht die Möglichkeit, einen bereits über die Weboberfläche generierten, permanenten API-Token 
+zu verwenden. Der verwendete Token muss anschließend bei jeder weiteren Anfrage mitgesendet werden, 
+um auf die übrigen API-Endpunkte zugreifen zu können~\cite{zabbix2026api}.
+
+Das Codebeispiel~\ref{lst:zabbix-request} zeigt eine Möglichkeit, wie die Host-Informationen abgerufen
+werden können.
+
+\begin{lstlisting}[language=Typescript, caption={Zabbix API Request}, label={lst:zabbix-request}]
+const baseUrl = '...';
+const apiToken = '...';
+
+const request = {
+    jsonrpc: '2.0',
+    method: 'host.get',
+    params: {
+        output: ['hostid', 'host', 'name'],
+        selectTags: 'extend',
+        selectGroups: ['groupid', 'name']
+    },
+    auth: apiToken,
+    id: 1
+};
+
+const response = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json-rpc'
+    },
+    body: JSON.stringify(request)
+});
+
+const data = await response.json();
+console.log(data.result);
+\end{lstlisting}
+
+\section{Silverpeak}
+\label{sec:silverpeak}
+
+\subsection{Silverpeak API}
+\label{subsec:silverpeak-api}
 
 \section{Grafana}
 \label{sec:grafana}
