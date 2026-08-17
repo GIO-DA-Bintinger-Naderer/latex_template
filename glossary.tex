@@ -1,19 +1,19 @@
 \newglossaryentry{mssql}{
     name=MSSQL,
-    description={Microsoft SQL Server, a relational database management system
-    used for storing, managing, and retrieving structured data}
+    description={Microsoft SQL Server, ein relationales Datenbankmanagementsystem
+    zur Speicherung, Verwaltung und Abfrage strukturierter Daten}
 }
 
 \newglossaryentry{grafana}{
     name=Grafana,
-    description={Grafana, an open-source monitoring and visualization software 
-    solution that allows data from different sources to be displayed using
-    dashboards and plugins}
+    description={Open-Source-Software zur Visualisierung von Überwachungsdaten, 
+    die es ermöglicht, Daten aus unterschiedlichen Quellen mithilfe von 
+    Dashboards und Plugins grafisch darzustellen und auszuwerten}
 }
 
 \newglossaryentry{silverpeak}{
-    name=Silver Peak Appliance,
-    description={Netzwerkgerät des Herstellers Silver Peak zur Bereitstellung
+    name=Silverpeak Appliance,
+    description={Netzwerkgerät des Herstellers Silverpeak zur Bereitstellung
     und Überwachung von \gls{sdwan}-Verbindungen in verteilten Netzwerken}
 }
 
@@ -70,4 +70,41 @@
     description={Zustandsloses, leichtgewichtiges Remote-Procedure-Call-Protokoll, 
     das \gls{json} als Datenformat verwendet und transportunabhängig eingesetzt 
     werden kann, beispielsweise über HTTP oder Sockets~\cite{jsonrpc2013spec}}
+}
+\newglossaryentry{edgeconnectorchestrator}{ 
+    name=EdgeConnect Orchestrator, 
+    description={Zentrale Management- und Orchestrierungsplattform von Aruba EdgeConnect 
+    zur Konfiguration, Überwachung und Verwaltung von \gls{sdwan}-Infrastrukturen. Die Plattform 
+    ermöglicht die zentrale Steuerung von Standorten, Richtlinien, Anwendungen und Netzwerkverbindungen 
+    über eine einheitliche Verwaltungsoberfläche ~\cite{aruba2026userguide}} 
+}
+\newglossaryentry{rest}{
+    name=REST,
+    description={Representational State Transfer, ein Architekturstil für
+    verteilte Systeme, der durch einheitliche Schnittstellen,
+    Ressourcenorientierung und zustandslose Kommunikation gekennzeichnet
+    ist~\cite{fielding2000rest}}
+}
+\newglossaryentry{sessioncookie}{
+    name=Session-Cookie,
+    description={Cookie, das von einem Webserver zur Zuordnung eines
+    Benutzers zu einer aktiven Sitzung verwendet wird. Es wird vom
+    Client bei nachfolgenden HTTP-Anfragen erneut an den Server
+    übertragen und ermöglicht dadurch die Aufrechterhaltung einer
+    Sitzung über mehrere Anfragen hinweg~\cite{rfc6265}}
+}
+\newglossaryentry{silverpeakcompany}{
+    name=Silverpeak,
+    description={Hersteller von SD-WAN-Lösungen, dessen Produkte über die
+    Plattform \gls{edgeconnectorchestrator} zentral verwaltet und
+    überwacht werden können~\cite{aruba2026userguide}}
+}
+\newglossaryentry{csrftoken}{
+    name=CSRF-Token,
+    description={Zufällig generierter, sitzungsgebundener Wert, der zum
+    Schutz vor Cross-Site-Request-Forgery-Angriffen eingesetzt wird. Der
+    Server übermittelt den Token sowohl als Cookie als auch erwartet ihn
+    bei zustandsändernden Anfragen zusätzlich als HTTP-Header oder
+    Formularfeld; stimmen beide Werte nicht überein, wird die Anfrage
+    abgelehnt~\cite{owasp2026csrf}}
 }

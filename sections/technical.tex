@@ -109,7 +109,7 @@ Sie werden aus den Werten der einzelnen Systeme eines Standorts ermittelt.
 Die folgenden Werte werden für die einzelnen Systeme und Geräte eines
 Standorts erfasst, darunter auch \gls{hci}-Systeme.
 
-\paragraph{\gls{hci} Information}
+\paragraph{HCI Information}
 \label{par:hci-information}
 
 ~
@@ -142,7 +142,7 @@ werden können.
     belegte Speicherkapazität innerhalb des \gls{vsan}-Verbunds.
 \end{compactitem}
 
-\paragraph{\gls{hci} Konfigurationsdaten}
+\paragraph{HCI Konfigurationsdaten}
 \label{par:hci-configurationdata}
 
 ~
@@ -270,6 +270,8 @@ Die folgenden Werte werden zur Bewertung von Geräten im Netzwerken und an Stand
     eines Geräts oder seines Internetzugangs.
 \end{compactitem}
 
+\newpage
+
 \section{Zabbix}
 \label{sec:zabbix}
 
@@ -322,14 +324,91 @@ const data = await response.json();
 console.log(data.result);
 \end{lstlisting}
 
-\section{Silverpeak}
+\section{Silverpeak Schnittstelle}
 \label{sec:silverpeak}
+
+\gls{silverpeakcompany} stellt über den \gls{edgeconnectorchestrator} eine zentrale Verwaltungsoberfläche für die 
+im Netzwerk eingesetzten \glspl{silverpeak} bereit. Über diese Plattform können unter anderem die folgenden, 
+bereits in Abschnitt~\ref{subsec:netzwerk-einzelwerte} beschriebenen Werte zu den einzelnen \glspl{silverpeak} abgerufen werden:
+
+\begin{compactitem}
+    \label{list:silverpeak-values}
+    \item Bandbreite
+    \item Latenz
+    \item Status und Erreichbarkeit
+\end{compactitem}
 
 \subsection{Silverpeak API}
 \label{subsec:silverpeak-api}
 
+\gls{silverpeakcompany} API stellt Informationen über \gls{rest} Endpunkte bereit. Die Authentifizierung erfolgt über ein \gls{sessioncookie}
+und ein CSRF-Token welches 
+bei nachfolgenden Anfragen mitgesendet werden muss, um den derzeitigen Zustand eines \gls{silverpeak} zu ermitteln~\cite{aruba2026userguide}.
+
+Diese Anfrage an Silverpeak kann wie folgt aussehen~\ref{lst:silverpeak-request} um die Situation eines \gls{silverpeak} zu überblicken.
+
+\newpage
+
+\begin{lstlisting}[language=Typescript, caption={Silverpeak API request}, label={lst:silverpeak-request}]
+const username = '...';
+const password = '...';
+const baseUrl = '...';
+
+function extractCookieValue(setCookieHeader: string, cookieName: string): string | undefined {
+    const match = setCookieHeader.match(new RegExp(`${cookieName}=([^;]+)`));
+    return match?.[1];
+}
+
+const loginResponse = await fetch(`${baseUrl}/gms/rest/authentication/login`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        loginType: 0,
+        user: username,
+        password: password
+    })
+});
+
+const loginSetCookie = loginResponse.headers.get('set-cookie') ?? '';
+const sessionId = extractCookieValue(loginSetCookie, 'gmsSessionID');
+const csrfToken = extractCookieValue(loginSetCookie, 'orchCsrfToken');
+
+if (!csrfToken || !sessionId) {
+    throw new Error('Login erfolgreich, aber Session-Cookie oder CSRF-Token fehlt.');
+}
+
+const cookieHeader = `gmsSessionID=${sessionId}; orchCsrfToken=${csrfToken}`;
+
+const appliancesResponse = await fetch(`${baseUrl}/gms/rest/appliance`, {
+    method: 'GET',
+    headers: {
+        'Cookie': cookieHeader,
+        'X-XSRF-Token': csrfToken,
+        'Content-Type': 'application/json'
+    }
+});
+
+const data = await appliancesResponse.json();
+console.log(data);
+\end{lstlisting}
+
+\newpage
+
 \section{Grafana}
 \label{sec:grafana}
+
+\gls{grafana} kann eingesetzt werden, um Daten verschiedener Systeme grafisch aufzuarbeiten und 
+einheitlich anzuzeigen~\cite{grafana2026about}. Die weite Verbreitung zeigt sich unter anderem
+an der Anzahl an Nutzern. Laut eigenen Angaben von Grafana Labs wird \gls{grafana} von mehr als 
+35 Millionen Nutzern weltweit genutzt; mehr als 7.000 Unternehmen zählen dabei zu den zahlenden 
+Kunden~\cite{grafana2026pressrelease}.
+
+\subsection{Aufbau}
+\label{subsec:grafana-buildup}
+
+\gls{grafana} Ist in 
 
 \subsection{Datasources}
 \label{subsec:grafana-datasources}
