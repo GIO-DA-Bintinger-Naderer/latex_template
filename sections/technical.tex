@@ -268,6 +268,23 @@ Die folgenden Werte werden zur Bewertung von Geräten im Netzwerken und an Stand
     
     \item \textbf{Öffentliche IP-Adresse:} Die öffentliche beziehungsweise extern erreichbare IP-Adresse 
     eines Geräts oder seines Internetzugangs.
+
+    \item \textbf{Status:} Beschreibt den derzeitigen Status eines Netzwerkgeräts.
+\end{compactitem}
+
+\paragraph{Verbundene Endgeräte}
+\label{par:device-clients}
+
+~
+
+Die folgenden Werte beschreiben Endgeräte, die mit einem Netzwerkgerät verbunden sind.
+
+\begin{compactitem}
+    \item \textbf{IP-Adresse:} Die dem Endgerät aktuell zugewiesene IP-Adresse innerhalb des Netzwerks.
+    
+    \item \textbf{MAC-Adresse:} Die eindeutige Hardwareadresse der Netzwerkschnittstelle des Endgeräts.
+
+    \item \textbf{VLAN:} Das virtuelle lokale Netzwerk, dem das Endgerät zugeordnet ist.
 \end{compactitem}
 
 \newpage
@@ -396,22 +413,96 @@ console.log(data);
 
 \newpage
 
+\section{Meraki}
+\label{sec:meraki}
+
+\gls{merakicompany} stellt eine zentrale Verwaltungsoberfläche für
+Netzwerkgeräte bereit. Über diese Plattform können unter anderem Switches,
+Access Points sowie Security-Security-Appliances zentral konfiguriert,
+überwacht und verwaltet werden~\cite{cisco2026meraki}. Die
+\gls{merakicompany} unterteilt die Informationen hierarchisch. Die
+grundlegende Struktur ist in Abbildung~\ref{fig:meraki-account-structure}
+dargestellt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{pics/Meraki-Account_structure.png}
+    \caption{Hierarchische Struktur des Meraki Dashboards}
+    \label{fig:meraki-account-structure}
+\end{figure}
+
+\subsection{Meraki API}
+\label{subsec:meraki-api}
+
+Die \gls{merakiapi} bietet verschiedene Endpunkte an, um Netzwerkgeräte
+zu verwalten und Informationen über diese abzurufen~\cite{cisco2026merakiapi}.
+
+Die Authentifizierung erfolgt über einen API-Schlüssel, der über die
+Weboberfläche erstellt werden kann. Dieser API-Schlüssel muss bei jeder
+Anfrage mitgesendet werden, um den Zugriff auf die API zu authentifizieren
+~\cite{cisco2026merakiauth}.
+
+Darüber hinaus verwendet die \gls{merakiapi} Organisations-IDs zur
+Identifizierung der jeweiligen Organisation. Die Organisations-ID wird
+unter anderem benötigt, um über die API die einer Organisation
+zugeordneten Netzwerke abzurufen. Über die Netzwerk-ID können anschließend
+die zugehörigen Netzwerkgeräte abgefragt werden~\cite{cisco2026merakiapi}.
+Die hierarchische Struktur ist in Abbildung~\ref{fig:meraki-account-structure}
+dargestellt.
+
+Eine mögliche Anfrage für die \gls{merakiapi} zeigt Listing~\ref{lst:meraki-request}.
+
+\newpage
+
+\begin{lstlisting}[language=Typescript, caption={Request für Meraki Netzwerke}, label={lst:meraki-request}]
+const apiToken = '...';
+const baseUrl = '...';
+const orgId = '...';
+
+const response = await fetch(
+  `${baseUrl}/organizations/${orgId}/networks`,
+  {
+    method: 'GET',
+    headers: {
+      'X-Cisco-Meraki-API-Key': apiToken,
+      Accept: 'application/json',
+    },
+  }
+);
+
+const networks = await response.json();
+console.log(networks);
+\end{lstlisting}
+
 \section{Grafana}
 \label{sec:grafana}
 
 \gls{grafana} kann eingesetzt werden, um Daten verschiedener Systeme grafisch aufzuarbeiten und 
 einheitlich anzuzeigen~\cite{grafana2026about}. Die weite Verbreitung zeigt sich unter anderem
-an der Anzahl an Nutzern. Laut eigenen Angaben von Grafana Labs wird \gls{grafana} von mehr als 
-35 Millionen Nutzern weltweit genutzt; mehr als 7.000 Unternehmen zählen dabei zu den zahlenden 
-Kunden~\cite{grafana2026pressrelease}.
+an der Anzahl an Nutzer:innen. Laut eigenen Angaben von Grafana Labs wird \gls{grafana} von mehr als 
+35 Millionen Nutzer:innen weltweit genutzt; mehr als 7.000 Unternehmen zählen dabei zu den zahlenden 
+Kund:innen~\cite{grafana2026pressrelease}.
 
 \subsection{Aufbau}
 \label{subsec:grafana-buildup}
 
-\gls{grafana} Ist in 
+\gls{grafana} ist in verschiedene Module und Steuerelemente aufgeteilt.
+Zu den zentralen Bestandteilen gehören Datenquellen, Dashboards und
+Panels~\cite{grafana2026dashboardsoverview}. Des Weiteren stellt \gls{grafana} eine HTTP-basierte
+Programmierschnittstelle bereit, über die Funktionen von \gls{grafana}
+programmatisch angesprochen werden können~\cite{grafana2026httpapi}.
+Darüber hinaus verfügt \gls{grafana} über Funktionen zur Verwaltung von
+Benutzer:innen und deren Berechtigungen~\cite{grafana2026usermanagement}.
 
-\subsection{Datasources}
+\subsection{Datenquellen}
 \label{subsec:grafana-datasources}
+
+Datenquellen stellen eine Möglichkeit dar Daten aus vielen Quellen zu erhalten. Grafana
+verfügt bereits über eine Vielzahl integrierter Datenquellen; für weitere Systeme können
+zusätzliche Datenquellen als Plugins installiert werden~\cite{grafana2026datasources}.
 
 \subsection{Plugins}
 \label{subsec:grafana-plugins}
+
+\gls{grafana} bietet die Möglichkeit an Plugins zu installieren und diese zu nutzen~\cite{grafana2026pluginmanagement}.
+Darüber hinaus können auch selber welche entwickelt werden~\cite{grafana2026plugintutorials}.
