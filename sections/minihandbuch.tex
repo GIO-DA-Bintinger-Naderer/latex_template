@@ -17,8 +17,8 @@ Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand d
     Damit können die Benutzer:innen schnell eine Auswahl treffen, welche Einstufungsquelle sie auf dem Dashboard sehen möchten.
 
     \begin{compactitem}
-        \item \textbf{\gls{sdwan}:} Dieses Panel zeigt an ob es ein Problem mit der SD-WAN-Verbindung gibt.
-        \item \textbf{\gls{hci}:} Dieses Panel zeigt an ob es ein Problem mit der HCI Resource gibt.
+        \item \textbf{\gls{sdwan}:} Dieses Panel zeigt an ob es ein Problem mit der \gls{sdwan}-Verbindung gibt.
+        \item \textbf{\gls{hci}:} Dieses Panel zeigt an ob es ein Problem mit der \gls{hci} Resource gibt.
         \item \textbf{Server:} Dieses Panel zeigt an ob es ein Problem mit der Server-Verbindung gibt.
         \item \textbf{LAN:} Dieses Panel zeigt an ob es ein Problem mit der LAN-Verbindung gibt.
     \end{compactitem}
@@ -56,11 +56,12 @@ Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand d
 
     \end{compactitem}
     
-    \item \textbf{Legende:} Dieses Panel zeigt die Legende der Icons an, die auf der Weltkarte verwendet werden.
+    \item \textbf{Legende:} Dieses Panel zeigt die Legende der Icons~\ref{subsec:icons} an, die auf der Weltkarte verwendet werden.
 
 \end{compactitem}
 
 \subsection{Icons}
+\label{subsec:icons}
 
 Auf der Weltkarte werden die Standorte der einzelnen Standorte durch Icons dargestellt.
 \todo{Hier könnte ein Bild der Legende den Icons eingefügt werden.}
@@ -82,6 +83,7 @@ Der Status der Geräte kann dabei in drei Kategorien unterteilt werden:
 
 
 \subsection{Detailebenen}
+\label{subsec:detailebenen}
 Um die numerischen Informationen auf dem Dashboard mit den Standorten zu verknüpfen, 
 wird bei Klick auf ein Icon die detaillierte Ansicht des jeweiligen Standorts geöffnet.
 Diese detaillierte Ansicht wird bestimmt durch das zoom level des Dashboards.
@@ -105,6 +107,7 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
 
     \begin{compactitem}
         \item \textbf{Standort Detail Ansicht:} Auf dieser Ebene wird ein Standort zentriert und detailliert angezeigt.
+        \label{par:standort-detailansicht}
         Es werden zu allen anderen Standorten die eine Verbindung zu dem Standort haben strichlierte Linien angezeigt, 
         die die Verbindung darstellen.
         Die Farbe der Linien wird durch die Qualität der Verbindung bestimmt.
@@ -121,7 +124,7 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
         Die Verbindungslatenz wird ausgehend von der Quelle des Dashboards zu dem Standort berechnet. 
     
         Und durch die durchschnittliche Latenz der Verbindung dargestellt.
-        Die Anzahl der Verbindungen wird durch die ANzahl der \gls{sdwan}s der beiden Standorte bestimmt.
+        Die Anzahl der Verbindungen wird durch die Anzahl der \gls{sdwan}s der beiden Standorte bestimmt.
 
         Es öffnet sich auf der linken Seite ein Panel, das alle Informationen des Standorts anzeigt.
         Dieses Panel ist wiederum in logische Abschnitte unterteilt, die die Informationen in einer übersichtlichen Form darstellen.
@@ -142,22 +145,51 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
             \end{compactitem}
 
             \item \textbf{Netzwerk Übersicht:} Auf diesem Abschnitt werden die Standorte auf einer Netzwerkübersicht angezeigt. 
-            In der Kopfzeile wird die Gesamtanzahl der SD-WANs angezeigt, die der Standort hat.
-            Der Abschnitt ist in zwei Bereiche unterteilt. Der obere Bereich zeigt den Stauts aller SD-WANs an, die der Standort hat. 
+            In der Kopfzeile wird die Gesamtanzahl der \gls{sdwan}s angezeigt, die der Standort hat.
+            Der Abschnitt ist in zwei Bereiche unterteilt. Der obere Bereich zeigt den Stauts aller \gls{sdwan}s an, die der Standort hat. 
             Der untere Bereich zeigt den Status des Primärgerätes an.
             
             \begin{compactitem}
                 \item \textbf{Oberer Bereich:} In diesem Bereich werden die Anzahl der erreichbaren, 
                 unerreichbaren Geräte des Standorts angezeigt.
-                Außerdem wird den Benutzer:innen die Anzahl der Primäar und Backup SD-WANs angezeigt, die der Standort hat.
+                Außerdem wird den Benutzer:innen die Anzahl der Primäar und Backup \gls{sdwan}s angezeigt, die der Standort hat.
                 \item \textbf{Unterer Bereich:} In diesem Bereich werden die Appliance-IDs der Primärgeräte
-                mit der durchschnittlichen Latenz der Verbindung angezeigt.
+                mit der durchschnittlichen Bandbreite der Verbindung angezeigt.
                 \todo{Möglicherweise muss Appliance-ID noch referenziert oder geändert werden.}
             \end{compactitem}
+
+            Bei einem Klick auf die Netzwerk Übersicht öffnet sich eine neue Seite, die die \gls{sdwan}s des Standorts detailliert anzeigt.
+            Diese Seite ist in zwei Abschnitte unterteilt.
+
+            \begin{compactitem}
+                \item \textbf{Übersicht:} In diesem Abschnitt werden die allgemeinen Informationen der \gls{sdwan}s des Standorts angezeigt.
+                Es wird die Gesamtanzahl der \gls{sdwan}s angezeigt, die der Standort hat.
+                Die Anzahl der aktiven und inaktiven \gls{sdwan}s wird ebenfalls angezeigt.
+                Außerdem wird die Anzahl der Primär und Backup \gls{sdwan}s angezeigt, die der Standort hat.
+                Die Anzahl der erreichbaren und unerreichbaren \gls{sdwan}s wird ebenfalls angezeigt.
+
+                \item \textbf{\gls{sdwan} Details:} In diesem Abschnitt werden die \gls{sdwan}s des Standorts detailliert angezeigt.
+                Die \gls{sdwan}s werden in einer Tabelle dargestellt, die die wichtigsten Informationen zu jedem \gls{sdwan} enthält.
+                Die Tabelle enthält die folgenden Spalten:
+                \begin{compactitem}
+                    \item \textbf{Name:} Der Name des \gls{sdwan}s.
+                    \item \textbf{Typ:} Der Typ des \gls{sdwan}s: Router oder Wireless.
+                    \item \textbf{LAN IP:} Die LAN-IP-Adresse des \gls{sdwan}s.
+                    \item \textbf{WAN0 IP:} Die WAN0-IP-Adresse des \gls{sdwan}s laut \ref{subsec:netzwerk-einzelwerte}.
+                    \item \textbf{WAN1 IP:} Die WAN1-IP-Adresse des \gls{sdwan}s laut \ref{subsec:netzwerk-einzelwerte}.
+                    \item \textbf{Firmware:} Die Firmware-Version des \gls{sdwan}s laut \ref{subsec:netzwerk-einzelwerte}.
+                    \item \textbf{Erreichbarkeit:} Die Erreichbarkeit der Verbindung des \gls{sdwan}s: Erreichbar oder Unerreichbar laut \ref{subsec:netzwerk-einzelwerte}.
+                    \item \textbf{WAN Status:} Der Status der Verbindung des \gls{sdwan}s laut \ref{subsec:netzwerk-einzelwerte}.
+                \end{compactitem}
+
+                Hier können die Benutzer:innen die Server nach ihren Bedürfnissen filtern.
+                Es kann nach dem Namen, der Erreichbarkeit und dem WAN Status des \gls{sdwan}s gefiltert werden.
+            \end{compactitem}
             
-            \item \textbf{HCI Ansicht:} Auf dieser Ebene werden die Standorte auf einer \gls{hci}-Übersicht angezeigt.
+            \item \textbf{\gls{hci} Ansicht:} Auf dieser Ebene werden die Standorte auf einer \gls{hci}-Übersicht angezeigt.
             Hier werden die verwendeten die \gls{hci}-Resourcen des Standorts angezeigt.
             Links stehen die Kategorien: 
+            \todo{Hier muss noch eine Beschreibung der HCI-Resourcen hinzugefügt werden. + Zitierung}
 
             Rechts wird die Auslastung der \gls{hci}-Resourcen in Prozent angezeigt.
 
@@ -177,7 +209,7 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                 in Prozent und anhand einer Liniendiagramm angezeigt. Um eine bessere Übersicht zu gewären wird ein D3-Linechart verwendet.
                 \todo{Zitat für D3-Linechart muss noch hinzugefügt werden.}
 
-                \item \textbf{HCI Details:} In diesem Abschnitt werden die \gls{hci}-Resourcen des Standorts detailliert angezeigt.
+                \item \textbf{\gls{hci} Details:} In diesem Abschnitt werden die \gls{hci}-Resourcen des Standorts detailliert angezeigt.
                 
                 \begin{compactitem}
                     \item \textbf{:} .
@@ -205,10 +237,9 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                 \begin{compactitem}
                     \item \textbf{Servername:} Der Name des Servers.
                     \item \textbf{Serverstatus:} Der Status des Servers: Active, Inactive.
-                    \item \textbf{CPU-Auslastung:} 
-                    \item \textbf{RAM-Auslastung:} 
-                    \item \textbf{Festplattenauslastung:}
-                    \todo{Die Ferlder müssen noch referenziert werden.}
+                    \item \textbf{CPU-Auslastung:} Die CPU-Auslastung laut ~\ref{par:hci-information}
+                    \item \textbf{RAM-Auslastung:} Die RAM-Auslastung laut ~\ref{par:hci-information}
+                    \item \textbf{Festplattenauslastung:} Die Festplattenauslastung laut \ref{par:hci-information}
                 \end{compactitem}
 
                 Hier können die Benutzer:innen die Server nach ihren Bedürfnissen filtern.
@@ -216,23 +247,140 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                 \begin{compactitem}
                     \item \textbf{Servername:} Die Benutzer:innen können nach dem Namen des Servers filtern.
                     \item \textbf{Serverstatus:} Die Benutzer:innen können nach dem Status des Servers filtern.
-                    \item \textbf{Festplattenauslastung:} Die Benutzer:innen können nach der Festplattenauslastung des Servers filtern.
-                    \item \textbf{CPU-Auslastung:} Die Benutzer:innen können nach der CPU-Auslastung des Servers filtern.
-                    \item \textbf{RAM-Auslastung:} Die Benutzer:innen können nach der RAM-Auslastung des Servers filtern.
+                    \item \textbf{Festplattenauslastung:} Die Benutzer:innen können nach der Festplattenauslastung laut \ref{par:hci-information} des Servers filtern.
+                    \item \textbf{CPU-Auslastung:} Die Benutzer:innen können nach der CPU-Auslastung laut \ref{par:hci-information} des Servers filtern.
+                    \item \textbf{RAM-Auslastung:} Die Benutzer:innen können nach der RAM-Auslastung laut \ref{par:hci-information} des Servers filtern.
                     \item \textbf{Probleme:} Die Benutzer:innen können nach der Anzahl der Probleme des Servers filtern.
                     \item \textbf{Fehlende KBs:} Die Benutzer:innen können nach der Anzahl der fehlenden KBs des Servers filtern.
-                    \todo{Die Ferlder müssen noch referenziert werden.}
                 \end{compactitem}
 
+                Bei einem Klick auf einen Server in der Tabelle öffnet sich eine neue Seite, die die Details des Servers anzeigt.
+                Diese Seite ist in drei Abschnitte unterteilt.
+                \begin{compactitem}
+                    \item \textbf{Serverinformationen:} In diesem Abschnitt werden die allgemeinen Informationen des Servers angezeigt.
+                    Dazu gehören die CPU-Auslastung des Servers laut ~\ref{par:server-values}, die Festplattenauslastung des Servers laut \ref{par:server-values}, die Verfügbarkeit des Servers, die Anzahl der Probleme des Servers, 
+                    und die Anzahl der fehlenden Updates des Servers laut ~\ref{par:server-values}.
+                    \item \textbf{Detail Kennzahlen:} In diesem Abschnitt werden die Detail Kennzahlen des Servers angezeigt.
+                    Dazu gehören der Hostname des Servers, das Betriebssystrem des Servers, die Version des Betriebssystems des Servers,
+                    der Gesundheitszustand des Servers, der Isolationsstatus des Servers laut ~\ref{par:server-values} und der Isolationstyp des Servers laut \ref{par:server-values},
+                    \item \textbf{Probleme:} In diesem Abschnitt werden die Probleme des Servers in Form einer Liste angezeigt. 
+                    
+                \end{compactitem}
 
             \end{compactitem}
 
-
             \item \textbf{Geräte Ansicht:} Auf dieser Ebene werden die Standorte auf einer Geräteübersicht angezeigt.
+            \item \label{par:geraete-ansicht}
+            Das Panel zeigt einen Überblick über die Geräte des Standorts mit folgenden Informationen:
+            Den Status, hier stehen die Anzahl der Switches und die Anzahl der kabellosen Netzwerkgeräte.
+            Die Netwerke, hier stehen die Anzahl der vLANs und die Anzahl der vorlagenen Netzwerke.
+
+            Bei einem Klick auf die Geräte Ansicht öffnet sich eine neue Seite, die die Geräte des Standorts detaillierter anzeigt.
+            Diese Seite ist in zwei Abschnitte unterteilt.
+
+            \begin{compactitem}
+                \item \textbf{Übersicht:} Dieser Abschnitt bietet einen Überblick über die wichtigsten Geräte-Metriken des Standorts. 
+                Dazu gehören die Gesamtanzahl der Geräte, die Anzahl der Switches und die Anzahl der kabellosen Netzwerkgeräte.
+
+                \item \textbf{Geräte Details:} In diesem Abschnitt werden die Geräte des Standorts detailliert angezeigt.
+                Die Geräte werden in einer Tabelle dargestellt, die die wichtigsten Informationen zu jedem Gerät enthält.
+                Die Tabelle enthält die folgenden Spalten:
+                \begin{compactitem}
+                    \item \textbf{Name:} Der Name des Geräts.
+                    \item \textbf{Typ:} Der Typ des Geräts: Switch oder Wireless.
+                    \item \textbf{LAN-IP-Adresse:} Die LAN-IP-Adresse des Geräts laut \ref{par:device-info}.
+                    \item \textbf{Öffentliche IP-Adresse:} Die öffentliche IP-Adresse des Geräts laut \ref{par:device-info}.
+                    \item \textbf{Status:} Der Status des Geräts.
+                \end{compactitem}
+
+                Hier können die Benutzer:innen die Geräte nach ihren Bedürfnissen filtern.
+                Es können mehrere Filter gleichzeitig angewendet werden, um die Geräteliste nach verschiedenen Kriterien einzugrenzen.
+                \begin{compactitem}
+                    \item \textbf{Name:} Die Benutzer:innen können nach dem Namen des Geräts filtern.
+                    \item \textbf{Typ:} Die Benutzer:innen können nach dem Typ des Geräts filtern.
+                    \item \textbf{Status:} Die Benutzer:innen können nach dem Status des Geräts filtern.
+                \end{compactitem}
+
+                Bei einem Klick auf ein Gerät in der Tabelle öffnet sich eine neue Seite, die die Details des Geräts anzeigt.
+                Diese Seite ist in zwei Abschnitte unterteilt.
+                \begin{compactitem}
+                    \item \textbf{Baum Graf:} In diesem Abschnitt werden die Endgeräte des ausgewählten Geräts,
+                    mithilfe einer Baumdarstellung des D3-Tree angezeigt.
+                    Dazu gehören die LAN-IP-Adresse des Geräts laut ~\ref{par:device-info}, die öffentliche IP-Adresse des Geräts laut \ref{par:device-info}, der Status des Geräts und der Typ des Geräts.
+
+                    Wenn es sich bei dem ausgewählten Standort um einen Cloud Hub handelt ~\ref{sec:cloudhubs},
+                    werden wenn vorhanden eigene Konoten angezeigt die Netzwerksicherheitsgruppen repäsentieren.
+                    Bei einem Klick auf eine Netzwerksicherheitsgruppe öffnet sich eine neue Seite, 
+                    die die Regeln der Netzwerksicherheitsgruppe anzeigt.
+                    Die Seite ist in zwei Abschnitte unterteilt.
+                    \begin{compactitem}
+                        \item \textbf{Eingehende Regeln:} In diesem Abschnitt werden die eingehenden Regeln der Netzwerksicherheitsgruppe angezeigt.
+                        \item \textbf{Ausgehende Regeln:} In diesem Abschnitt werden die ausgehenden Regeln der Netzwerksicherheitsgruppe angezeigt.
+                    \end{compactitem}
+                    Die Regeln werden in einer Tabelle dargestellt, die die wichtigsten Informationen zu jeder Regel enthält.
+                    Die Tabelle enthält die folgenden Spalten:
+                    \begin{compactitem}
+                        \item \textbf{Name:} Der Name der Regel.
+                        \item \textbf{Zugang:} Der Zugang der Regel: Erlaubt oder Verweigert.
+                        \item \textbf{Protokoll:} Das Protokoll der Regel: TCP, UDP, ICMP oder Any.
+                        \item \textbf{Quelle:} Die Quelle der Regel.
+                        \todo{Hier muss die Beschreibung der Quelle referenziert werden.}
+                        \item \textbf{Quell-Port:} Der Quell-Port der Regel.
+                        \item \textbf{Ziel:} Das Ziel der Regel.
+                        \todo{Hier muss die Beschreibung des Ziels referenziert werden.}
+                        \item \textbf{Ziel-Port:} Der Ziel-Port der Regel.
+                        \item \textbf{Standard:} Zeigt an, ob die Regel eine Standardregel ist.
+                        \item \textbf{Aktiv:} Zeigt an, ob die Regel aktiv ist.
+                    \end{compactitem}
+
+                    \item \textbf{Endgeräte:} In diesem Abschnitt werden die Detail Kennzahlen der Endgeräte angezeigt.
+                    Dazu gehören der Name des Endgeräts, die IP-Adresse des Endgeräts, die MAC-Adresse des Endgeräts und das vLAN des Endgeräts.
+                \end{compactitem}
+                
+                Es kann nach dem Namen gefiltert werden.
+
+
+            
+            \end{compactitem}
+
+            \item \textbf{Cloud-Hub-Ansicht:}
+            \label{par:cloudhub-ansicht}
+            Die Menüs der Ansicht überschneiden sich weitgehend mit denen der
+            Standort Detail Ansicht (siehe Abschnitt~\ref{par:standort-detailansicht}).
+            Die allgemeinen Standortinformationen werden bei Cloud Hubs jedoch nicht
+            in derselben Form dargestellt. Die Sonderstellung von Cloud Hubs wird in
+            Abschnitt~\ref{sec:cloudhubs} beschrieben.
+
+            Zusätzlich enthält die Cloud-Hub-Ansicht eine VNETs-Ansicht. Diese zeigt
+            die virtuellen Netzwerke des Cloud Hubs an und ermöglicht deren detaillierte
+            Betrachtung. Eine HCI-Ansicht und eine Geräteansicht sind für Cloud Hubs
+            nicht vorhanden.
+
+            Die VNETs-Ansicht enthält die folgende Informationen:
+            \begin{compactitem}
+                \item \textbf{Name:} Der Name des Cloud Hubs.
+                \item \textbf{VNETs:} Die Anzahl der virtuellen Netzwerke des Cloud Hubs.
+                \item \textbf{Subnetze:} Die Anzahl der Subnetze des Cloud Hubs.
+            \end{compactitem}
         \end{compactitem}
 
     \end{compactitem}
 
-    \todo{Hier muss noch eine Beschreibung der Detailebenen hinzugefügt werden.}
 \end{compactitem}
 
+
+\subsection{Cloud Hubs}
+\label{sec:cloudhubs}
+
+Cloud Hubs nehmen bei der Darstellung auf dem Dashboard eine Sonderstellung ein.
+Im Gegensatz zu den übrigen Standorten werden sie unabhängig von der aktuell
+verwendeten Detailebene immer auf der Karte angezeigt. Ihre Sichtbarkeit hängt
+somit nicht vom Zoom-Level des Dashboards ab.
+
+Die Menüs der Detailansicht überschneiden sich weitgehend mit denen der
+Standort Detail Ansicht. Die allgemeinen Standortinformationen existieren bei
+Cloud Hubs jedoch nicht in derselben Form wie bei regulären Standorten. Für die
+gemeinsamen Menüs wird auf Abschnitt~\ref{par:standort-detailansicht} verwiesen.
+Der konkrete Aufbau der Cloud-Hub-Ansicht und die VNETs-Ansicht werden in
+Abschnitt~\ref{par:cloudhub-ansicht} beschrieben.
+Einen Unterschied gibt es auch bei der Geräteansicht~\ref{par:geraete-ansicht}.
