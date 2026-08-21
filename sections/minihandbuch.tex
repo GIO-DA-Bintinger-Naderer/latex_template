@@ -17,10 +17,8 @@ Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand d
     Damit können die Benutzer:innen schnell eine Auswahl treffen, welche Einstufungsquelle sie auf dem Dashboard sehen möchten.
 
     \begin{compactitem}
-        \item \textbf{SD-WAN:} Dieses Panel zeigt an ob es ein Problem mit der SD-WAN-Verbindung gibt.
-        \todo{SD-WAN ist ein Begriff, der in der Arbeit noch erklärt werden muss.}
-        \item \textbf{HCI:} Dieses Panel zeigt an ob es ein Problem mit der HCI Resource gibt.
-        \todo{HCI ist ein Begriff, der in der Arbeit noch erklärt werden muss.}
+        \item \textbf{\gls{sdwan}:} Dieses Panel zeigt an ob es ein Problem mit der SD-WAN-Verbindung gibt.
+        \item \textbf{\gls{hci}:} Dieses Panel zeigt an ob es ein Problem mit der HCI Resource gibt.
         \item \textbf{Server:} Dieses Panel zeigt an ob es ein Problem mit der Server-Verbindung gibt.
         \item \textbf{LAN:} Dieses Panel zeigt an ob es ein Problem mit der LAN-Verbindung gibt.
     \end{compactitem}
@@ -29,8 +27,7 @@ Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand d
     
     \begin{compactitem}
         \item \textbf{Nur aktive Standorte:} Dieser Filter zeigt nur die aktiven Standorte an.
-        \item \textbf{Hat HCI:} Dieser Filter zeigt nur die Standorte an, die eine HCI Resource lagern haben.
-        \todo{HCI ist ein Begriff, der in der Arbeit noch erklärt werden muss.}
+        \item \textbf{Hat \gls{hci}:} Dieser Filter zeigt nur die Standorte an, die eine HCI Resource lagern haben.
         \item \textbf{Klassifikation:} Dieser Filter zeigt nur die Standorte an, die eine bestimmte Klasse haben. 
         Dieser Filter ermöglich eine Mehrfachauswahl damit können mehrere Filter gleichzeitig angewendet werden.
         
@@ -58,6 +55,8 @@ Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand d
         \todo{Hier muss noch eine Beschreibung für die Zustände hinzugefügt werden.}
 
     \end{compactitem}
+    
+    \item \textbf{Legende:} Dieses Panel zeigt die Legende der Icons an, die auf der Weltkarte verwendet werden.
 
 \end{compactitem}
 
@@ -122,8 +121,7 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
         Die Verbindungslatenz wird ausgehend von der Quelle des Dashboards zu dem Standort berechnet. 
     
         Und durch die durchschnittliche Latenz der Verbindung dargestellt.
-        Die Anzahl der Verbindungen wird durch die ANzahl der SD-WANs der beiden Standorte bestimmt.
-        \todo{Hier muss noch eine Beschreibung der SD-WANs hinzugefügt werden.}
+        Die Anzahl der Verbindungen wird durch die ANzahl der \gls{sdwan}s der beiden Standorte bestimmt.
 
         Es öffnet sich auf der linken Seite ein Panel, das alle Informationen des Standorts anzeigt.
         Dieses Panel ist wiederum in logische Abschnitte unterteilt, die die Informationen in einer übersichtlichen Form darstellen.
@@ -157,14 +155,13 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                 \todo{Möglicherweise muss Appliance-ID noch referenziert oder geändert werden.}
             \end{compactitem}
             
-            \item \textbf{HCI Ansicht:} Auf dieser Ebene werden die Standorte auf einer HCI-Übersicht angezeigt.
-            Hier werden die verwendeten die HCI-Resourcen des Standorts angezeigt.
+            \item \textbf{HCI Ansicht:} Auf dieser Ebene werden die Standorte auf einer \gls{hci}-Übersicht angezeigt.
+            Hier werden die verwendeten die \gls{hci}-Resourcen des Standorts angezeigt.
             Links stehen die Kategorien: 
 
-            \todo{referenzieren der HCI-Resourcen muss noch hinzugefügt werden.}
-            Rechts wird die Auslastung der HCI-Resourcen in Prozent angezeigt.
+            Rechts wird die Auslastung der \gls{hci}-Resourcen in Prozent angezeigt.
 
-            Bei einem Klick auf die HCI Ansicht öffnet sich eine neue Seite, die die HCI-Resourcen des Standorts detailliert anzeigt.
+            Bei einem Klick auf die \gls{hci} Ansicht öffnet sich eine neue Seite, die die \gls{hci}-Resourcen des Standorts detailliert anzeigt.
             Diese Seite ist in vier Abschnitte unterteilt.
 
             \begin{compactitem}
@@ -172,15 +169,15 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                 Es wird der \gls{location-code} des Standorts angezeigt, 
                 die Klasse des Standorts und das Datum, die Uhrzeit der letzten Aktualisierung.
 
-                \item \textbf{Auslastung:} In diesem Abschnitt wird die Auslastung der HCI-Resourcen des Standorts
+                \item \textbf{Auslastung:} In diesem Abschnitt wird die Auslastung der \gls{hci}-Resourcen des Standorts
                 in Prozent und anhand einer Balkenanzeige angezeigt. 
-                Die Farbe der Balkenanzeige wird durch die Kritikalität der HCI-Resourcen bestimmt.
+                Die Farbe der Balkenanzeige wird durch die Kritikalität der \gls{hci}-Resourcen bestimmt.
 
-                \item \textbf{Auslastungsverlauf:} In diesem Abschnitt wird die Auslastung der HCI-Resourcen des Standorts
+                \item \textbf{Auslastungsverlauf:} In diesem Abschnitt wird die Auslastung der \gls{hci}-Resourcen des Standorts
                 in Prozent und anhand einer Liniendiagramm angezeigt. Um eine bessere Übersicht zu gewären wird ein D3-Linechart verwendet.
                 \todo{Zitat für D3-Linechart muss noch hinzugefügt werden.}
 
-                \item \textbf{HCI Details:} In diesem Abschnitt werden die HCI-Resourcen des Standorts detailliert angezeigt.
+                \item \textbf{HCI Details:} In diesem Abschnitt werden die \gls{hci}-Resourcen des Standorts detailliert angezeigt.
                 
                 \begin{compactitem}
                     \item \textbf{:} .
@@ -208,7 +205,7 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                 \begin{compactitem}
                     \item \textbf{Servername:} Der Name des Servers.
                     \item \textbf{Serverstatus:} Der Status des Servers: Active, Inactive.
-                    \item \textbf{CPU-Auslastung:}
+                    \item \textbf{CPU-Auslastung:} 
                     \item \textbf{RAM-Auslastung:} 
                     \item \textbf{Festplattenauslastung:}
                     \todo{Die Ferlder müssen noch referenziert werden.}
