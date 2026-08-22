@@ -83,6 +83,52 @@ xleftmargin=17pt,
          framexrightmargin=5pt,
          framexbottommargin=4pt
 }
+\lstdefinelanguage{Typescript}{
+    keywords={
+        typeof, new, true, false, catch, function, return, null, catch, switch,
+        var, if, in, while, do, else, case, break, const, let, async, await,
+        class, extends, implements, interface, export, import, from, as,
+        public, private, protected, readonly, static, void, this, super,
+        enum, type, namespace, declare, abstract, get, set
+    },
+    keywordstyle=\color{bluekeywords}\bfseries,
+    ndkeywords={
+        string, number, boolean, any, unknown, never, object, undefined,
+        symbol, bigint
+    },
+    ndkeywordstyle=\color{bluekeywords}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{greencomments}\slshape,
+    stringstyle=\color{redstrings},
+    string=[b]",
+    morestring=[b]',
+    morestring=[b]`
+}
+\lstdefinelanguage{Go}{
+    keywords={
+        break, default, func, interface, select, case, defer, go, map,
+        struct, chan, else, goto, package, switch, const, fallthrough,
+        if, range, type, continue, for, import, return, var
+    },
+    keywordstyle=\color{bluekeywords}\bfseries,
+    ndkeywords={
+        bool, byte, complex64, complex128, error, float32, float64,
+        int, int8, int16, int32, int64, rune, string,
+        uint, uint8, uint16, uint32, uint64, uintptr, true, false, nil, iota
+    },
+    ndkeywordstyle=\color{bluekeywords}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{greencomments}\slshape,
+    stringstyle=\color{redstrings},
+    morestring=[b]",
+    morestring=[b]`
+}
 \lstset{
 morekeywords={base,var,in,out,dynamic,from,where,select,orderby,function,\$,group,by,into,yield,async,await,@,None,self,as,elif,with}
 }
