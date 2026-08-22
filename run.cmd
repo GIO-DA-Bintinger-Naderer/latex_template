@@ -1,5 +1,6 @@
-pdfLaTeX thesis.tex
+pdflatex -interaction=nonstopmode -file-line-error thesis.tex
+bibtex thesis
 makeglossaries thesis
-pdfLaTeX thesis.tex
-pdfLaTeX thesis.tex
+pdflatex -interaction=nonstopmode -file-line-error thesis.tex
+pdflatex -interaction=nonstopmode -file-line-error thesis.tex
 latexmk -c

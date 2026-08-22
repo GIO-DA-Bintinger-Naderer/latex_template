@@ -1,3 +1,33 @@
+\section{Standortinformationen}
+\label{sec:location-metric}
+
+Standortinformationen beschreiben einen Standort im technischen Detail und
+fassen dabei allgemeine, standortbezogene Eigenschaften zusammen, die nicht
+unmittelbar einem einzelnen System oder Gerät zuzuordnen sind. Sie ergänzen
+die in den vorangegangenen Kapiteln beschriebenen aggregierten Netzwerk- und
+Systemmetriken um Kontextinformationen zum jeweiligen Standort selbst.
+
+\begin{compactitem}
+    \item \textbf{Ländercode:} Der Ländercode gibt die Länderzuweisung eines
+    Standorts nach dem Standard \gls{iso3166}~\cite{iso2026countrycodes} an.
+
+    \item \textbf{Klassifikation:} Die Klasse eines Standorts lässt sich in
+    folgende Kategorien unterteilen:
+    \begin{compactitem}
+        \item Cloud Hub
+        \item Hub
+        \item Remote Site
+        \item Small Site
+        \item Medium Site
+        \item Large Site
+        \item Special Site
+    \end{compactitem}
+
+    \item \textbf{Status je Datenquelle:} Beschreibt für jede der zugrunde
+    liegenden Datenquellen, ob bei der Erfassung der Standortinformationen ein
+    Fehler aufgetreten ist.
+\end{compactitem}
+
 \section{Netzwerkmetriken}
 \label{sec:netzwerkmetriken}
 
@@ -39,6 +69,11 @@ zugeordneten Systeme ermittelt.
 \subsection{Einzelwerte}
 \label{subsec:netzwerk-einzelwerte}
 
+\paragraph{SD-WAN System}
+\label{par:sd-wan-values}
+
+~
+
 Die folgenden Werte werden für jedes einzelne \gls{sdwan}-System erfasst.
 Sie bilden die Grundlage für die Berechnung der aggregierten Standortwerte
 (siehe Abschnitt~\ref{subsec:netzwerk-aggregierte-werte}).
@@ -52,11 +87,8 @@ Sie bilden die Grundlage für die Berechnung der aggregierten Standortwerte
     \item \textbf{LAN-IP-Adresse:} Die interne IP-Adresse des Systems
     innerhalb des lokalen Netzwerks.
 
-    \item \textbf{WAN-IP-Adresse (WAN0):} Öffentliche beziehungsweise
-    externe IP-Adresse der primären WAN-Schnittstelle.
-
-    \item \textbf{WAN-IP-Adresse (WAN1):} Öffentliche beziehungsweise
-    externe IP-Adresse der sekundären WAN-Schnittstelle.
+    \item \textbf{WAN-IP-Adresse:} Öffentliche beziehungsweise
+    externe IP-Adresse der WAN-Schnittstelle.
 
     \item \textbf{Firmware-Version:} Version der auf dem System
     installierten Software beziehungsweise Firmware.
@@ -67,6 +99,78 @@ Sie bilden die Grundlage für die Berechnung der aggregierten Standortwerte
     \item \textbf{WAN-Status:} Beschreibt den aktuellen Status beziehungsweise
     die Rolle der WAN-Verbindung, beispielsweise als primäre oder
     Backup-WAN-Verbindung.
+\end{compactitem}
+
+\paragraph{Virtuelle Netzwerke}
+\label{par:virtuel-networks}
+
+~
+
+Die folgenden Werte werden zur Bewertung und Darstellung eines virtuellen Netzwerks
+verwendet. Sie werden aus den bereitgestellten Datenquellen ermittelt, die in
+Abschnitt~\ref{sec:defined-sources} beschrieben sind.
+
+\begin{compactitem}
+    \item \textbf{Name:} Der festgelegte Name eines virtuellen Netzwerks.
+
+    \item \textbf{Ressourcengruppe:} Die dem virtuellen Netzwerk zugewiesene
+    Ressourcengruppe, über die zusammengehörige Ressourcen logisch gruppiert
+    und verwaltet werden.
+
+    \item \textbf{Firstseen:} Der Zeitpunkt, zu dem das virtuelle Netzwerk
+    erstmals erfasst wurde.
+
+    \item \textbf{Lastseen:} Der Zeitpunkt, zu dem das virtuelle Netzwerk
+    zuletzt erfasst wurde.
+\end{compactitem}
+
+\paragraph{Netzwerkgruppe}
+\label{par:network-group}
+
+~
+
+Eine \gls{nsg} filtert den ein- und ausgehenden Netzwerkverkehr von Azure-Ressourcen
+anhand einer Menge von Sicherheitsregeln~\cite{microsoft2026nsg}. Die folgenden
+Werte beschreiben die Eigenschaften einer solchen Regel.
+
+\begin{compactitem}
+    \item \textbf{Name:} Der eindeutige Name der Sicherheitsregel innerhalb der
+    Netzwerkgruppe~\cite{microsoft2026nsg}.
+
+    \item \textbf{Richtung:} Gibt an, ob sich die Regel auf ein- oder ausgehenden
+    Datenverkehr bezieht:
+    \begin{compactitem}
+        \item Inbound
+        \item Outbound
+    \end{compactitem}
+
+    \item \textbf{Zugriffsart:} Legt fest, ob der auf die Regel zutreffende
+    Datenverkehr zugelassen oder blockiert wird~\cite{microsoft2026nsg}:
+    \begin{compactitem}
+        \item Allow
+        \item Deny
+    \end{compactitem}
+
+    \item \textbf{Protokoll:} Das Netzwerkprotokoll, auf das die Regel angewendet
+    wird, beispielsweise TCP, UDP, ICMP oder Any~\cite{microsoft2026nsg}.
+
+    \item \textbf{Quelle:} Die IP-Adresse, das CIDR-Suffix oder der Dienst-Tag,
+    von dem der Datenverkehr ausgeht~\cite{microsoft2026nsg}.
+
+    \item \textbf{Quellport:} Der Port oder Portbereich, von dem der
+    Datenverkehr ausgeht.
+
+    \item \textbf{Ziel:} Die IP-Adresse, das CIDR-Suffix oder der Dienst-Tag, an
+    den der Datenverkehr gerichtet ist~\cite{microsoft2026nsg}.
+
+    \item \textbf{Zielport:} Der Port oder Portbereich, an den der Datenverkehr
+    gerichtet ist.
+
+    \item \textbf{Standardregel:} Gibt an, ob es sich um eine von Azure
+    automatisch angelegte Standardregel handelt, die nicht gelöscht, jedoch
+    durch Regeln höherer Priorität überschrieben werden kann~\cite{microsoft2026nsg}.
+
+    \item \textbf{Status:} Gibt an, ob die Regel aktuell aktiv ist.
 \end{compactitem}
 
 \newpage
@@ -107,9 +211,9 @@ Sie werden aus den Werten der einzelnen Systeme eines Standorts ermittelt.
 \label{subsec:system-einzelwerte}
 
 Die folgenden Werte werden für die einzelnen Systeme und Geräte eines
-Standorts erfasst, darunter auch \gls{hci}-Systeme.
+Standorts erfasst.
 
-\paragraph{\gls{hci} Information}
+\paragraph{HCI Information}
 \label{par:hci-information}
 
 ~
@@ -142,7 +246,7 @@ werden können.
     belegte Speicherkapazität innerhalb des \gls{vsan}-Verbunds.
 \end{compactitem}
 
-\paragraph{\gls{hci} Konfigurationsdaten}
+\paragraph{HCI Konfigurationsdaten}
 \label{par:hci-configurationdata}
 
 ~
@@ -268,19 +372,303 @@ Die folgenden Werte werden zur Bewertung von Geräten im Netzwerken und an Stand
     
     \item \textbf{Öffentliche IP-Adresse:} Die öffentliche beziehungsweise extern erreichbare IP-Adresse 
     eines Geräts oder seines Internetzugangs.
+
+    \item \textbf{Status:} Beschreibt den derzeitigen Status eines Netzwerkgeräts.
 \end{compactitem}
+
+\paragraph{Verbundene Endgeräte}
+\label{par:device-clients}
+
+~
+
+Die folgenden Werte beschreiben Endgeräte, die mit einem Netzwerkgerät verbunden sind.
+
+\begin{compactitem}
+    \item \textbf{IP-Adresse:} Die dem Endgerät aktuell zugewiesene IP-Adresse innerhalb des Netzwerks.
+    
+    \item \textbf{MAC-Adresse:} Die eindeutige Hardwareadresse der Netzwerkschnittstelle des Endgeräts.
+
+    \item \textbf{VLAN:} Das virtuelle lokale Netzwerk, dem das Endgerät zugeordnet ist.
+\end{compactitem}
+
+\newpage
 
 \section{Zabbix}
 \label{sec:zabbix}
 
+\gls{zabbix} ist eine Open-Source-Monitoring-Software, mit der Server und
+andere Systeme erfasst und deren Auslastung überwacht werden
+können~\cite{zabbix2026about}. Darüber hinaus ermöglicht \gls{zabbix} über
+Tags und Gruppen eine strukturierte Gruppierung der überwachten
+Systeme~\cite{zabbix2026about}.
+
 \subsection{Zabbix API}
 \label{subsec:zabbix-api}
+
+\gls{zabbix} verwendet \gls{jsonrpc} als Grundlage für die Kommunikation mit 
+der API. Dabei werden Anfragen und Antworten im JSON-Format kodiert und über 
+HTTP-POST-Anfragen an die API übermittelt~\cite{zabbix2026api}. Für die Authentifizierung 
+stehen zwei Möglichkeiten zur Verfügung. Einerseits kann über die Methode \texttt{user.login} 
+unter Angabe eines Benutzernamens und Passworts ein API-Token angefordert werden. Andererseits 
+besteht die Möglichkeit, einen bereits über die Weboberfläche generierten, permanenten API-Token 
+zu verwenden. Der verwendete Token muss anschließend bei jeder weiteren Anfrage mitgesendet werden, 
+um auf die übrigen API-Endpunkte zugreifen zu können~\cite{zabbix2026api}.
+
+Das Codebeispiel~\ref{lst:zabbix-request} zeigt eine Möglichkeit, wie die Host-Informationen abgerufen
+werden können.
+
+\begin{lstlisting}[language=Typescript, caption={Zabbix API Request}, label={lst:zabbix-request}]
+const baseUrl = '...';
+const apiToken = '...';
+
+const request = {
+    jsonrpc: '2.0',
+    method: 'host.get',
+    params: {
+        output: ['hostid', 'host', 'name'],
+        selectTags: 'extend',
+        selectGroups: ['groupid', 'name']
+    },
+    auth: apiToken,
+    id: 1
+};
+
+const response = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json-rpc'
+    },
+    body: JSON.stringify(request)
+});
+
+const data = await response.json();
+console.log(data.result);
+\end{lstlisting}
+
+\section{Silverpeak Schnittstelle}
+\label{sec:silverpeak}
+
+\gls{silverpeakcompany} stellt über den \gls{edgeconnectorchestrator} eine zentrale Verwaltungsoberfläche für die 
+im Netzwerk eingesetzten \glspl{silverpeak} bereit. Über diese Plattform können unter anderem die folgenden, 
+bereits in Abschnitt~\ref{subsec:netzwerk-einzelwerte} beschriebenen Werte zu den einzelnen \glspl{silverpeak} abgerufen werden:
+
+\begin{compactitem}
+    \label{list:silverpeak-values}
+    \item Bandbreite
+    \item Latenz
+    \item Status und Erreichbarkeit
+\end{compactitem}
+
+\subsection{Silverpeak API}
+\label{subsec:silverpeak-api}
+
+\gls{silverpeakcompany} API stellt Informationen über \gls{rest} Endpunkte bereit. Die Authentifizierung erfolgt über ein \gls{sessioncookie}
+und ein CSRF-Token welches 
+bei nachfolgenden Anfragen mitgesendet werden muss, um den derzeitigen Zustand eines \gls{silverpeak} zu ermitteln~\cite{aruba2026userguide}.
+
+Diese Anfrage an Silverpeak kann wie folgt aussehen~\ref{lst:silverpeak-request} um die Situation eines \gls{silverpeak} zu überblicken.
+
+\newpage
+
+\begin{lstlisting}[language=Typescript, caption={Silverpeak API request}, label={lst:silverpeak-request}]
+const username = '...';
+const password = '...';
+const baseUrl = '...';
+
+function extractCookieValue(setCookieHeader: string, cookieName: string): string | undefined {
+    const match = setCookieHeader.match(new RegExp(`${cookieName}=([^;]+)`));
+    return match?.[1];
+}
+
+const loginResponse = await fetch(`${baseUrl}/gms/rest/authentication/login`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        loginType: 0,
+        user: username,
+        password: password
+    })
+});
+
+const loginSetCookie = loginResponse.headers.get('set-cookie') ?? '';
+const sessionId = extractCookieValue(loginSetCookie, 'gmsSessionID');
+const csrfToken = extractCookieValue(loginSetCookie, 'orchCsrfToken');
+
+if (!csrfToken || !sessionId) {
+    throw new Error('Login erfolgreich, aber Session-Cookie oder CSRF-Token fehlt.');
+}
+
+const cookieHeader = `gmsSessionID=${sessionId}; orchCsrfToken=${csrfToken}`;
+
+const appliancesResponse = await fetch(`${baseUrl}/gms/rest/appliance`, {
+    method: 'GET',
+    headers: {
+        'Cookie': cookieHeader,
+        'X-XSRF-Token': csrfToken,
+        'Content-Type': 'application/json'
+    }
+});
+
+const data = await appliancesResponse.json();
+console.log(data);
+\end{lstlisting}
+
+\newpage
+
+\section{Meraki}
+\label{sec:meraki}
+
+\gls{merakicompany} stellt eine zentrale Verwaltungsoberfläche für
+Netzwerkgeräte bereit. Über diese Plattform können unter anderem Switches,
+Access Points sowie Security-Appliances zentral konfiguriert,
+überwacht und verwaltet werden~\cite{cisco2026meraki}. Die
+\gls{merakicompany} unterteilt die Informationen hierarchisch. Die
+grundlegende Struktur ist in Abbildung~\ref{fig:meraki-account-structure}
+dargestellt.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{pics/Meraki-Account_structure.png}
+    \caption{Hierarchische Struktur des Meraki Dashboards}
+    \label{fig:meraki-account-structure}
+\end{figure}
+
+\subsection{Meraki API}
+\label{subsec:meraki-api}
+
+Die \gls{merakiapi} bietet verschiedene Endpunkte an, um Netzwerkgeräte
+zu verwalten und Informationen über diese abzurufen~\cite{cisco2026merakiapi}.
+
+Die Authentifizierung erfolgt über einen API-Schlüssel, der über die
+Weboberfläche erstellt werden kann. Dieser API-Schlüssel muss bei jeder
+Anfrage mitgesendet werden, um den Zugriff auf die API zu authentifizieren
+~\cite{cisco2026merakiauth}.
+
+Darüber hinaus verwendet die \gls{merakiapi} Organisations-IDs zur
+Identifizierung der jeweiligen Organisation. Die Organisations-ID wird
+unter anderem benötigt, um über die API die einer Organisation
+zugeordneten Netzwerke abzurufen. Über die Netzwerk-ID können anschließend
+die zugehörigen Netzwerkgeräte abgefragt werden~\cite{cisco2026merakiapi}.
+Die hierarchische Struktur ist in Abbildung~\ref{fig:meraki-account-structure}
+dargestellt.
+
+Eine mögliche Anfrage für die \gls{merakiapi} zeigt Listing~\ref{lst:meraki-request}.
+
+\newpage
+
+\begin{lstlisting}[language=Typescript, caption={Request für Meraki Netzwerke}, label={lst:meraki-request}]
+const apiToken = '...';
+const baseUrl = '...';
+const orgId = '...';
+
+const response = await fetch(
+  `${baseUrl}/organizations/${orgId}/networks`,
+  {
+    method: 'GET',
+    headers: {
+      'X-Cisco-Meraki-API-Key': apiToken,
+      Accept: 'application/json',
+    },
+  }
+);
+
+const networks = await response.json();
+console.log(networks);
+\end{lstlisting}
 
 \section{Grafana}
 \label{sec:grafana}
 
-\subsection{Datasources}
+\gls{grafana} kann eingesetzt werden, um Daten verschiedener Systeme grafisch aufzuarbeiten und 
+einheitlich anzuzeigen~\cite{grafana2026about}. Die weite Verbreitung zeigt sich unter anderem
+an der Anzahl an Nutzer:innen. Laut eigenen Angaben von Grafana Labs wird \gls{grafana} von mehr als 
+35 Millionen Nutzer:innen weltweit genutzt; mehr als 7.000 Unternehmen zählen dabei zu den zahlenden 
+Kund:innen~\cite{grafana2026pressrelease}.
+
+\subsection{Aufbau}
+\label{subsec:grafana-buildup}
+
+\gls{grafana} ist in verschiedene Module und Steuerelemente aufgeteilt.
+Zu den zentralen Bestandteilen gehören Datenquellen, Dashboards und
+Panels~\cite{grafana2026dashboardsoverview}. Des Weiteren stellt \gls{grafana} eine HTTP-basierte
+Programmierschnittstelle bereit, über die Funktionen von \gls{grafana}
+programmatisch angesprochen werden können~\cite{grafana2026httpapi}.
+Darüber hinaus verfügt \gls{grafana} über Funktionen zur Verwaltung von
+Benutzer:innen und deren Berechtigungen~\cite{grafana2026usermanagement}.
+
+\subsection{Datenquellen}
 \label{subsec:grafana-datasources}
+
+Datenquellen ermöglichen den Abruf und die Verarbeitung von Daten aus unterschiedlichen 
+Quellen. \gls{grafana} verfügt bereits über eine Vielzahl integrierter Datenquellen. 
+Für weitere Systeme können zusätzliche Datenquellen in Form von Plugins installiert oder 
+eigenständig entwickelt werden~\cite{grafana2026datasources}.
 
 \subsection{Plugins}
 \label{subsec:grafana-plugins}
+
+\gls{grafana} bietet die Möglichkeit an Plugins zu installieren und diese zu nutzen~\cite{grafana2026pluginmanagement}.
+Darüber hinaus können auch selber Plugins entwickelt und veröffentlicht werden~\cite{grafana2026plugintutorials}.
+
+\newpage
+
+\subsection{API}
+\label{subsec:grafana-api}
+
+\gls{grafana} kann über eine HTTP-API programmatisch angesprochen werden~\cite{grafana2026httpapi}. 
+Diese ermöglicht es beispielsweise, Team- oder Nutzerinformationen aus bestehenden 
+\gls{grafana}-Systemen abzurufen.
+
+Ein möglicher Aufruf innerhalb eines Plugins ist in Codebeispiel~\ref{lst:grafana-request}
+dargestellt.
+
+\begin{lstlisting}[language=Typescript, caption={Abrufen von Teaminformationen über die Grafana-API}, label={lst:grafana-request}] 
+import { getBackendSrv } from '@grafana/runtime';
+
+async function loadTeams() {
+    const response = await getBackendSrv()
+        .get('/api/teams/search', {
+            query: '', perpage: 20,
+        });
+    console.log(response.teams);
+}
+
+loadTeams();
+\end{lstlisting}
+
+Die Schnittstelle kann mithilfe des \gls{grafana} Plugin SDK für Go erweitert werden, 
+um eigene Plugins oder Datenquellen zu entwickeln~\cite{grafana2026plugintutorials,grafana2026backendplugins}.
+Ein solches Backend-Plugin läuft dabei als eigenständiger Prozess, mit dem der 
+\gls{grafana}-Server über \gls{grpc} kommuniziert~\cite{grafana2026backendplugins}.
+
+Im Beispiel~\ref{lst:grafana-go-datasource} wird die grundlegende Verarbeitung einer 
+Datenabfrage innerhalb eines Datenquellen-Plugins dargestellt.
+
+\begin{lstlisting}[language=Go, caption={Minimale Verarbeitung einer Datenabfrage in Go}, label={lst:grafana-go-datasource}]
+package plugin
+
+import (
+    "context"
+
+    "github.com/grafana/grafana-plugin-sdk-go/backend"
+    "github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
+)
+
+type Datasource struct{}
+
+func NewDatasource(ctx context.Context, settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
+    return &Datasource{}, nil
+}
+
+func (d *Datasource) QueryData(ctx context.Context, req *backend.QueryDataRequest) (*backend.QueryDataResponse, error) {
+    response := backend.NewQueryDataResponse()
+
+    for _, query := range req.Queries {
+        response.Responses[query.RefID] = backend.DataResponse{}
+    }
+
+    return response, nil
+}
+\end{lstlisting}
