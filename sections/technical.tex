@@ -167,13 +167,10 @@ Werte beschreiben die Eigenschaften einer solchen Regel.
     gerichtet ist.
 
     \item \textbf{Standardregel:} Gibt an, ob es sich um eine von Azure
-    automatisch angelegte Standardregel handelt, die nicht gelöscht, jedoch
-    durch Regeln höherer Priorität überschrieben werden kann~\cite{microsoft2026nsg}.
+    automatisch angelegte Standardregel handelt~\cite{microsoft2026nsg}.
 
     \item \textbf{Status:} Gibt an, ob die Regel aktuell aktiv ist.
 \end{compactitem}
-
-\newpage
 
 \section{Systemmetriken}
 \label{sec:systemmetriken}
@@ -391,8 +388,6 @@ Die folgenden Werte beschreiben Endgeräte, die mit einem Netzwerkgerät verbund
     \item \textbf{VLAN:} Das virtuelle lokale Netzwerk, dem das Endgerät zugeordnet ist.
 \end{compactitem}
 
-\newpage
-
 \section{Zabbix}
 \label{sec:zabbix}
 
@@ -468,8 +463,6 @@ bei nachfolgenden Anfragen mitgesendet werden muss, um den derzeitigen Zustand e
 
 Diese Anfrage an Silverpeak kann wie folgt aussehen~\ref{lst:silverpeak-request} um die Situation eines \gls{silverpeak} zu überblicken.
 
-\newpage
-
 \begin{lstlisting}[language=Typescript, caption={Silverpeak API request}, label={lst:silverpeak-request}]
 const username = '...';
 const password = '...';
@@ -515,8 +508,6 @@ const data = await appliancesResponse.json();
 console.log(data);
 \end{lstlisting}
 
-\newpage
-
 \section{Meraki}
 \label{sec:meraki}
 
@@ -555,8 +546,6 @@ Die hierarchische Struktur ist in Abbildung~\ref{fig:meraki-account-structure}
 dargestellt.
 
 Eine mögliche Anfrage für die \gls{merakiapi} zeigt Listing~\ref{lst:meraki-request}.
-
-\newpage
 
 \begin{lstlisting}[language=Typescript, caption={Request für Meraki Netzwerke}, label={lst:meraki-request}]
 const apiToken = '...';
@@ -611,8 +600,6 @@ eigenständig entwickelt werden~\cite{grafana2026datasources}.
 
 \gls{grafana} bietet die Möglichkeit an Plugins zu installieren und diese zu nutzen~\cite{grafana2026pluginmanagement}.
 Darüber hinaus können auch selber Plugins entwickelt und veröffentlicht werden~\cite{grafana2026plugintutorials}.
-
-\newpage
 
 \subsection{API}
 \label{subsec:grafana-api}
