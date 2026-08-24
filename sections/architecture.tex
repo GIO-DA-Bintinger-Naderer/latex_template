@@ -41,8 +41,8 @@ Die einzelnen Systemelemente übernehmen folgende Aufgaben:
     des Plugins~\cite{grafana2026backendplugins}.
 
     \item \textbf{Datenquellen-Verwaltung:} Verwaltet den Zugriff auf die konfigurierten
-    Datenquellen sowie den zugehörigen \gls{grafana}-Cache. Des Weiteren werden auch die statischen
-    Zugangsdaten für die jeweiligen Datenquellen gehalten~\cite{grafana2026datasources}.
+    Datenquellen (siehe Abschnitt~\ref{subsec:grafana-datasources}) sowie den zugehörigen
+    \gls{grafana}-Cache.
 
     \item \textbf{Grafana-Cache:} Speichert zwischenzeitlich abgerufene Daten, um wiederholte
     Anfragen an externe Systeme zu reduzieren. Bei einer erneuten, identischen Abfrage werden die
@@ -56,15 +56,306 @@ Die einzelnen Systemelemente übernehmen folgende Aufgaben:
     Meraki (siehe Abschnitte~\ref{sec:zabbix}, \ref{sec:silverpeak} und \ref{sec:meraki})
     sowie die zugehörigen Datenbanken, aus denen die überwachten Metriken und
     Konfigurationsdaten bezogen werden.
+
+    \item \textbf{Grafana-Nutzerverwaltung:} \gls{grafana} bietet eine integrierte Verwaltung
+    von Benutzer:innen und Teams an, auf die über die \gls{grafana}-HTTP-API zugegriffen werden
+    kann~\cite{grafana2026usermanagement,grafana2026httpapi}.
 \end{compactitem}
 
-Die Systemelemente, die über Grafana 
+Die Systemelemente, die über \gls{grafana} selbst bereitgestellt werden – die
+Datenquellen, wie in Abschnitt~\ref{subsec:grafana-datasources} beschrieben, sowie die
+Nutzerverwaltung – werden dabei direkt vom Plugin über die \gls{grafana}-HTTP-API
+angesprochen. Dies ermöglicht ein effizientes Caching der \gls{grafana} eigenen Daten und schützt
+gleichzeitig davor, dass sensible Informationen wie Zugangsdaten anderen Plugins oder
+Diensten direkt zugänglich gemacht werden.
+
+Des Weiteren können alle Systemelemente, die \gls{grafana} bereitstellt, von dort aus
+konfiguriert werden. Die externen Datenquellen wie \gls{zabbix}, \gls{silverpeakcompany}
+oder \gls{merakicompany} müssen hingegen über den jeweiligen Anbieter konfiguriert werden,
+wie in den Abschnitten~\ref{sec:zabbix}, \ref{sec:silverpeak} und \ref{sec:meraki}
+beschrieben. Die Datenbankquellen müssen für das \gls{grafana}-Netzwerk zugänglich sein.
+
+Das \gls{grafana}-Backend hat die Aufgabe, Authentifizierung und Autorisierung für
+\gls{silverpeakcompany} anzubieten, da \gls{silverpeakcompany} die Authentifizierung über
+ein \gls{sessioncookie} regelt, wie in Abschnitt~\ref{subsec:silverpeak-api} beschrieben.
+\gls{grafana} selbst bietet keine Möglichkeit, mit einem sitzungsbasierten System zu
+kommunizieren, sondern unterstützt lediglich statische Zugangsdaten je
+Datenquelle~\cite{grafana2026datasources}. Des Weiteren verarbeitet das
+\gls{grafana}-Backend über die Ressourcenverarbeitung Abfragen, die für \gls{grafana}
+selbst bestimmt sind und unabhängig von einer einzelnen Datenabfrage global genutzt werden
+können~\cite{grafana2026backendplugins}. Die Zustandsprüfung gibt den derzeitigen Status
+des Plugins an~\cite{grafana2026backendplugins}.
 
 \section{Informationswege}
 \label{sec:info-ways}
 
+Eine Anfrage nach Daten einer der in Abschnitt~\ref{sec:defined-sources} beschriebenen
+Datenquellen durchläuft dabei folgende Schritte:
+
+\begin{compactenum}
+    \item Die Weboberfläche sendet eine Anfrage an den Plugin-Manager.
+
+    \item Der Plugin-Manager leitet die Anfrage direkt an die Datenquellen-Verwaltung
+    weiter.
+
+    \item Liegt ein gültiger Cache-Eintrag vor, werden die zwischengespeicherten Daten
+    zurückgegeben. Andernfalls ruft die Datenquellen-Verwaltung die entsprechende externe
+    Datenquelle ab und speichert das Ergebnis anschließend im Cache.
+
+    \item Die abgerufenen Daten werden über denselben Weg an die Weboberfläche
+    zurückgegeben und dort dargestellt.
+\end{compactenum}
+
+Das Plugin nutzt dabei ausschließlich die in \gls{grafana} konfigurierten Datenquellen, um auf
+externe Systeme zuzugreifen. Dadurch werden Konfiguration und Zugangsdaten zentral über
+\gls{grafana} verwaltet, ohne dass das Plugin selbst mit sensiblen API-Zugangsdaten in Berührung
+kommt.
+
+\subsection{Reaktionszeiten}
+\label{subsec:reaction-times}
+
+Bei der Entwicklung eines Plugins spielt auch die Reaktionszeit beim Laden der Daten eine wichtige
+Rolle. Nach den von der \gls{nngroup} definierten Reaktionszeitgrenzen gilt eine Antwortzeit von bis
+zu einer Sekunde als Obergrenze, um den Gedankenfluss der Nutzer:innen nicht zu unterbrechen, auch
+wenn die Verzögerung bereits wahrgenommen wird. Ab einer Wartezeit von etwa zehn Sekunden ist
+hingegen mit einem Abbruch der Aufgabe durch die Nutzer:innen zu rechnen~\cite{nielsen2026responsetimes}.
+
+Da \gls{grafana} unter anderem zur nahezu echtzeitfähigen Darstellung von Monitoring-Daten
+eingesetzt wird~\cite{VBondar2025}, ist eine geringe Reaktionszeit beim Laden der Daten essenziell,
+um Nutzer:innen zeitnah einen aktuellen Überblick über den Zustand der überwachten Standorte und
+Systeme zu ermöglichen.
+
+Da das Plugin Daten aus mehreren, voneinander unabhängigen externen Systemen bezieht (siehe
+Abschnitt~\ref{sec:defined-sources}), wurde bewusst eine virtuelle statt einer physischen
+Datenintegration gewählt: Die Daten werden bei jeder Anfrage direkt aus den jeweiligen
+Quellsystemen abgerufen, anstatt sie redundant in einer eigenen Datenhaltung vorzuhalten. Dieser
+Ansatz reduziert den Implementierungs- und Wartungsaufwand, geht jedoch potenziell mit einer
+geringeren Antwortzeit gegenüber physischen Integrationssystemen mit eigener,
+optimierter Query-Verarbeitung einher~\cite{Putrama2024}. Um dem entgegenzuwirken, wurde, wie in
+Abschnitt~\ref{sec:info-ways} beschrieben, ein Cache-Mechanismus implementiert, der wiederholte
+Anfragen an externe Datenquellen reduziert und dadurch insbesondere bei häufig aufgerufenen
+Dashboards kürzere Ladezeiten ermöglicht~\cite{grafana2026datasourcecaching}.
+
+In der folgenden Tabelle~\ref{tab:reaction-times-comparison} werden die Antwortzeiten der
+einzelnen Datenquellen mit und ohne aktivierten Cache verglichen. Es zeigt sich deutlich, dass
+beim erstmaligen Abrufen der Daten dieselbe Zeit anfällt wie ohne Cache, da noch kein
+Cache-Eintrag vorliegt. Da die Daten der einzelnen Quellen jedoch, wie in
+Kapitel~\ref{sec:defined-sources} beschrieben, jeweils eine unterschiedliche Gültigkeitsdauer
+besitzen, müssen sie nicht bei jeder Anfrage erneut von der externen Datenquelle abgerufen werden und können
+direkt von der Cache Ebene geholt werden.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lrrl}
+        \toprule
+        \textbf{Datenquelle} & \textbf{Mit Cache Ebene} & \textbf{Ohne Cache Ebene} & \textbf{Zugriffsart} \\
+        \midrule
+        MSSQL      & \SI{50}{\milli\second}            & \SI{50}{\milli\second}            & SQL-Abfrage \\
+        Meraki     & \SIrange{50}{1070}{\milli\second}          & \SIrange{700}{1070}{\milli\second}             & \gls{rest}-API \\
+        Zabbix     & \SIrange{2}{7}{\second}           & \SIrange{5}{7}{\second}            & \gls{jsonrpc}-API \\
+        Silverpeak & \SIrange{100}{700}{\milli\second} & \SIrange{400}{700}{\milli\second}  & \gls{rest}-API \\
+        \bottomrule
+    \end{tabular}
+    \caption{Vergleich der Antwortzeiten je Datenquelle mit und ohne aktivierten Cache}
+    \label{tab:reaction-times-comparison}
+\end{table}
+
+Aus den Messwerten geht hervor, dass \gls{zabbix} im Vergleich zu
+den anderen Datenquellen eine deutlich höhere Antwortzeit aufweist. Dies
+ist unter anderem darauf zurückzuführen, dass ein Teil der von der
+Anwendung abgefragten Werte bereits innerhalb von Zabbix aus vorhandenen
+Messwerten berechnet wird. Solche Berechnungen werden gemäß der
+\gls{zabbix}-Dokumentation durch den \gls{zabbix}-Server durchgeführt und können
+beispielsweise auf einzelnen Messwerten oder auf aggregierten Werten
+mehrerer Items basieren \cite{zabbix2026calculateditems}. Bei umfangreicheren
+Berechnungen kann dies die Verarbeitung auf dem Zabbix-Server zusätzlich
+belasten.
+
+
 \section{Definierte Datenquellen}
 \label{sec:defined-sources}
+
+Die nachfolgenden Datenquellen werden alle in \gls{grafana} definiert und können wie in Kapitel~\ref{subsec:grafana-datasources} aufgerufen
+werden, um bestehende Daten zu laden.
+
+\subsection{Zabbix API Datenquelle}
+
+\label{subsec:zabbix-ds-api}
+
+\gls{zabbix} wird, wie in Abschnitt~\ref{subsec:zabbix-api} beschrieben, über die
+\gls{zabbix}-API abgefragt. Dabei werden die in Abschnitt~\ref{par:server-values}
+beschriebenen Werte abgerufen und für die Darstellung im Plugin aufbereitet. Da die
+Abfragen über die API erfolgen, unterliegt der Zugriff den von \gls{zabbix}
+vorgesehenen Einschränkungen für API-Anfragen. Um die Anzahl wiederholter Anfragen
+an \gls{zabbix} zu reduzieren, werden die abgerufenen Daten daher, wie in
+Abschnitt~\ref{subsec:reaction-times} beschrieben, zwischengespeichert.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:zabix-validation-time}
+
+~
+
+Die Gültigkeitsdauer des Caches beträgt fünf Minuten. Dieser Wert wurde auf
+Grundlage der bereits im bestehenden System vorliegenden Daten gewählt. Dabei
+wurde berücksichtigt, in welcher Größenordnung sich die für die Darstellung
+relevanten Werte innerhalb dieses Zeitraums verändern. Die dabei berücksichtigten
+Änderungsraten sind in Tabelle~\ref{tab:zabbix-change-rates} dargestellt. Die
+gewählte Gültigkeitsdauer stellt somit einen Kompromiss zwischen der Aktualität
+der dargestellten Informationen und der Reduzierung wiederholter Anfragen an
+\gls{zabbix} dar.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{Messwert} & \textbf{Relevante Änderung} & \textbf{Einheit} \\
+        \midrule
+        CPU-Auslastung      & 10 & $\mathrm{\%}$ \\
+        Speicherauslastung  & 10 & $\mathrm{\%}$ \\
+        Zabbix-Status       & bei Änderung & -- \\
+        Zabbix-Probleme     & neue Probleme der Stufe 4 oder höher & -- \\
+        \bottomrule
+    \end{tabular}
+    \caption{Für Zabbix relevante Änderungen der betrachteten Messwerte}
+    \label{tab:zabbix-change-rates}
+\end{table}
+
+\subsection{Silverpeak API Datenquelle}
+\label{subsec:silverpeak-ds-api}
+
+\gls{silverpeakcompany} stellt eine API für den Abruf von Informationen über
+\gls{silverpeak}-Netzgeräte bereit, die bereits in Abschnitt~\ref{subsec:silverpeak-api}
+beschrieben wurde. Die über die API abgerufenen und im Plugin dargestellten Werte sind
+in Abschnitt~\ref{par:sd-wan-values} beschrieben. Für den Abruf dieser Werte werden
+folgende API-Endpunkte verwendet:
+
+\begin{compactitem}
+    \item \texttt{*/stats/aggregate/appliance*} zur Abfrage der Bandbreite,
+    \item \texttt{*/tunnels2/physical*} zur Ermittlung der bestehenden Tunnel sowie
+          \texttt{*/stats/aggregate/tunnel*} zur Abfrage der Latenz der ermittelten Tunnel.
+\end{compactitem}
+
+\paragraph{Gültigkeitsdauer}
+\label{par:silverpeak-validation-time}
+
+Für diese Datenquelle wurde eine Cache-Gültigkeitsdauer von zehn Minuten festgelegt.
+Die Wahl dieser Dauer basiert auf den im bestehenden System vorliegenden Datensätzen.
+Dabei wurde berücksichtigt, dass sich die für die Darstellung relevanten
+Netzwerkparameter innerhalb dieses Zeitraums in einer für die Anwendung relevanten
+Größenordnung verändern können. Die dabei berücksichtigten Änderungsraten sind in
+Tabelle~\ref{tab:silverpeak-change-rates} dargestellt. Die gewählte Gültigkeitsdauer
+stellt somit einen Kompromiss zwischen der Aktualität der dargestellten Informationen
+und der Reduzierung wiederholter Anfragen an die \gls{silverpeak}-API dar
+\cite{grafana2026datasourcecaching}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lrl}
+        \toprule
+        \textbf{Messwert} & \textbf{Änderungsrate} & \textbf{Einheit} \\
+        \midrule
+        Latenz     & 50  & $\mathrm{ms}$ \\
+        Bandbreite & 100 & $\mathrm{Mbps}$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Für Silverpeak relevante Änderungsraten der Netzwerkparameter}
+    \label{tab:silverpeak-change-rates}
+\end{table}
+
+\subsection{Meraki API Datenquelle}
+\label{subsec:meraki-ds-api}
+
+\gls{merakicompany} stellt eine API für den Abruf von Informationen über
+Meraki-Netzwerkgeräte bereit, die bereits in Abschnitt~\ref{subsec:meraki-api}
+beschrieben wurde. Die über die API abgerufenen Informationen werden im
+Plugin zur Darstellung der in den Abschnitten~\ref{par:device-info} und
+\ref{par:device-clients} beschriebenen Werte verwendet.
+Für die Erfassung der benötigten Informationen werden folgende API-Endpunkte
+verwendet:
+
+\begin{compactitem}
+    \item \texttt{/organizations/\{organizationId\}/devices/statuses}
+    zur Abfrage des Status und weiterer Informationen zu den Geräten einer
+    Organisation,
+    \item \texttt{/organizations/\{organizationId\}/networks}
+    zur Abfrage der in einer Organisation vorhandenen Netzwerke,
+    \item \texttt{/devices/\{serial\}/clients}
+    zur Abfrage der mit einem Netzwerkgerät verbundenen Endgeräte.
+\end{compactitem}
+
+Die abgerufenen Daten werden anschließend den jeweiligen Standorten und
+Netzwerkgeräten zugeordnet und für die Darstellung im Plugin aufbereitet.
+Um die Anzahl wiederholter Anfragen an die \gls{merakiapi} zu reduzieren,
+werden die abgerufenen Daten zwischengespeichert.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:meraki-validation-time}
+
+Für die über die \gls{merakiapi} abgerufenen Daten wurde eine
+Cache-Gültigkeitsdauer von einer Stunde festgelegt. Die Wahl dieser Dauer
+basiert auf den im bestehenden System vorliegenden Datensätzen. Dabei wurde
+berücksichtigt, dass sich die für die Darstellung relevanten Informationen
+zu den Netzwerkgeräten nur selten ändern. Eine kürzere
+Cache-Gültigkeitsdauer würde daher zu häufigeren Anfragen an die
+\gls{merakiapi} führen, ohne einen wesentlichen Mehrwert hinsichtlich der
+Aktualität der dargestellten Informationen zu bieten.
+Die gewählte Gültigkeitsdauer stellt somit einen Kompromiss zwischen der
+Aktualität der dargestellten Informationen und der Reduzierung wiederholter
+Anfragen an die \gls{merakiapi} dar~\cite{grafana2026datasourcecaching}.
+
+\subsection{Microsoft Defender Datenbank}
+\label{subsec:microsoft-defender-ds}
+
+Die von der Primetals Technologies Austria GmbH bereitgestellte Microsoft Defender
+Datenbank stellt Informationen zu den überwachten Servern bereit. Die
+Datenbank dient als Datenquelle für die in Abschnitt
+\ref{par:server-values} beschriebenen Serverinformationen und basiert auf
+\gls{mssql}.
+
+Aus der Datenbank werden die für die Darstellung des Serverzustands
+relevanten Informationen abgerufen. Die dort vorhandenen Daten werden den
+jeweiligen Servern zugeordnet und anschließend für die Darstellung im
+Plugin aufbereitet.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:defender-validation-time}
+
+Die Gültigkeitsdauer der aus der Datenbank abgerufenen Informationen beträgt
+zwei Stunden. Dieser Zeitraum lässt sich aus dem von der Primetals Technologies 
+Austria GmbH bereitgestellten Aktualisierungsskript ableiten.
+
+\subsection{Meraki Datenbank}
+\label{subsec:meraki-ds-db}
+
+Diese Datenquelle ergänzt die über die Meraki-API abgerufenen Informationen
+aus Abschnitt~\ref{subsec:meraki-ds-api}. Die zusätzlichen Daten werden
+verwendet, um detailliertere Informationen zu den mit den Meraki-Netzwerkgeräten
+verbundenen Endgeräten bereitzustellen. Dazu zählen insbesondere das verwendete
+Betriebssystem und dessen Version, die installierte Software und deren Version
+sowie der Isolationsstatus eines Endgeräts gegenüber dem restlichen Netzwerk.
+Darüber hinaus werden weitere für die Darstellung relevante Werte aus
+Abschnitt~\ref{par:server-values} bereitgestellt.
+
+Die aus der Datenbank abgerufenen Informationen werden den jeweiligen
+Endgeräten zugeordnet und gemeinsam mit den über die Meraki-API bezogenen
+Daten für die Darstellung im Plugin aufbereitet.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:meraki-db-validation-time}
+
+
+
+\subsection{Azure Cloudhub Datenbank}
+\label{subsec:azure-cloudhub-db}
+
+\subsection{HCI Datenbank}
+\label{subsec:hci-db}
+
+\subsection{Silverpeak Datenbank}
+\label{subsec:silverpeak-db}
+
+\subsection{Standortdatenbank}
+\label{subsec:location-db}
 
 \section{Kubernetes}
 \label{sec:kubernetes}
