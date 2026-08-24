@@ -226,8 +226,14 @@ der dargestellten Informationen und der Reduzierung wiederholter Anfragen an
 \gls{silverpeakcompany} stellt eine API für den Abruf von Informationen über
 \gls{silverpeak}-Netzgeräte bereit, die bereits in Abschnitt~\ref{subsec:silverpeak-api}
 beschrieben wurde. Die über die API abgerufenen und im Plugin dargestellten Werte sind
-in Abschnitt~\ref{par:sd-wan-values} beschrieben. Für den Abruf dieser Werte werden
-folgende API-Endpunkte verwendet:
+in Abschnitt~\ref{par:sd-wan-values} beschrieben.
+
+Da \gls{silverpeakcompany} die Authentifizierung über ein \gls{sessioncookie} regelt,
+wie in Abschnitt~\ref{subsec:silverpeak-api} beschrieben, wird vor dem eigentlichen
+Abruf der Werte zunächst das \gls{grafana}-Backend angesprochen, um die für die
+Anmeldung bei \gls{silverpeakcompany} benötigten Sitzungsdaten zu ermitteln. Erst
+anschließend erfolgt die eigentliche Abfrage der API-Endpunkte unter Verwendung dieser
+Sitzungsdaten. Für den Abruf dieser Werte werden folgende API-Endpunkte verwendet:
 
 \begin{compactitem}
     \item \texttt{*/stats/aggregate/appliance*} zur Abfrage der Bandbreite,
@@ -237,6 +243,8 @@ folgende API-Endpunkte verwendet:
 
 \paragraph{Gültigkeitsdauer}
 \label{par:silverpeak-validation-time}
+
+~
 
 Für diese Datenquelle wurde eine Cache-Gültigkeitsdauer von zehn Minuten festgelegt.
 Die Wahl dieser Dauer basiert auf den im bestehenden System vorliegenden Datensätzen.
@@ -291,6 +299,8 @@ werden die abgerufenen Daten zwischengespeichert.
 \paragraph{Gültigkeitsdauer}
 \label{par:meraki-validation-time}
 
+~
+
 Für die über die \gls{merakiapi} abgerufenen Daten wurde eine
 Cache-Gültigkeitsdauer von einer Stunde festgelegt. Die Wahl dieser Dauer
 basiert auf den im bestehenden System vorliegenden Datensätzen. Dabei wurde
@@ -320,21 +330,23 @@ Plugin aufbereitet.
 \paragraph{Gültigkeitsdauer}
 \label{par:defender-validation-time}
 
+~
+
 Die Gültigkeitsdauer der aus der Datenbank abgerufenen Informationen beträgt
-zwei Stunden. Dieser Zeitraum lässt sich aus dem von der Primetals Technologies 
-Austria GmbH bereitgestellten Aktualisierungsskript ableiten.
+zwei Stunden. Dieser Zeitraum lässt sich aus dem von der Primetals Technologies
+Austria GmbH bereitgestellten Aktualisierungsskript ableiten, das die
+zugrunde liegende View in diesem Intervall aktualisiert.
 
 \subsection{Meraki Datenbank}
 \label{subsec:meraki-ds-db}
 
 Diese Datenquelle ergänzt die über die Meraki-API abgerufenen Informationen
-aus Abschnitt~\ref{subsec:meraki-ds-api}. Die zusätzlichen Daten werden
-verwendet, um detailliertere Informationen zu den mit den Meraki-Netzwerkgeräten
-verbundenen Endgeräten bereitzustellen. Dazu zählen insbesondere das verwendete
-Betriebssystem und dessen Version, die installierte Software und deren Version
-sowie der Isolationsstatus eines Endgeräts gegenüber dem restlichen Netzwerk.
-Darüber hinaus werden weitere für die Darstellung relevante Werte aus
-Abschnitt~\ref{par:server-values} bereitgestellt.
+aus Abschnitt~\ref{subsec:meraki-ds-api} und basiert auf \gls{mssql}. Sie liefert
+detailliertere Informationen zu den mit den Meraki-Netzwerkgeräten verbundenen
+Endgeräten, insbesondere das verwendete Betriebssystem samt Version, die
+installierte Software samt Version sowie den Isolationsstatus eines Endgeräts
+gegenüber dem restlichen Netzwerk. Darüber hinaus werden weitere für die
+Darstellung relevante Werte aus Abschnitt~\ref{par:device-info} bereitgestellt.
 
 Die aus der Datenbank abgerufenen Informationen werden den jeweiligen
 Endgeräten zugeordnet und gemeinsam mit den über die Meraki-API bezogenen
@@ -343,19 +355,106 @@ Daten für die Darstellung im Plugin aufbereitet.
 \paragraph{Gültigkeitsdauer}
 \label{par:meraki-db-validation-time}
 
+~
 
+Die Gültigkeitsdauer der Daten aus der Meraki Datenbank hängt von dem
+Aktualisierungsskript ab, das von der Primetals Technologies Austria GmbH
+verwendet wird. Derzeit läuft das Skript in einem Intervall von einem Tag.
 
 \subsection{Azure Cloudhub Datenbank}
 \label{subsec:azure-cloudhub-db}
 
+Die Informationen der Azure Cloudhub Datenbank liegen in einer \gls{mssql}
+Datenbank vor. Sie liefert Informationen zu den in Abschnitt~\ref{par:virtuel-networks}
+beschriebenen virtuellen Netzwerken sowie zu den in Abschnitt~\ref{par:network-group}
+beschriebenen Netzwerkgruppen.
+
+Die aus der Datenbank abgerufenen Informationen werden den jeweiligen
+virtuellen Netzwerken und Netzwerkgruppen zugeordnet und für die Darstellung
+im Plugin aufbereitet.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:azure-cloudhub-validation-time}
+
+~
+
+Die Gültigkeitsdauer der Daten aus der Azure Cloudhub Datenbank beträgt
+einen Tag. Dieser Zeitraum lässt sich aus dem von der Primetals
+Technologies Austria GmbH bereitgestellten Aktualisierungsskript ableiten.
+
 \subsection{HCI Datenbank}
 \label{subsec:hci-db}
+
+Die Informationen der HCI Datenbank liegen in einer \gls{mssql} Datenbank vor.
+Sie liefert Informationen zu den in Abschnitt~\ref{par:hci-information} beschriebenen
+Zustands- und Auslastungswerten sowie zu den in Abschnitt~\ref{par:hci-configurationdata}
+beschriebenen Konfigurations- und Hardwareeigenschaften der \gls{hci}-Systeme.
+
+Die aus der Datenbank abgerufenen Informationen werden den jeweiligen
+\gls{hci}-Systemen zugeordnet und für die Darstellung im Plugin aufbereitet.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:hci-db-validation-time}
+
+~
+
+Die Gültigkeitsdauer der Daten aus der HCI Datenbank beträgt einen Monat.
+Dieser Zeitraum ergibt sich daraus, dass die Primetals Technologies Austria
+GmbH den zugrunde liegenden Datenauszug nur einmal monatlich erhält. Eine
+häufigere Aktualisierung ist daher nicht möglich, zumal sich Abweichungen bei
+den erfassten Werten innerhalb kürzerer Zeiträume ohnehin nur schwer sinnvoll
+erfassen lassen.
 
 \subsection{Silverpeak Datenbank}
 \label{subsec:silverpeak-db}
 
+Die Informationen der Silverpeak Datenbank liegen in einer \gls{mssql} Datenbank vor.
+Sie ergänzt die über die Silverpeak-API abgerufenen Informationen aus
+Abschnitt~\ref{subsec:silverpeak-ds-api} um die Zuordnung der einzelnen
+\glspl{silverpeak} zu einem Standort sowie um die in
+Abschnitt~\ref{subsec:netzwerk-aggregierte-werte} beschriebenen aggregierten
+Standortwerte, insbesondere die Anzahl erreichbarer und nicht erreichbarer
+Geräte sowie die Anzahl primärer und als Backup konfigurierter
+WAN-Verbindungen. Darüber hinaus stellt sie ergänzende Stammdaten zu den
+einzelnen \glspl{silverpeak} bereit, etwa die primäre und sekundäre
+DNS-Adresse sowie den HA-Status eines Geräts.
+
+Die aus der Datenbank abgerufenen Informationen werden den jeweiligen
+\glspl{silverpeak} zugeordnet und gemeinsam mit den über die Silverpeak-API
+bezogenen Daten für die Darstellung im Plugin aufbereitet.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:silverpeak-db-validation-time}
+
+~
+
+Die Gültigkeitsdauer der Daten aus der Silverpeak Datenbank beträgt
+eine Stunde. Dieser Zeitraum lässt sich aus dem von der Primetals
+Technologies Austria GmbH bereitgestellten Aktualisierungsskript ableiten.
+
 \subsection{Standortdatenbank}
 \label{subsec:location-db}
 
+Die Informationen der Standortdatenbank liegen in einer \gls{mssql} Datenbank vor.
+Sie liefert die in Abschnitt~\ref{sec:location-metric} beschriebenen
+Standortinformationen, insbesondere den Ländercode, die geografische Position
+sowie die Klassifikation eines Standorts.
+
+Die aus der Datenbank abgerufenen Informationen werden den jeweiligen
+Standorten zugeordnet und für die Darstellung im Plugin aufbereitet.
+
+\paragraph{Gültigkeitsdauer}
+\label{par:location-db-validation-time}
+
+~
+
+Die Standortdaten werden von der Primetals Technologies Austria GmbH händisch
+gepflegt und ändern sich daher nur selten. Aus diesem Grund werden sie beim
+Start des Plugins einmalig in den Cache geladen, anstatt regelmäßig neu
+abgerufen zu werden.
+
+\newpage
+
 \section{Kubernetes}
 \label{sec:kubernetes}
+
