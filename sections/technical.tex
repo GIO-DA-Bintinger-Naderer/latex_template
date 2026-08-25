@@ -1,15 +1,28 @@
 \section{Standortinformationen}
 \label{sec:location-metric}
 
-Standortinformationen beschreiben einen Standort im technischen Detail und
-fassen dabei allgemeine, standortbezogene Eigenschaften zusammen, die nicht
-unmittelbar einem einzelnen System oder Gerät zuzuordnen sind. Sie ergänzen
-die in den vorangegangenen Kapiteln beschriebenen aggregierten Netzwerk- und
-Systemmetriken um Kontextinformationen zum jeweiligen Standort selbst.
+In dieser Arbeit werden unter Standortinformationen solche Informationen
+verstanden, die einen Standort technisch beschreiben und allgemeine,
+standortbezogene Eigenschaften zusammenfassen, die nicht unmittelbar
+einem einzelnen System oder Gerät zuzuordnen sind. Sie ergänzen die in
+den folgenden Abschnitten beschriebenen Netzwerk- und Systemmetriken
+um Kontextinformationen zum jeweiligen Standort.
+
+Dabei werden insbesondere Informationen berücksichtigt, die für die
+eindeutige Identifikation, Klassifikation und geografische Einordnung
+eines Standorts relevant sind. Diese Informationen ermöglichen es,
+Standorte eindeutig zuzuordnen und auf einer Weltkarte darzustellen.
+Zusätzlich wird der Status der zugrunde liegenden Datenquellen erfasst,
+um nachvollziehen zu können, ob die Standortinformationen vollständig
+und fehlerfrei abgerufen werden konnten.
 
 \begin{compactitem}
     \item \textbf{Ländercode:} Der Ländercode gibt die Länderzuweisung eines
     Standorts nach dem Standard \gls{iso3166}~\cite{iso2026countrycodes} an.
+
+    \item \textbf{Geografische Position:} Beschreibt die geografischen Koordinaten
+    eines Standorts. Sie ermöglichen die eindeutige geografische Zuordnung und
+    die Darstellung des Standorts auf einer Weltkarte.
 
     \item \textbf{Klassifikation:} Die Klasse eines Standorts lässt sich in
     folgende Kategorien unterteilen:
@@ -23,30 +36,50 @@ Systemmetriken um Kontextinformationen zum jeweiligen Standort selbst.
         \item Special Site
     \end{compactitem}
 
-    \item \textbf{Status je Datenquelle:} Beschreibt für jede der zugrunde
-    liegenden Datenquellen, ob bei der Erfassung der Standortinformationen ein
-    Fehler aufgetreten ist.
+    \item \textbf{Abrufstatus je Datenquelle:} Beschreibt für jede der zugrunde
+    liegenden Datenquellen, ob die benötigten Standortinformationen erfolgreich
+    abgerufen werden konnten oder bei der Erfassung ein Fehler aufgetreten ist.
 \end{compactitem}
 
 \section{Netzwerkmetriken}
 \label{sec:netzwerkmetriken}
 
 Netzwerkmetriken beschreiben den aktuellen Zustand und die Leistungsfähigkeit
-eines Netzwerks. Sie ermöglichen eine quantitative Bewertung der
-Netzwerkkommunikation und können dabei helfen, potenzielle Probleme zu
-erkennen~\cite{aruba2026userguide}.
+eines Netzwerks. Sie ermöglichen eine Bewertung der Netzwerkkommunikation
+und können dazu beitragen, potenzielle Probleme und Abweichungen frühzeitig
+zu erkennen~\cite{aruba2026userguide}.
+
+Für die Darstellung im Plugin wurden solche Netzwerkmetriken ausgewählt,
+die einen schnellen Überblick über den Zustand der Netzwerkinfrastruktur
+eines Standorts ermöglichen. Die nachfolgend beschriebenen Werte geben
+dabei einen kompakten Überblick über wesentliche Aspekte der
+Netzwerkumgebung, ohne dass hierfür die einzelnen Systeme und deren
+detaillierte Zustände betrachtet werden müssen. Dadurch können
+beispielsweise die Leistungsfähigkeit, Verfügbarkeit und vorhandene
+Redundanz eines Standorts auf einen Blick eingeschätzt werden.
+
+Die ausgewählten Metriken bilden damit die Grundlage für eine
+übersichtliche Darstellung des Netzwerkzustands auf Standortebene.
+Zusätzlich werden die entsprechenden Einzelwerte der überwachten Systeme
+erfasst, um bei Bedarf eine detailliertere Betrachtung der
+Netzwerkinfrastruktur zu ermöglichen.
 
 \subsection{Aggregierte Standortwerte}
 \label{subsec:netzwerk-aggregierte-werte}
 
 Die folgenden Metriken stellen aggregierte Werte auf Standortebene dar.
 Sie werden aus den einzelnen Netzwerkmetriken der einem Standort
-zugeordneten Systeme ermittelt.
+zugeordneten Systeme ermittelt. Die Aggregation dient dazu, den Zustand
+der Netzwerkinfrastruktur eines Standorts unabhängig von der Anzahl der
+einzelnen überwachten Systeme kompakt darzustellen. Die Aggregation von 
+Messwerten dient der Verdichtung großer Datenmengen und ermöglicht die 
+Darstellung komplexer Systemzustände in komprimierter Form \cite{wen2020aggregation}.
 
 \begin{compactitem}
-    \item \textbf{Bandbreite:} Die Bandbreite beschreibt die Datenmenge,
-    die ein Gerät innerhalb eines bestimmten Zeitraums über ein Interface
-    senden oder empfangen kann~\cite{aruba2026userguide}.
+    \item \textbf{Bandbreite:} Die durchschnittliche Bandbreite beschreibt die
+    durchschnittliche Datenübertragungsrate, die über ein Interface innerhalb
+    eines bestimmten Zeitraums beim Senden oder Empfangen von Daten erreicht
+    wird \cite{aruba2026userguide}.
 
     \item \textbf{Latenz:} Die Latenz beschreibt die Zeit, die Daten für
     die Übertragung zwischen zwei Geräten benötigen~\cite{aruba2026userguide}.
@@ -75,8 +108,10 @@ zugeordneten Systeme ermittelt.
 ~
 
 Die folgenden Werte werden für jedes einzelne \gls{sdwan}-System erfasst.
-Sie bilden die Grundlage für die Berechnung der aggregierten Standortwerte
-(siehe Abschnitt~\ref{subsec:netzwerk-aggregierte-werte}).
+Sie beschreiben die Eigenschaften und den aktuellen Zustand des jeweiligen
+Systems. Einzelne dieser Werte, insbesondere die Erreichbarkeit und der
+WAN-Status, bilden die Grundlage für die Berechnung der aggregierten
+Standortwerte (siehe Abschnitt~\ref{subsec:netzwerk-aggregierte-werte}).
 
 \begin{compactitem}
     \item \textbf{Name:} Eindeutige Bezeichnung des \gls{sdwan}-Systems.
@@ -106,74 +141,89 @@ Sie bilden die Grundlage für die Berechnung der aggregierten Standortwerte
 
 ~
 
-Die folgenden Werte werden zur Bewertung und Darstellung eines virtuellen Netzwerks
-verwendet. Sie werden aus den bereitgestellten Datenquellen ermittelt, die in
-Abschnitt~\ref{sec:defined-sources} beschrieben sind.
+Die folgenden Werte werden zur Identifikation und Einordnung eines virtuellen
+Netzwerks sowie zur zeitlichen Nachvollziehbarkeit seiner Erfassung verwendet.
+Sie werden aus den bereitgestellten Datenquellen ermittelt, die in
+Abschnitt~\ref{sec:defined-sources} beschrieben sind. Die ausgewählten Werte
+ermöglichen dabei sowohl die eindeutige Zuordnung eines virtuellen Netzwerks
+als auch die Einordnung der zugehörigen Ressourcen und die Nachvollziehbarkeit
+des Erfassungszeitraums.
 
 \begin{compactitem}
+
     \item \textbf{Name:} Der festgelegte Name eines virtuellen Netzwerks.
+    Er dient zur eindeutigen Identifikation und Zuordnung des virtuellen
+    Netzwerks innerhalb der dargestellten Infrastruktur.
 
     \item \textbf{Ressourcengruppe:} Die dem virtuellen Netzwerk zugewiesene
     Ressourcengruppe, über die zusammengehörige Ressourcen logisch gruppiert
-    und verwaltet werden.
+    und verwaltet werden. Sie ermöglicht die Zuordnung des virtuellen Netzwerks
+    zu den weiteren zugehörigen Ressourcen.
 
     \item \textbf{Firstseen:} Der Zeitpunkt, zu dem das virtuelle Netzwerk
-    erstmals erfasst wurde.
+    erstmals erfasst wurde. Dieser Wert ermöglicht die zeitliche Einordnung
+    des virtuellen Netzwerks und gibt Aufschluss darüber, seit wann es in den
+    erfassten Daten vorhanden ist.
 
     \item \textbf{Lastseen:} Der Zeitpunkt, zu dem das virtuelle Netzwerk
-    zuletzt erfasst wurde.
+    zuletzt erfasst wurde. Dadurch kann nachvollzogen werden, wann das
+    virtuelle Netzwerk zuletzt in den bereitgestellten Datenquellen
+    festgestellt wurde.
+    
 \end{compactitem}
 
 \paragraph{Netzwerkgruppe}
 \label{par:network-group}
 
-~
-
 Eine \gls{nsg} filtert den ein- und ausgehenden Netzwerkverkehr von Azure-Ressourcen
-anhand einer Menge von Sicherheitsregeln~\cite{microsoft2026nsg}. Die folgenden
-Werte beschreiben die Eigenschaften einer solchen Regel.
+anhand einer Menge von Sicherheitsregeln \cite{microsoft2026nsg}. Die folgenden
+Werte werden erfasst, da sie die Konfiguration und Wirkung einer Sicherheitsregel
+beschreiben.
 
 \begin{compactitem}
-    \item \textbf{Name:} Der eindeutige Name der Sicherheitsregel innerhalb der
-    Netzwerkgruppe~\cite{microsoft2026nsg}.
 
-    \item \textbf{Richtung:} Gibt an, ob sich die Regel auf ein- oder ausgehenden
-    Datenverkehr bezieht:
+    \item \textbf{Name:} Der eindeutige Name der Sicherheitsregel
+    \cite{microsoft2026nsg}. Er ermöglicht die Identifikation der Regel.
+
+    \item \textbf{Richtung:} Gibt an, ob die Regel für ein- oder ausgehenden
+    Datenverkehr gilt \cite{microsoft2026nsg}:
     \begin{compactitem}
         \item Inbound
         \item Outbound
     \end{compactitem}
+    Dadurch lässt sich die Kommunikationsrichtung der Regel bestimmen.
 
-    \item \textbf{Zugriffsart:} Legt fest, ob der auf die Regel zutreffende
-    Datenverkehr zugelassen oder blockiert wird~\cite{microsoft2026nsg}:
-    \begin{compactitem}
-        \item Allow
-        \item Deny
-    \end{compactitem}
+    \item \textbf{Zugriffsart:} Legt fest, ob Datenverkehr zugelassen oder
+    blockiert wird \cite{microsoft2026nsg}. Sie zeigt die Wirkung der Regel.
 
-    \item \textbf{Protokoll:} Das Netzwerkprotokoll, auf das die Regel angewendet
-    wird, beispielsweise TCP, UDP, ICMP oder Any~\cite{microsoft2026nsg}.
+    \item \textbf{Protokoll:} Das von der Regel betroffene Netzwerkprotokoll,
+    beispielsweise TCP, UDP, ICMP oder Any \cite{microsoft2026nsg}.
+    Dadurch lässt sich die betroffene Kommunikation genauer bestimmen.
 
     \item \textbf{Quelle:} Die IP-Adresse, das CIDR-Suffix oder der Dienst-Tag,
-    von dem der Datenverkehr ausgeht~\cite{microsoft2026nsg}.
+    von dem der Datenverkehr ausgeht \cite{microsoft2026nsg}.
+    Sie zeigt, von welcher Quelle die Kommunikation ausgeht.
 
     \item \textbf{Quellport:} Der Port oder Portbereich, von dem der
-    Datenverkehr ausgeht.
+    Datenverkehr ausgeht. Dadurch lässt sich die betroffene Kommunikation
+    genauer eingrenzen.
 
-    \item \textbf{Ziel:} Die IP-Adresse, das CIDR-Suffix oder der Dienst-Tag, an
-    den der Datenverkehr gerichtet ist~\cite{microsoft2026nsg}.
+    \item \textbf{Ziel:} Die IP-Adresse, das CIDR-Suffix oder der Dienst-Tag,
+    an den der Datenverkehr gerichtet ist \cite{microsoft2026nsg}.
+    Dadurch lässt sich das Ziel der Kommunikation bestimmen.
 
-    \item \textbf{Zielport:} Der Port oder Portbereich, an den der Datenverkehr
-    gerichtet ist.
+    \item \textbf{Zielport:} Der Port oder Portbereich, an den der
+    Datenverkehr gerichtet ist. Er ermöglicht eine genauere Bestimmung
+    des betroffenen Netzwerkdienstes.
 
-    \item \textbf{Standardregel:} Gibt an, ob es sich um eine von Azure
-    automatisch angelegte Standardregel handelt, die nicht gelöscht, jedoch
-    durch Regeln höherer Priorität überschrieben werden kann~\cite{microsoft2026nsg}.
+    \item \textbf{Standardregel:} Gibt an, ob die Regel von Azure automatisch
+    angelegt wurde \cite{microsoft2026nsg}. Dadurch kann zwischen
+    Standard- und eigenen Regeln unterschieden werden.
 
     \item \textbf{Status:} Gibt an, ob die Regel aktuell aktiv ist.
-\end{compactitem}
+    Dadurch lässt sich erkennen, ob die Regel derzeit wirksam ist.
 
-\newpage
+\end{compactitem}
 
 \section{Systemmetriken}
 \label{sec:systemmetriken}
@@ -186,177 +236,223 @@ Zustands der überwachten Systeme.
 \label{subsec:system-aggregierte-werte}
 
 Die folgenden Metriken stellen aggregierte Werte auf Standortebene dar.
-Sie werden aus den Werten der einzelnen Systeme eines Standorts ermittelt.
+Sie werden aus den Werten der einzelnen Systeme eines Standorts ermittelt,
+um eine kompakte Bewertung des Systemzustands eines Standorts zu ermöglichen.
 
 \begin{compactitem}
+
     \item \textbf{Problemanzahl:} Die Problemanzahl beschreibt die Anzahl der
-    aktuell auf einem System erkannten Probleme
-    ~\cite{zabbix2026problemget}.
+    aktuell auf einem System erkannten Probleme \cite{zabbix2026problemget}.
+    Sie ermöglicht eine schnelle Einschätzung des aktuellen Problemzustands
+    eines Standorts.
 
     \item \textbf{Anzahl fehlender Softwareaktualisierungen:} Diese Metrik
-    beschreibt die Anzahl der fehlenden Softwareaktualisierungen, die auf
-    einem System installiert werden müssen.
+    beschreibt die Anzahl der fehlenden Softwareaktualisierungen.
+    Sie zeigt den Aktualisierungsbedarf der Systeme eines Standorts.
 
-    \item \textbf{Isolierte Systeme:} Diese Metrik beschreibt den
-    Zugriffsstatus eines Systems gegenüber dem restlichen Netzwerk.
+    \item \textbf{Isolierte Systeme:} Diese Metrik beschreibt die Anzahl der
+    Systeme, die vom restlichen Netzwerk isoliert wurden.
+    Sie ermöglicht die Erkennung von Systemen mit eingeschränktem Zugriff.
 
     \item \textbf{Anzahl an Systemen:} Diese Metrik beschreibt die Anzahl der
     an einem Standort vorhandenen Systeme und Systemressourcen.
+    Sie ermöglicht eine Übersicht über die Größe der Systemlandschaft.
 
     \item \textbf{Geräteanzahl pro Typ:} Diese Metrik beschreibt die Anzahl
     der an einem Standort vorhandenen Geräte, gruppiert nach Gerätetypen.
+    Sie ermöglicht eine Übersicht über die Zusammensetzung der
+    Geräteinfrastruktur.
+
 \end{compactitem}
 
 \subsection{Einzelwerte}
 \label{subsec:system-einzelwerte}
 
 Die folgenden Werte werden für die einzelnen Systeme und Geräte eines
-Standorts erfasst.
+Standorts erfasst. Sie ermöglichen eine detaillierte Bewertung des Zustands
+und der Ressourcennutzung einzelner Systeme.
 
 \paragraph{HCI Information}
 \label{par:hci-information}
 
-~
-
-Die folgenden Werte beschreiben Metriken eines \gls{hci}-Systems, 
-die zur Bewertung dessen Zustands und Ressourcenauslastung herangezogen 
-werden können.
+Die folgenden Werte beschreiben Metriken eines \gls{hci}-Systems, die zur
+Bewertung dessen Zustands und Ressourcenauslastung herangezogen werden.
 
 \begin{compactitem}
-   \item \textbf{CPU-Auslastung:} Die CPU-Auslastung beschreibt den Anteil
-    der verfügbaren Rechenleistung, der von einer \gls{hci} aktuell genutzt wird
-    ~\cite{microsoft2026troubleshoot}.
 
-    \item \textbf{RAM-Auslastung:} Die RAM-Auslastung beschreibt die aktuelle
-    Nutzung des verfügbaren Arbeitsspeichers einer \gls{hci}
-    ~\cite{microsoft2026troubleshoot}.
+    \item \textbf{CPU-Auslastung:} Beschreibt den Anteil der verfügbaren
+    Rechenleistung, der von einer \gls{hci} aktuell genutzt wird
+    \cite{microsoft2026troubleshoot}. Sie ermöglicht die Erkennung einer
+    hohen CPU-Auslastung.
 
-    \item \textbf{Speicherauslastung:} Die Speicherauslastung beschreibt den
-    Anteil des verfügbaren Massenspeicherplatzes
-    ~\cite{microsoft2026troubleshoot}.
+    \item \textbf{RAM-Auslastung:} Beschreibt die aktuelle Nutzung des
+    verfügbaren Arbeitsspeichers einer \gls{hci}
+    \cite{microsoft2026troubleshoot}. Sie ermöglicht die Bewertung der
+    Speicherauslastung.
 
-    \item \textbf{Datenspeicher-Auslastung:} Die Metrik beschreibt den Anteil
-    des verfügbaren Datenspeichers einer \gls{hci}, der aktuell genutzt wird.
+    \item \textbf{Speicherauslastung:} Beschreibt den Anteil des verfügbaren
+    Massenspeicherplatzes, der aktuell genutzt wird
+    \cite{microsoft2026troubleshoot}. Sie zeigt den aktuellen
+    Speicherbedarf des Systems.
 
-    \item \textbf{Speicherbereitstellung:} Die Metrik beschreibt den Anteil
-    der insgesamt verfügbaren Speicherkapazität, der von einer \gls{hci}
-    bereitgestellt beziehungsweise genutzt wird.
+    \item \textbf{Datenspeicher-Auslastung:} Beschreibt den Anteil des
+    verfügbaren Datenspeichers einer \gls{hci}, der aktuell genutzt wird.
+    Sie ermöglicht die Erkennung einer hohen Auslastung des Datenspeichers.
 
-    \item \textbf{Genutzte vSAN-Kapazität:} Diese Metrik beschreibt die aktuell 
-    belegte Speicherkapazität innerhalb des \gls{vsan}-Verbunds.
+    \item \textbf{Speicherbereitstellung:} Beschreibt den Anteil der insgesamt
+    verfügbaren Speicherkapazität, der von einer \gls{hci} bereitgestellt
+    beziehungsweise genutzt wird. Sie ermöglicht die Bewertung der
+    verfügbaren und bereitgestellten Kapazität.
+
+    \item \textbf{Genutzte vSAN-Kapazität:} Beschreibt die aktuell belegte
+    Speicherkapazität innerhalb des \gls{vsan}-Verbunds. Sie ermöglicht die
+    Bewertung der aktuellen Kapazitätsauslastung.
+
 \end{compactitem}
 
 \paragraph{HCI Konfigurationsdaten}
 \label{par:hci-configurationdata}
 
-~
-
 Die folgenden Werte beschreiben statische Konfigurations- und
-Hardwareeigenschaften eines \gls{hci}-Systems. Im Gegensatz zu den zuvor
-beschriebenen Auslastungswerten ändern sie sich nicht im laufenden Betrieb,
-sondern ergeben sich aus der jeweiligen Systemkonfiguration.
+Hardwareeigenschaften eines \gls{hci}-Systems. Sie werden erfasst, um
+die technische Ausstattung, Kapazität und Konfiguration eines Systems
+einordnen zu können.
 
 \begin{compactitem}
-    \item \textbf{\gls{raid}-Stufe:} Das \gls{raid}-Level beschreibt die verwendete 
-    Redundanz- und Speicherstrategie des HCI-Systems zur Erhöhung der Ausfallsicherheit 
-    und Datenverfügbarkeit.
 
-    \item \textbf{Anzahl der \gls{hci}-Knoten:} Diese Metrik beschreibt die Anzahl der physischen Knoten, 
-    aus denen die HCI-Infrastruktur besteht.
+    \item \textbf{\gls{raid}-Stufe:} Beschreibt die verwendete Redundanz-
+    und Speicherstrategie des HCI-Systems. Sie ermöglicht die Einordnung
+    der vorhandenen Ausfallsicherheit.
 
-    \item \textbf{Anzahl virtueller Maschinen:} Diese Metrik beschreibt die Anzahl der 
-    auf der HCI betriebenen virtuellen Maschinen.
+    \item \textbf{Anzahl der \gls{hci}-Knoten:} Beschreibt die Anzahl der
+    physischen Knoten der HCI-Infrastruktur. Sie ermöglicht die Bewertung
+    der Größe des HCI-Verbunds.
 
-    \item \textbf{CPU-Sockel pro Knoten:} Diese Metrik beschreibt die Anzahl der in 
-    einem einzelnen HCI-Knoten verfügbaren CPU-Sockel.
+    \item \textbf{Anzahl virtueller Maschinen:} Beschreibt die Anzahl der
+    auf der HCI betriebenen virtuellen Maschinen. Sie zeigt den Umfang
+    der virtualisierten Umgebung.
 
-    \item \textbf{Gesamtanzahl der CPU-Sockel:} Diese Metrik beschreibt die Gesamtanzahl 
-    der in der HCI-Infrastruktur verfügbaren CPU-Sockel.
+    \item \textbf{CPU-Sockel pro Knoten:} Beschreibt die Anzahl der CPU-Sockel
+    eines einzelnen HCI-Knotens. Dadurch lässt sich die CPU-Ausstattung
+    eines Knotens einordnen.
 
-    \item \textbf{CPU-Kerne pro Sockel:} Diese Metrik beschreibt die Anzahl der 
-    Rechenkerne je CPU-Sockel.
+    \item \textbf{Gesamtanzahl der CPU-Sockel:} Beschreibt die Gesamtanzahl
+    der CPU-Sockel der HCI-Infrastruktur. Sie gibt einen Überblick über
+    die verfügbare CPU-Hardware.
 
-    \item \textbf{Gesamtanzahl der CPU-Kerne:} Diese Metrik beschreibt 
-    die Gesamtzahl der in der HCI-Infrastruktur verfügbaren CPU-Kerne.
+    \item \textbf{CPU-Kerne pro Sockel:} Beschreibt die Anzahl der Rechenkerne
+    je CPU-Sockel. Dadurch lässt sich die Rechenleistung der eingesetzten
+    CPUs genauer einordnen.
 
-    \item \textbf{Arbeitsspeicher pro Knoten:} Diese Metrik beschreibt die Größe 
-    des in einem einzelnen HCI-Knoten verfügbaren Arbeitsspeichers.
+    \item \textbf{Gesamtanzahl der CPU-Kerne:} Beschreibt die Gesamtzahl der
+    verfügbaren CPU-Kerne. Sie ermöglicht eine Übersicht über die gesamte
+    Rechenkapazität der HCI-Infrastruktur.
 
-    \item \textbf{Anzahl der Cache-Datenträger pro Knoten:} Diese Metrik beschreibt die Anzahl 
-    der in einem HCI-Knoten für Caching-Zwecke verwendeten Datenträger.
+    \item \textbf{Arbeitsspeicher pro Knoten:} Beschreibt die Größe des
+    verfügbaren Arbeitsspeichers eines HCI-Knotens. Dadurch lässt sich
+    die Speicherausstattung eines Knotens vergleichen.
 
-    \item \textbf{Größe der Cache-Datenträger:} Diese Metrik beschreibt die Speicherkapazität 
-    der für Caching-Zwecke verwendeten Datenträger.
+    \item \textbf{Anzahl der Cache-Datenträger pro Knoten:} Beschreibt die
+    Anzahl der für Caching verwendeten Datenträger je Knoten. Sie ermöglicht
+    die Einordnung der Cache-Konfiguration.
 
-    \item \textbf{Anzahl der Kapazitätsdatenträger pro Knoten:} Diese Metrik beschreibt 
-    die Anzahl der für die dauerhafte Datenspeicherung verfügbaren Datenträger je HCI-Knoten.
+    \item \textbf{Größe der Cache-Datenträger:} Beschreibt die
+    Speicherkapazität der für Caching verwendeten Datenträger. Sie zeigt
+    die verfügbare Cache-Kapazität.
 
-    \item \textbf{Anzahl der Kapazitätsdatenträger pro Datenträgergruppe:} Diese Metrik beschreibt die Anzahl 
-    der Kapazitätsdatenträger innerhalb einer Datenträgergruppe.
+    \item \textbf{Anzahl der Kapazitätsdatenträger pro Knoten:} Beschreibt
+    die Anzahl der Datenträger für die dauerhafte Datenspeicherung je
+    HCI-Knoten. Sie ermöglicht die Einordnung der Speicherkonfiguration.
 
-    \item \textbf{Größe der Kapazitätsdatenträger:} Diese Metrik beschreibt die Speicherkapazität 
-    der für die dauerhafte Datenspeicherung verwendeten Datenträger.
+    \item \textbf{Anzahl der Kapazitätsdatenträger pro Datenträgergruppe:}
+    Beschreibt die Anzahl der Kapazitätsdatenträger innerhalb einer
+    Datenträgergruppe. Dadurch lässt sich die Struktur der
+    Datenträgergruppen nachvollziehen.
 
-    \item \textbf{Gesamtanzahl der Datenträger pro Knoten:} Diese Metrik beschreibt die Anzahl aller in 
-    einem \gls{hci}-Knoten vorhandenen Datenträger.
+    \item \textbf{Größe der Kapazitätsdatenträger:} Beschreibt die
+    Speicherkapazität der für die dauerhafte Datenspeicherung verwendeten
+    Datenträger. Sie ermöglicht die Einordnung der verfügbaren
+    Speicherkapazität.
 
-    \item \textbf{\gls{vsan}-Kapazität:} Diese Metrik beschreibt die insgesamt für den \gls{vsan}-Verbund 
-    verfügbare Speicherkapazität~\cite{vmware2026vsan}.
+    \item \textbf{Gesamtanzahl der Datenträger pro Knoten:} Beschreibt die
+    Anzahl aller in einem \gls{hci}-Knoten vorhandenen Datenträger.
+    Dadurch lässt sich die gesamte Laufwerksausstattung eines Knotens
+    erfassen.
+
+    \item \textbf{\gls{vsan}-Kapazität:} Beschreibt die insgesamt für den
+    \gls{vsan}-Verbund verfügbare Speicherkapazität
+    \cite{vmware2026vsan}. Sie ermöglicht die Bewertung der verfügbaren
+    Gesamtkapazität des Verbunds.
+
 \end{compactitem}
 
 \paragraph{Serverinformationen}
 \label{par:server-values}
 
-~
-
 Die folgenden Werte werden zur Bewertung des aktuellen Zustands und
 der Verfügbarkeit eines Servers erfasst.
 
 \begin{compactitem}
-    \item \textbf{CPU-Auslastung:} Die CPU-Auslastung beschreibt den Anteil
-    der verfügbaren Rechenleistung, der von einem Server aktuell genutzt wird
-    ~\cite{microsoft2026troubleshoot}.
 
-    \item \textbf{RAM-Auslastung:} Die RAM-Auslastung beschreibt die aktuelle
-    Nutzung des verfügbaren Arbeitsspeichers eines Servers
-    ~\cite{microsoft2026troubleshoot}.
+    \item \textbf{CPU-Auslastung:} Beschreibt den Anteil der verfügbaren
+    Rechenleistung, der von einem Server aktuell genutzt wird
+    \cite{microsoft2026troubleshoot}. Sie ermöglicht die Bewertung der
+    aktuellen CPU-Auslastung.
 
-    \item \textbf{Speicherauslastung:} Die Speicherauslastung beschreibt den
-    Anteil des verfügbaren Massenspeicherplatzes
-    ~\cite{microsoft2026troubleshoot}.
+    \item \textbf{RAM-Auslastung:} Beschreibt die aktuelle Nutzung des
+    verfügbaren Arbeitsspeichers eines Servers
+    \cite{microsoft2026troubleshoot}. Sie zeigt die Speicherauslastung
+    des Servers.
 
-    \item \textbf{Defender-Status:} Der Defender-Status beschreibt den aktuellen 
-    Betriebs- und Sicherheitsstatus des auf dem Server installierten Microsoft Defenders.
+    \item \textbf{Speicherauslastung:} Beschreibt den Anteil des verfügbaren
+    Massenspeicherplatzes, der aktuell genutzt wird
+    \cite{microsoft2026troubleshoot}. Sie ermöglicht die Erkennung einer
+    hohen Speicherauslastung.
 
-    \item \textbf{Zabbix-Status:} Der Zabbix-Status beschreibt die aktuelle Verfügbarkeit 
-    und Erreichbarkeit eines Servers aus Sicht des Monitoring-Systems Zabbix. Anhand des 
-    Status kann festgestellt werden, ob ein System erfolgreich überwacht werden kann oder 
-    ob Kommunikationsprobleme vorliegen~\cite{zabbix2026availability}.
+    \item \textbf{Defender-Status:} Beschreibt den aktuellen Betriebs- und
+    Sicherheitsstatus des auf dem Server installierten Microsoft Defenders.
+    Er ermöglicht die Bewertung des aktuellen Schutzstatus.
 
-    \item \textbf{Zabbix-Probleme:} Diese Metrik beschreibt die Anzahl der aktuell 
-    von Zabbix für den Server erkannten Probleme ~\cite{zabbix2026problemget}.
+    \item \textbf{Zabbix-Status:} Beschreibt die aktuelle Verfügbarkeit und
+    Erreichbarkeit eines Servers aus Sicht von Zabbix
+    \cite{zabbix2026availability}. Er zeigt, ob der Server aktuell
+    überwacht werden kann.
 
-    \item \textbf{Anzahl fehlender Softwareaktualisierungen:} Diese Metrik beschreibt die Anzahl der 
-    fehlenden Softwareaktualisierungen, die auf dem Server installiert werden müssen.
+    \item \textbf{Zabbix-Probleme:} Beschreibt die Anzahl der aktuell von
+    Zabbix für den Server erkannten Probleme
+    \cite{zabbix2026problemget}. Sie ermöglicht eine schnelle Einschätzung
+    des Problemzustands.
 
-    \item \textbf{Isolationsstatus:} Der Isolationsstatus beschreibt, ob ein Server vom restlichen 
-    Netzwerk isoliert wurde.
+    \item \textbf{Anzahl fehlender Softwareaktualisierungen:} Beschreibt
+    die Anzahl der fehlenden Softwareaktualisierungen. Sie zeigt den
+    bestehenden Aktualisierungsbedarf des Servers.
 
-    \item \textbf{Isolationsart:} Die Isolationsart beschreibt die Art der Netzwerkisolierung, 
-    die für einen Server angewendet wurde.
+    \item \textbf{Isolationsstatus:} Beschreibt, ob ein Server vom restlichen
+    Netzwerk isoliert wurde. Er zeigt, ob die Netzwerkkommunikation des
+    Servers eingeschränkt ist.
+
+    \item \textbf{Isolationsart:} Beschreibt die Art der auf einen Server
+    angewendeten Netzwerkisolierung. Sie ermöglicht eine genauere
+    Einordnung der bestehenden Einschränkung.
+
 \end{compactitem}
 
 \paragraph{Geräteinformationen}
+
 \label{par:device-info}
 
-~
-
-Die folgenden Werte werden zur Bewertung von Geräten im Netzwerken und an Standorten genutzt.
+Die folgenden Werte werden zur Identifikation und Bewertung von Geräten
+innerhalb der überwachten Netzwerkinfrastruktur erfasst.
 
 \begin{compactitem}
-    \item \textbf{Name:} Eindeutige Bezeichnung eines Netzwerkgeräts innerhalb der überwachten Infrastruktur.
-    
-    \item \textbf{Gerätetyp:} Beschreibt die funktionale Kategorie eines Geräts.
+
+    \item \textbf{Name:} Eindeutige Bezeichnung eines Netzwerkgeräts innerhalb
+    der überwachten Infrastruktur. Sie ermöglicht die Identifikation des
+    jeweiligen Geräts.
+
+    \item \textbf{Gerätetyp:} Beschreibt die funktionale Kategorie eines
+    Geräts. Dadurch lässt sich die Rolle des Geräts im Netzwerk einordnen.
+
     \begin{compactitem}
         \item Firewall
         \item Sensor
@@ -366,32 +462,46 @@ Die folgenden Werte werden zur Bewertung von Geräten im Netzwerken und an Stand
         \item Access Point
     \end{compactitem}
 
-    \item \textbf{Modell:} Beschreibt das konkrete Hardwaremodell eines Geräts.
-    
-    \item \textbf{LAN-IP-Adresse:} Die interne IP-Adresse eines Geräts innerhalb des lokalen Netzwerks.
-    
-    \item \textbf{Öffentliche IP-Adresse:} Die öffentliche beziehungsweise extern erreichbare IP-Adresse 
-    eines Geräts oder seines Internetzugangs.
+    \item \textbf{Modell:} Beschreibt das konkrete Hardwaremodell eines
+    Geräts. Es ermöglicht die technische Einordnung des Geräts.
 
-    \item \textbf{Status:} Beschreibt den derzeitigen Status eines Netzwerkgeräts.
+    \item \textbf{LAN-IP-Adresse:} Die interne IP-Adresse eines Geräts
+    innerhalb des lokalen Netzwerks. Sie ermöglicht die Zuordnung des
+    Geräts innerhalb des Netzwerks.
+
+    \item \textbf{Öffentliche IP-Adresse:} Die öffentliche beziehungsweise
+    extern erreichbare IP-Adresse eines Geräts oder seines Internetzugangs.
+    Sie ermöglicht die Identifikation des externen Netzwerkzugangs.
+
+    \item \textbf{Status:} Beschreibt den derzeitigen Status eines
+    Netzwerkgeräts. Er ermöglicht die Bewertung der aktuellen
+    Verfügbarkeit des Geräts.
+
 \end{compactitem}
 
 \paragraph{Verbundene Endgeräte}
+
 \label{par:device-clients}
 
-~
-
-Die folgenden Werte beschreiben Endgeräte, die mit einem Netzwerkgerät verbunden sind.
+Die folgenden Werte beschreiben Endgeräte, die mit einem Netzwerkgerät
+verbunden sind. Sie ermöglichen die Identifikation und Zuordnung der
+verbundenen Endgeräte innerhalb des Netzwerks.
 
 \begin{compactitem}
-    \item \textbf{IP-Adresse:} Die dem Endgerät aktuell zugewiesene IP-Adresse innerhalb des Netzwerks.
-    
-    \item \textbf{MAC-Adresse:} Die eindeutige Hardwareadresse der Netzwerkschnittstelle des Endgeräts.
 
-    \item \textbf{VLAN:} Das virtuelle lokale Netzwerk, dem das Endgerät zugeordnet ist.
+    \item \textbf{IP-Adresse:} Die dem Endgerät aktuell zugewiesene
+    IP-Adresse innerhalb des Netzwerks. Sie ermöglicht die Identifikation
+    und Erreichbarkeit des Endgeräts.
+
+    \item \textbf{MAC-Adresse:} Die eindeutige Hardwareadresse der
+    Netzwerkschnittstelle des Endgeräts. Sie ermöglicht die eindeutige
+    Zuordnung des Endgeräts.
+
+    \item \textbf{VLAN:} Das virtuelle lokale Netzwerk, dem das Endgerät
+    zugeordnet ist. Es ermöglicht die Einordnung des Endgeräts in die
+    entsprechende Netzwerksegmentierung.
+
 \end{compactitem}
-
-\newpage
 
 \section{Zabbix}
 \label{sec:zabbix}
@@ -466,9 +576,8 @@ bereits in Abschnitt~\ref{subsec:netzwerk-einzelwerte} beschriebenen Werte zu de
 und ein CSRF-Token welches 
 bei nachfolgenden Anfragen mitgesendet werden muss, um den derzeitigen Zustand eines \gls{silverpeak} zu ermitteln~\cite{aruba2026userguide}.
 
-Diese Anfrage an Silverpeak kann wie folgt aussehen~\ref{lst:silverpeak-request} um die Situation eines \gls{silverpeak} zu überblicken.
-
-\newpage
+Listing~\ref{lst:silverpeak-request} zeigt eine solche Anfrage, um den Zustand eines
+\gls{silverpeak} abzufragen.
 
 \begin{lstlisting}[language=Typescript, caption={Silverpeak API request}, label={lst:silverpeak-request}]
 const username = '...';
@@ -515,8 +624,6 @@ const data = await appliancesResponse.json();
 console.log(data);
 \end{lstlisting}
 
-\newpage
-
 \section{Meraki}
 \label{sec:meraki}
 
@@ -556,8 +663,6 @@ dargestellt.
 
 Eine mögliche Anfrage für die \gls{merakiapi} zeigt Listing~\ref{lst:meraki-request}.
 
-\newpage
-
 \begin{lstlisting}[language=Typescript, caption={Request für Meraki Netzwerke}, label={lst:meraki-request}]
 const apiToken = '...';
 const baseUrl = '...';
@@ -581,11 +686,14 @@ console.log(networks);
 \section{Grafana}
 \label{sec:grafana}
 
-\gls{grafana} kann eingesetzt werden, um Daten verschiedener Systeme grafisch aufzuarbeiten und 
-einheitlich anzuzeigen~\cite{grafana2026about}. Die weite Verbreitung zeigt sich unter anderem
-an der Anzahl an Nutzer:innen. Laut eigenen Angaben von Grafana Labs wird \gls{grafana} von mehr als 
-35 Millionen Nutzer:innen weltweit genutzt; mehr als 7.000 Unternehmen zählen dabei zu den zahlenden 
-Kund:innen~\cite{grafana2026pressrelease}.
+\gls{grafana} kann eingesetzt werden, um Daten verschiedener Systeme grafisch 
+aufzubereiten und einheitlich anzuzeigen~\cite{grafana2026about}. Grafana wird 
+dabei nicht nur in Unternehmensumgebungen eingesetzt, sondern auch in wissenschaftlichen 
+Forschungsinfrastrukturen zur Visualisierung und Überwachung von Betriebs- und 
+Messdaten in nahezu Echtzeit \cite{VBondar2025}. Die weite Verbreitung der 
+Plattform zeigt sich auch an der Anzahl ihrer Nutzer:innen. Laut eigenen Angaben 
+von Grafana Labs wird \gls{grafana} von mehr als 35 Millionen Nutzer:innen weltweit 
+genutzt; mehr als 7.000 Unternehmen zählen dabei zu den zahlenden Kund:innen~\cite{grafana2026pressrelease}.
 
 \subsection{Aufbau}
 \label{subsec:grafana-buildup}
@@ -606,13 +714,42 @@ Quellen. \gls{grafana} verfügt bereits über eine Vielzahl integrierter Datenqu
 Für weitere Systeme können zusätzliche Datenquellen in Form von Plugins installiert oder 
 eigenständig entwickelt werden~\cite{grafana2026datasources}.
 
+Im Unterschied zu den in den folgenden Kapiteln beschriebenen direkten Anfragen an externe
+Systeme wie \gls{zabbix}, \gls{silverpeakcompany} oder \gls{merakicompany} erfolgt der Zugriff
+auf \gls{grafana}-eigene Datenquellen nicht direkt, sondern über den zentralen
+\gls{grafana}-Endpunkt \texttt{/api/ds/query}. Dieser nimmt die Abfrage entgegen, leitet sie
+intern an die konfigurierte Datenquelle weiter und gibt das Ergebnis in einem einheitlichen
+Datenformat zurück, unabhängig vom darunterliegenden System~\cite{grafana2026httpapi}.
+
+Ein möglicher Aufruf zur Abfrage einer in \gls{grafana} konfigurierten Datenquelle ist in
+Codebeispiel~\ref{lst:grafana-datasource-request} dargestellt.
+
+\begin{lstlisting}[language=Typescript, caption={Abfrage einer konfigurierten Datenquelle über die Grafana-API}, label={lst:grafana-datasource-request}]
+import { getBackendSrv } from '@grafana/runtime';
+
+async function queryDatasource(datasourceUid: string, rawSql: string) {
+    const response = await getBackendSrv().post('/api/ds/query', {
+        queries: [
+            {
+                refId: 'A',
+                datasource: { uid: datasourceUid },
+                rawSql,
+                format: 'table',
+            },
+        ],
+    });
+
+    console.log(response.results.A.frames);
+}
+
+queryDatasource('mssql-uid', 'SELECT TOP 10 * FROM dbo.Locations');
+\end{lstlisting}
+
 \subsection{Plugins}
 \label{subsec:grafana-plugins}
 
 \gls{grafana} bietet die Möglichkeit an Plugins zu installieren und diese zu nutzen~\cite{grafana2026pluginmanagement}.
 Darüber hinaus können auch selber Plugins entwickelt und veröffentlicht werden~\cite{grafana2026plugintutorials}.
-
-\newpage
 
 \subsection{API}
 \label{subsec:grafana-api}
