@@ -15,10 +15,11 @@ wird~\cite{grafana2026plugintools}.
 
 Dieses knüpft an die bestehende \gls{grafana}-Struktur an und nutzt bestehende Datenquellen,
 die in Abschnitt~\ref{sec:defined-sources} beschrieben sind. Des Weiteren wurde das Plugin zu
-einer bestehenden \gls{grafana}-Instanz hinzugefügt, die über \gls{helm} bereitgestellt wird,
-wie in Abbildung~\ref{fig:datasource-architecture} dargestellt ist. Der Einsatz von \gls{helm}
-ermöglicht dabei eine versionierte, wiederholbare Bereitstellung der \gls{grafana}-Instanz
-über verschiedene Umgebungen hinweg~\cite{helm2026intro}.
+einer bestehenden \gls{grafana}-Instanz hinzugefügt, die über das in
+Abschnitt~\ref{subsec:helm} beschriebene Werkzeug bereitgestellt wird, wie in
+Abbildung~\ref{fig:datasource-architecture} dargestellt ist. Dies ermöglicht dabei eine
+versionierte, wiederholbare Bereitstellung der \gls{grafana}-Instanz über verschiedene
+Umgebungen hinweg~\cite{helm2026intro}.
 
 Die einzelnen Systemelemente übernehmen folgende Aufgaben:
 \begin{compactitem}
@@ -458,3 +459,30 @@ abgerufen zu werden.
 \section{Kubernetes}
 \label{sec:kubernetes}
 
+Kubernetes ist eine skalierbare, quelloffene Plattform zur Automatisierung der
+Bereitstellung, Skalierung und Verwaltung containerisierter
+Anwendungen~\cite{kubernetes2026overview}. Die in Abschnitt~\ref{sec:defined-sources}
+beschriebene \gls{grafana}-Instanz samt Plugin läuft dabei als containerisierte
+Anwendung innerhalb eines solchen Kubernetes-Clusters. Für die Bereitstellung
+und Konfiguration dieser Instanz wird das in Abschnitt~\ref{subsec:helm}
+beschriebene Werkzeug eingesetzt.
+
+\subsection{Helm}
+\label{subsec:helm}
+
+Helm ist ein Paketmanager für Kubernetes, der die Verwaltung, Konfiguration
+und Bereitstellung von Anwendungen innerhalb eines Kubernetes-Clusters
+vereinfacht~\cite{helm2026intro}. Anwendungen und die zu ihrer Bereitstellung
+benötigten Kubernetes-Ressourcen werden dabei in sogenannten Charts gebündelt,
+die als wiederverwendbare, versionierbare Vorlagen dienen und sich über
+konfigurierbare Parameter an unterschiedliche Umgebungen anpassen lassen. Die
+\gls{grafana}-Instanz wird über ein solches Chart bereitgestellt, wodurch eine
+versionierte, wiederholbare Bereitstellung über verschiedene Umgebungen hinweg
+ermöglicht wird~\cite{helm2026intro}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{pics/helm-kubernetes.png}
+    \caption{Zusammenspiel von Helm und Kubernetes~\cite{paschalogu2026helm}}
+    \label{fig:helm-kubernetes}
+\end{figure}
