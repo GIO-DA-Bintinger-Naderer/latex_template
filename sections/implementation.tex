@@ -45,12 +45,33 @@ werden müssen~\cite{fowler2026repository,Gamma1994}.
 Abbildung~\ref{fig:repository-architecture} zeigt den Aufbau der Repository-Schicht sowie 
 deren Zusammenspiel mit den Query-, Mapping- und Entity-Komponenten.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{pics/repository-pattern.png}
-    \caption{Architektur der Repository-Schicht}
-    \label{fig:repository-architecture}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[ width=\textwidth, height=0.85\textheight, keepaspectratio ]{pics/repository-pattern.png} 
+    \caption{Architektur der Repository-Schicht} 
+    \label{fig:repository-architecture} 
 \end{figure}
+
+\subsection{Externe Kommunikation}
+\label{subsec:extern-communication}
+
+Wie in Abbildung~\ref{fig:repository-architecture} dargestellt, wird für die
+Kommunikation mit der Silverpeak-Schnittstelle zusätzlich ein Client
+eingesetzt. Dieser wird vor dem eigentlichen Datenabruf aufgerufen und
+übernimmt die Authentifizierung gegenüber der Silverpeak-Schnittstelle.
+
+Der Einsatz des Clients ist aufgrund der in Abschnitt~\ref{subsec:silverpeak-api}
+beschriebenen Authentifizierungsmethode erforderlich. Nach erfolgreicher
+Authentifizierung stellt die Silverpeak-Schnittstelle ein Session-Cookie
+sowie ein CSRF-Token bereit. Diese werden vom Client übernommen und für die
+nachfolgenden Anfragen verwendet. Dadurch kann die aufgebaute Session über
+mehrere Datenabfragen hinweg wiederverwendet werden, ohne dass für jeden
+Datenabruf eine erneute Authentifizierung erforderlich ist.
+
+Der \texttt{SilverpeakClient} kapselt damit die für die Silverpeak-Schnittstelle
+erforderliche Sitzungs- und Authentifizierungslogik. Die darüberliegenden
+Komponenten müssen sich dadurch nicht mit der Verwaltung der Session-Cookies
+und des CSRF-Tokens auseinandersetzen.
 
 \section{Datenaufbereitung}
 \label{sec:data-aggregation}
@@ -114,15 +135,13 @@ SELECT
     );
 \end{lstlisting}
 \section{Datenintegration}
-
 \label{sec:data-integration}
 
 Die Datenintegration kapselt die von den Repositories bereitgestellten Daten, die in 
 Abschnitt~\ref{sec:data-loading} beschrieben und dargestellt sind. Die einzelnen und 
-aggregierten Werte werden an die Visualisierung weitergegeben~\cite{Putrama2024,Wen2020DataAggregation}.
+aggregierten Werte werden an die Visualisierung weitergegeben~\cite{Putrama2024}.
 
 \subsection{Verwendete Entwurfspattern}
-
 \label{subsec:used-dataintegration-pattern}
 
 Dafür wurde das Provider Pattern genutzt~\cite{ProviderPattern}. Durch eine Aufteilung 
@@ -150,13 +169,13 @@ Dadurch wird die Datenintegration von der eigentlichen Visualisierung getrennt. 
 Visualisierungsschicht muss somit weder auf die einzelnen Repositories zugreifen noch 
 die Zusammenführung der benötigten Daten selbst durchführen. Änderungen an der Zusammenführung 
 oder an der Zusammensetzung der bereitgestellten Daten können dadurch innerhalb der 
-jeweiligen Provider oder Callbacks vorgenommen werden, ohne die Visualisierungsschicht 
+jeweiligen Provider oder Callbacks vorgenommen werden, ohne die Visualisierungsschicht
 direkt anzupassen~\cite{ProviderPattern}.
 
 In der folgenden Abbildung~\ref{fig:provider-architecture} wird die Struktur in einem 
 Diagramm abgebildet.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{pics/provider-design-pattern.png}
     \caption{Architektur des Provider Patterns}
