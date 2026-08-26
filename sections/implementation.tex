@@ -2,7 +2,7 @@
 \label{sec:data-loading}
 
 Die Daten werden grundsätzlich über die in Abschnitt~\ref{subsec:grafana-datasources} beschriebenen 
-Datenquellen bereitgestellt. Der Zugriff auf diese Daten erfolgt über die in Kapitel~\ref{subsec:grafana-api} 
+Datenquellen bereitgestellt. Der Zugriff auf diese Daten erfolgt über die in Abschnitt~\ref{subsec:grafana-api} 
 beschriebene \gls{grafana}-API. Dieser Ansatz wurde gewählt, um die bereits vorhandene Infrastruktur von 
 \gls{grafana} für den Datenzugriff zu nutzen. Dadurch ist keine separate Anbindung der Anwendung an die 
 einzelnen zugrunde liegenden Systeme erforderlich. Der dabei verwendete Informationsweg über die 
@@ -62,8 +62,8 @@ eingesetzt. Dieser wird vor dem eigentlichen Datenabruf aufgerufen und
 
 Der Einsatz des Clients ist aufgrund der in Abschnitt~\ref{subsec:silverpeak-api}
 beschriebenen Authentifizierungsmethode erforderlich. Nach erfolgreicher
-Authentifizierung stellt die Silverpeak-Schnittstelle ein Session-Cookie
-sowie ein CSRF-Token bereit. Diese werden vom Client übernommen und für die
+Authentifizierung stellt die Silverpeak-Schnittstelle ein \gls{sessioncookie}
+sowie ein \gls{csrftoken} bereit. Diese werden vom Client übernommen und für die
 nachfolgenden Anfragen verwendet. Dadurch kann die aufgebaute Session über
 mehrere Datenabfragen hinweg wiederverwendet werden, ohne dass für jeden
 Datenabruf eine erneute Authentifizierung erforderlich ist.
@@ -181,6 +181,38 @@ Diagramm abgebildet.
     \caption{Architektur des Provider Patterns}
     \label{fig:provider-architecture}
 \end{figure}
+
+\section{Fehlerbehandlung}
+\label{sec:error-handling}
+
+Die in den Abschnitten~\ref{sec:data-loading}, \ref{sec:data-aggregation} und
+\ref{sec:data-integration} beschriebenen Schichten der Datenanbindung, -aufbereitung und
+-integration können bei fehlerhaften oder nicht erreichbaren Datenquellen sowie bei
+fehlgeschlagenen Operationen Fehler auslösen. Diese Fehler werden nicht auf der jeweiligen
+Ebene verworfen, sondern durchgereicht und schließlich auf der in
+Abschnitt~\ref{sec:data-visualization} beschriebenen Visualisierungsebene angezeigt.
+
+Dabei wird zwischen Fehlern unterschieden, die eine einzelne Datenquelle betreffen, und
+solchen, die sich auf die gesamte Anfrage auswirken. Schlägt beispielsweise der Abruf einer
+einzelnen, in Abschnitt~\ref{sec:defined-sources} beschriebenen Datenquelle fehl, wird dies
+den übrigen, erfolgreich abgerufenen Daten nicht mitgeteilt. Stattdessen wird der Fehler der
+jeweiligen Datenquelle zugeordnet und unabhängig von den übrigen Daten dargestellt. Dadurch
+bleibt die restliche Darstellung eines Standorts oder Systems auch dann nutzbar, wenn
+einzelne Datenquellen temporär nicht erreichbar sind.
+
+Auf Ebene der in Abschnitt~\ref{subsec:used-databinding-patterns} beschriebenen Repositories
+werden dabei auftretende Fehler, etwa bei einer fehlgeschlagenen Abfrage über die
+\gls{grafana}-API, abgefangen und in ein einheitliches Fehlerformat überführt. Dieses
+Fehlerformat wird anschließend über die in Abschnitt~\ref{subsec:used-dataintegration-pattern}
+beschriebenen Provider an die Visualisierungsebene weitergereicht. Durch diese einheitliche
+Fehlerbehandlung müssen die einzelnen Komponenten der Visualisierungsebene nicht für jede
+Datenquelle eine eigene Fehlerbehandlung implementieren, sondern können auf ein gemeinsames
+Fehlerformat zurückgreifen.
+
+Auf der Visualisierungsebene werden Fehler den Nutzer:innen kontextbezogen angezeigt,
+beispielsweise direkt bei dem betroffenen Standort, System oder Gerät. Dadurch wird
+unmittelbar ersichtlich, welche Informationen aufgrund eines Fehlers nicht dargestellt
+werden können, ohne dass dafür die gesamte Ansicht unbrauchbar wird.
 
 \section{Datenvisualisierung}
 \label{sec:data-visualization}

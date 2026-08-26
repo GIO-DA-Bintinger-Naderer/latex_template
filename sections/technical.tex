@@ -49,20 +49,12 @@ eines Netzwerks. Sie ermöglichen eine Bewertung der Netzwerkkommunikation
 und können dazu beitragen, potenzielle Probleme und Abweichungen frühzeitig
 zu erkennen~\cite{aruba2026userguide}.
 
-Für die Darstellung im Plugin wurden solche Netzwerkmetriken ausgewählt,
-die einen schnellen Überblick über den Zustand der Netzwerkinfrastruktur
-eines Standorts ermöglichen. Die nachfolgend beschriebenen Werte geben
-dabei einen kompakten Überblick über wesentliche Aspekte der
-Netzwerkumgebung, ohne dass hierfür die einzelnen Systeme und deren
-detaillierte Zustände betrachtet werden müssen. Dadurch können
-beispielsweise die Leistungsfähigkeit, Verfügbarkeit und vorhandene
-Redundanz eines Standorts auf einen Blick eingeschätzt werden.
-
-Die ausgewählten Metriken bilden damit die Grundlage für eine
-übersichtliche Darstellung des Netzwerkzustands auf Standortebene.
-Zusätzlich werden die entsprechenden Einzelwerte der überwachten Systeme
-erfasst, um bei Bedarf eine detailliertere Betrachtung der
-Netzwerkinfrastruktur zu ermöglichen.
+Für die Darstellung im Plugin wurden Netzwerkmetriken ausgewählt, die einen
+schnellen Überblick über die Leistungsfähigkeit, Verfügbarkeit und
+vorhandene Redundanz eines Standorts ermöglichen, ohne dass hierfür die
+einzelnen Systeme betrachtet werden müssen. Zusätzlich werden die
+entsprechenden Einzelwerte der überwachten Systeme erfasst, um bei Bedarf
+eine detailliertere Betrachtung der Netzwerkinfrastruktur zu ermöglichen.
 
 \subsection{Aggregierte Standortwerte}
 \label{subsec:netzwerk-aggregierte-werte}
@@ -229,19 +221,16 @@ beschreiben.
 \label{sec:systemmetriken}
 
 Systemmetriken beschreiben den aktuellen Zustand, die Verfügbarkeit und
-die Ressourcennutzung der an einem Standort betriebenen Systeme.
-Sie ermöglichen eine Einschätzung, ob die vorhandenen Systeme
-ordnungsgemäß betrieben werden und ob sich Auffälligkeiten oder
-Kapazitätsengpässe erkennen lassen.
+die Ressourcennutzung der an einem Standort betriebenen Systeme. Sie
+ermöglichen eine Einschätzung, ob die vorhandenen Systeme ordnungsgemäß
+betrieben werden und ob sich Auffälligkeiten oder Kapazitätsengpässe
+erkennen lassen.
 
-Für die Darstellung im Plugin wurden Metriken ausgewählt, die eine
-Bewertung des Systemzustands auf Standortebene ermöglichen. Dabei wird
-zwischen aggregierten Standortwerten und Einzelwerten der jeweiligen
-Systeme unterschieden. Die aggregierten Werte dienen einer schnellen
-Übersicht über den Zustand eines Standorts, während die Einzelwerte eine
-detaillierte Untersuchung einzelner Systeme ermöglichen.
-
-Bei der Auswahl der Systemmetriken wurden insbesondere folgende Aspekte
+Für die Darstellung im Plugin wurde dabei zwischen aggregierten
+Standortwerten und Einzelwerten der jeweiligen Systeme unterschieden:
+Erstere ermöglichen eine schnelle Übersicht auf Standortebene, Letztere
+eine detaillierte Untersuchung einzelner Systeme. Bei der Auswahl der
+zugrunde liegenden Metriken wurden insbesondere folgende Aspekte
 berücksichtigt:
 
 \begin{compactitem}
@@ -250,10 +239,6 @@ berücksichtigt:
     \item Bewertung der Verfügbarkeit der Systeme
     \item Erkennung sicherheits- und wartungsrelevanter Zustände
 \end{compactitem}
-
-Die ausgewählten Metriken ermöglichen dadurch sowohl eine schnelle
-Bewertung des Systemzustands auf Standortebene als auch eine
-anschließende detaillierte Untersuchung einzelner Systeme.
 
 \subsection{Aggregierte Standortwerte}
 \label{subsec:system-aggregierte-werte}
@@ -276,7 +261,7 @@ ist.
     der aktuell erkannten Probleme der Systeme eines Standorts.
     Sie ermöglicht eine schnelle Einschätzung des aktuellen
     Problemzustands und kann als Ausgangspunkt für eine detaillierte
-    Untersuchung dienen.
+    Untersuchung dienen~\cite{zabbix2026problemget}.
 
     \item \textbf{Anzahl fehlender Softwareaktualisierungen:} Diese
     Metrik beschreibt die Anzahl der Systeme beziehungsweise
@@ -330,19 +315,18 @@ die Bewertung der verfügbaren Rechen-, Speicher- und
 Datenspeicherkapazität.
 
 \begin{compactitem}
-
     \item \textbf{CPU-Auslastung:} Beschreibt den Anteil der aktuell
     genutzten Rechenleistung. Sie ermöglicht die Erkennung einer
     erhöhten CPU-Auslastung und damit möglicher
-    Kapazitätsengpässe.
+    Kapazitätsengpässe~\cite{vmware2026vsan}.
 
     \item \textbf{RAM-Auslastung:} Beschreibt den Anteil des aktuell
     genutzten Arbeitsspeichers. Sie ermöglicht die Bewertung der
-    Speicherauslastung des Systems.
+    Speicherauslastung des Systems~\cite{vmware2026vsan}.
 
     \item \textbf{Speicherauslastung:} Beschreibt den Anteil des
     verfügbaren Massenspeichers, der aktuell belegt ist. Sie ermöglicht
-    die Erkennung eines erhöhten Speicherbedarfs.
+    die Erkennung eines erhöhten Speicherbedarfs~\cite{vmware2026vsan}.
 
     \item \textbf{Datenspeicher-Auslastung:} Beschreibt den Anteil des
     verfügbaren Datenspeichers, der aktuell genutzt wird. Sie ermöglicht
@@ -356,8 +340,7 @@ Datenspeicherkapazität.
     \item \textbf{Genutzte vSAN-Kapazität:} Beschreibt die aktuell
     belegte Speicherkapazität innerhalb des \gls{vsan}-Verbunds.
     Sie ermöglicht die Bewertung der aktuellen Auslastung und
-    verfügbarer Kapazitätsreserven.
-
+    verfügbarer Kapazitätsreserven~\cite{vmware2026vsan}.
 \end{compactitem}
 
 \paragraph{HCI Konfigurationsdaten}
@@ -415,15 +398,15 @@ gleichzeitig auf einen bestehenden Handlungsbedarf hinweisen.
 
     \item \textbf{CPU-Auslastung:} Beschreibt die aktuelle Nutzung der
     verfügbaren Rechenleistung und ermöglicht die Erkennung einer
-    erhöhten CPU-Auslastung.
+    erhöhten CPU-Auslastung~\cite{microsoft2026troubleshoot}.
 
     \item \textbf{RAM-Auslastung:} Beschreibt die aktuelle Nutzung des
     verfügbaren Arbeitsspeichers und ermöglicht die Erkennung einer
-    erhöhten Speicherauslastung.
+    erhöhten Speicherauslastung~\cite{microsoft2026troubleshoot}.
 
     \item \textbf{Speicherauslastung:} Beschreibt den aktuell belegten
     Massenspeicher und ermöglicht die Erkennung von
-    Kapazitätsengpässen.
+    Kapazitätsengpässen~\cite{microsoft2026troubleshoot}.
 
     \item \textbf{Defender-Status:} Beschreibt den aktuellen
     Betriebs- und Schutzstatus des Microsoft Defenders. Dadurch kann
@@ -432,11 +415,11 @@ gleichzeitig auf einen bestehenden Handlungsbedarf hinweisen.
     \item \textbf{Zabbix-Status:} Beschreibt die Verfügbarkeit und
     Erreichbarkeit des Servers aus Sicht von Zabbix. Dadurch kann
     zwischen einem verfügbaren und einem nicht erreichbaren System
-    unterschieden werden.
+    unterschieden werden~\cite{zabbix2026availability}.
 
     \item \textbf{Zabbix-Probleme:} Beschreibt die Anzahl der aktuell
     für den Server erkannten Probleme. Die Metrik ermöglicht eine
-    schnelle Bewertung des Problemzustands.
+    schnelle Bewertung des Problemzustands~\cite{zabbix2026problemget}.
 
     \item \textbf{Anzahl fehlender Softwareaktualisierungen:}
     Beschreibt den bestehenden Aktualisierungsbedarf des Servers.
