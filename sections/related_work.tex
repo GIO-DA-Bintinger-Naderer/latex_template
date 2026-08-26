@@ -1,6 +1,52 @@
-%\lipsum[4] Citing \cite{InfH} properly.
+\chapter{Verwandte Arbeiten}
+\label{chapter:related-work}
 
-%Was ist eine \gls{guid}?
-%Eine \gls{guid} kollidiert nicht gerne.
+\section{Grafana als Visualisierungsschicht für Monitoring-Daten}
+\label{sec:related-grafana}
 
-%Kabellose Technologien sind in abgelegenen Gebieten wichtig \cite{APCW2006}.
+Der Einsatz von \gls{grafana} als zentrale Visualisierungsschicht für heterogene
+Monitoring-Daten wurde bereits in unterschiedlichen Anwendungskontexten untersucht.
+Bondar et al. beschreiben den Einsatz von \gls{grafana} als Präsentationsschicht für das
+Kontrollsystem Karabo am European XFEL, wo \gls{grafana}-Dashboards eine nahezu
+echtzeitfähige Überwachung von Steuerungsdaten ermöglichen und dabei verschiedene
+Monitoring-Szenarien sowie gewonnene Erkenntnisse aus dem praktischen Einsatz
+diskutiert werden~\cite{VBondar2025}. Diese Arbeit bestätigt die Eignung von
+\gls{grafana} für zeitkritische Monitoring-Anwendungen, wie sie auch der in dieser
+Arbeit beschriebenen Reaktionszeitanforderung zugrunde liegt (siehe
+Abschnitt~\ref{subsec:reaction-times}), allerdings in einem wissenschaftlichen statt
+industriellen Kontext und ohne die Notwendigkeit, mehrere unabhängige, proprietäre
+Drittanbieter-Systeme über ein eigenständiges Plugin anzubinden.
+
+\section{Integration heterogener Datenquellen}
+\label{sec:related-integration}
+
+Die Zusammenführung von Daten aus unterschiedlichen, technisch heterogenen Systemen
+stellt eine zentrale Herausforderung dar, die auch außerhalb des Monitoring-Kontexts
+untersucht wird. Putrama und Martinek geben einen umfassenden Überblick über
+bestehende Ansätze zur Integration heterogener Datenquellen und unterscheiden dabei
+insbesondere zwischen physischer und virtueller Datenintegration. Sie stellen fest,
+dass physische Integrationssysteme zwar über eine leistungsfähigere
+Abfrageverarbeitung verfügen, jedoch mit höherem Implementierungs- und
+Wartungsaufwand verbunden sind, während virtuelle Integrationsansätze zunehmend an
+Bedeutung gewinnen~\cite{Putrama2024}. Diese Erkenntnis deckt sich mit der in
+Abschnitt~\ref{subsec:reaction-times} getroffenen Entscheidung für eine virtuelle
+Datenintegration innerhalb des entwickelten Plugins, bei der die vorliegende Arbeit
+den beschriebenen Zusammenhang zwischen Implementierungsaufwand und Antwortzeit im
+konkreten Anwendungsfall mehrerer Netzwerk- und Systemüberwachungsquellen praktisch
+bestätigt.
+
+\section{Zentrale Darstellung verteilter Infrastruktur}
+\label{sec:related-spog}
+
+Das Konzept einer zentralen, konsolidierten Sicht auf verteilte, heterogene
+Infrastruktur wird in der Literatur unter anderem im Kontext des sogenannten
+\enquote{Single Pane of Glass}-Ansatzes diskutiert. Velez-Rojas et al. weisen darauf
+hin, dass Netzwerk-Verantwortliche in modernen Unternehmensumgebungen mit sehr
+großen Mengen an Informationen umgehen müssen, und schlagen eine Visualisierungsmethode
+vor, die Übersichten generiert und dabei die für die jeweilige Nutzerin oder den
+jeweiligen Nutzer relevantesten Zusammenhänge hervorhebt~\cite{VelezRojas2013}. Der
+in dieser Arbeit entwickelte Ansatz verfolgt ein ähnliches Ziel auf Ebene einzelner
+Standorte: Anstatt sämtliche Detailinformationen gleichwertig darzustellen, werden,
+wie in Abschnitt~\ref{sec:systemmetriken} und Abschnitt~\ref{sec:netzwerkmetriken}
+beschrieben, zunächst aggregierte Standortwerte präsentiert, die bei Bedarf eine
+gezielte Detailbetrachtung einzelner Systeme ermöglichen.
