@@ -2,7 +2,7 @@
 \label{sec:data-loading}
 
 Die Daten werden grundsätzlich über die in Abschnitt~\ref{subsec:grafana-datasources} beschriebenen 
-Datenquellen bereitgestellt. Der Zugriff auf diese Daten erfolgt über die in Kapitel~\ref{subsec:grafana-api} 
+Datenquellen bereitgestellt. Der Zugriff auf diese Daten erfolgt über die in Abschnitt~\ref{subsec:grafana-api} 
 beschriebene \gls{grafana}-API. Dieser Ansatz wurde gewählt, um die bereits vorhandene Infrastruktur von 
 \gls{grafana} für den Datenzugriff zu nutzen. Dadurch ist keine separate Anbindung der Anwendung an die 
 einzelnen zugrunde liegenden Systeme erforderlich. Der dabei verwendete Informationsweg über die 
@@ -45,12 +45,33 @@ werden müssen~\cite{fowler2026repository,Gamma1994}.
 Abbildung~\ref{fig:repository-architecture} zeigt den Aufbau der Repository-Schicht sowie 
 deren Zusammenspiel mit den Query-, Mapping- und Entity-Komponenten.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{pics/repository-pattern.png}
-    \caption{Architektur der Repository-Schicht}
-    \label{fig:repository-architecture}
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[ width=\textwidth, height=0.85\textheight, keepaspectratio ]{pics/repository-pattern.png} 
+    \caption{Architektur der Repository-Schicht} 
+    \label{fig:repository-architecture} 
 \end{figure}
+
+\subsection{Externe Kommunikation}
+\label{subsec:extern-communication}
+
+Wie in Abbildung~\ref{fig:repository-architecture} dargestellt, wird für die
+Kommunikation mit der Silverpeak-Schnittstelle zusätzlich ein Client
+eingesetzt. Dieser wird vor dem eigentlichen Datenabruf aufgerufen und
+übernimmt die Authentifizierung gegenüber der Silverpeak-Schnittstelle.
+
+Der Einsatz des Clients ist aufgrund der in Abschnitt~\ref{subsec:silverpeak-api}
+beschriebenen Authentifizierungsmethode erforderlich. Nach erfolgreicher
+Authentifizierung stellt die Silverpeak-Schnittstelle ein \gls{sessioncookie}
+sowie ein \gls{csrftoken} bereit. Diese werden vom Client übernommen und für die
+nachfolgenden Anfragen verwendet. Dadurch kann die aufgebaute Session über
+mehrere Datenabfragen hinweg wiederverwendet werden, ohne dass für jeden
+Datenabruf eine erneute Authentifizierung erforderlich ist.
+
+Der \texttt{SilverpeakClient} kapselt damit die für die Silverpeak-Schnittstelle
+erforderliche Sitzungs- und Authentifizierungslogik. Die darüberliegenden
+Komponenten müssen sich dadurch nicht mit der Verwaltung der Session-Cookies
+und des CSRF-Tokens auseinandersetzen.
 
 \section{Datenaufbereitung}
 \label{sec:data-aggregation}
@@ -114,15 +135,13 @@ SELECT
     );
 \end{lstlisting}
 \section{Datenintegration}
-
 \label{sec:data-integration}
 
 Die Datenintegration kapselt die von den Repositories bereitgestellten Daten, die in 
 Abschnitt~\ref{sec:data-loading} beschrieben und dargestellt sind. Die einzelnen und 
-aggregierten Werte werden an die Visualisierung weitergegeben~\cite{Putrama2024,Wen2020DataAggregation}.
+aggregierten Werte werden an die Visualisierung weitergegeben~\cite{Putrama2024}.
 
 \subsection{Verwendete Entwurfspattern}
-
 \label{subsec:used-dataintegration-pattern}
 
 Dafür wurde das Provider Pattern genutzt~\cite{ProviderPattern}. Durch eine Aufteilung 
@@ -150,18 +169,50 @@ Dadurch wird die Datenintegration von der eigentlichen Visualisierung getrennt. 
 Visualisierungsschicht muss somit weder auf die einzelnen Repositories zugreifen noch 
 die Zusammenführung der benötigten Daten selbst durchführen. Änderungen an der Zusammenführung 
 oder an der Zusammensetzung der bereitgestellten Daten können dadurch innerhalb der 
-jeweiligen Provider oder Callbacks vorgenommen werden, ohne die Visualisierungsschicht 
+jeweiligen Provider oder Callbacks vorgenommen werden, ohne die Visualisierungsschicht
 direkt anzupassen~\cite{ProviderPattern}.
 
 In der folgenden Abbildung~\ref{fig:provider-architecture} wird die Struktur in einem 
 Diagramm abgebildet.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{pics/provider-design-pattern.png}
     \caption{Architektur des Provider Patterns}
     \label{fig:provider-architecture}
 \end{figure}
+
+\section{Fehlerbehandlung}
+\label{sec:error-handling}
+
+Die in den Abschnitten~\ref{sec:data-loading}, \ref{sec:data-aggregation} und
+\ref{sec:data-integration} beschriebenen Schichten der Datenanbindung, -aufbereitung und
+-integration können bei fehlerhaften oder nicht erreichbaren Datenquellen sowie bei
+fehlgeschlagenen Operationen Fehler auslösen. Diese Fehler werden nicht auf der jeweiligen
+Ebene verworfen, sondern durchgereicht und schließlich auf der in
+Abschnitt~\ref{sec:data-visualization} beschriebenen Visualisierungsebene angezeigt.
+
+Dabei wird zwischen Fehlern unterschieden, die eine einzelne Datenquelle betreffen, und
+solchen, die sich auf die gesamte Anfrage auswirken. Schlägt beispielsweise der Abruf einer
+einzelnen, in Abschnitt~\ref{sec:defined-sources} beschriebenen Datenquelle fehl, wird dies
+den übrigen, erfolgreich abgerufenen Daten nicht mitgeteilt. Stattdessen wird der Fehler der
+jeweiligen Datenquelle zugeordnet und unabhängig von den übrigen Daten dargestellt. Dadurch
+bleibt die restliche Darstellung eines Standorts oder Systems auch dann nutzbar, wenn
+einzelne Datenquellen temporär nicht erreichbar sind.
+
+Auf Ebene der in Abschnitt~\ref{subsec:used-databinding-patterns} beschriebenen Repositories
+werden dabei auftretende Fehler, etwa bei einer fehlgeschlagenen Abfrage über die
+\gls{grafana}-API, abgefangen und in ein einheitliches Fehlerformat überführt. Dieses
+Fehlerformat wird anschließend über die in Abschnitt~\ref{subsec:used-dataintegration-pattern}
+beschriebenen Provider an die Visualisierungsebene weitergereicht. Durch diese einheitliche
+Fehlerbehandlung müssen die einzelnen Komponenten der Visualisierungsebene nicht für jede
+Datenquelle eine eigene Fehlerbehandlung implementieren, sondern können auf ein gemeinsames
+Fehlerformat zurückgreifen.
+
+Auf der Visualisierungsebene werden Fehler den Nutzer:innen kontextbezogen angezeigt,
+beispielsweise direkt bei dem betroffenen Standort, System oder Gerät. Dadurch wird
+unmittelbar ersichtlich, welche Informationen aufgrund eines Fehlers nicht dargestellt
+werden können, ohne dass dafür die gesamte Ansicht unbrauchbar wird.
 
 \section{Datenvisualisierung}
 \label{sec:data-visualization}

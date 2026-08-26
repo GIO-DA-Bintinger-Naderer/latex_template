@@ -1,10 +1,59 @@
 \section{Organisation}
+\label{sec:organisation}
 
+Das Projektmanagement wurde über \gls{githubprojects} gehandhabt. Dort wurden Aufgaben in
+Form von Issues erfasst, priorisiert und den jeweiligen Meilensteinen zugeordnet. Der
+Fortschritt einzelner Aufgaben wurde dabei über ein Kanban-Board nachverfolgt, das die
+Issues den Status \enquote{Offen}, \enquote{In Bearbeitung} und \enquote{Abgeschlossen}
+zuordnet.
 
-\subsection{Milestones},
+Der eigentliche Quellcode sowie die Versionsverwaltung erfolgten hingegen über
+\gls{azuredevops}. Der Wechsel zwischen den beiden Werkzeugen war notwendig, da
+\gls{azuredevops} bei der Primetals Technologies Austria GmbH unternehmensweit als
+Standardwerkzeug für die Quellcodeverwaltung eingesetzt wird.
 
+Für die Entwicklung wurde dabei ein Feature-Branch-Workflow verwendet. Für jede neue
+Funktionalität oder Fehlerbehebung wurde ein eigener Branch von der Hauptentwicklungslinie
+abgezweigt. Nach Fertigstellung wurde der jeweilige Branch über einen Pull Request in die
+Hauptentwicklungslinie zurückgeführt. Dadurch konnte der Quellcode vor der Übernahme
+überprüft werden, ohne dabei die Hauptentwicklungslinie durch unfertige Änderungen zu
+beeinträchtigen.
+
+\subsection{Meilensteine}
+\label{subsec:milestones}
+
+Die Entwicklung des Plugins wurde in mehrere Meilensteine unterteilt, die jeweils einen
+inhaltlich abgeschlossenen Funktionsbereich der Anwendung abbilden. Jeder Meilenstein
+fasste dabei die zugehörigen Issues zusammen und ermöglichte dadurch eine Einschätzung
+des Fortschritts innerhalb des jeweiligen Bereichs. Durch diese Unterteilung konnte der
+Gesamtumfang des Projekts in überschaubare, nacheinander umsetzbare Abschnitte gegliedert
+werden.
 
 \subsection{Kommunikation}
+\label{subsec:communication}
 
+Für die laufende Kommunikation und Abstimmung während der Entwicklung wurden regelmäßige
+Besprechungen genutzt, in denen der aktuelle Projektstand sowie offene Fragen besprochen
+wurden. Rückmeldungen und Anmerkungen zu einzelnen Aufgaben wurden dabei direkt innerhalb
+der zugehörigen Issues in \gls{githubprojects} dokumentiert, wodurch der Verlauf einer
+Entscheidung oder Änderung auch im Nachhinein nachvollziehbar bleibt.
 
 \section{Probleme}
+\label{sec:project-problems}
+
+Ein wesentliches Problem während der Entwicklung bestand darin, dass zu Beginn des
+Projekts kein Zugriff auf die produktiven, internen Datenquellen der Primetals
+Technologies Austria GmbH gewährt werden konnte. Die zugrunde liegenden Daten lagen dabei
+zwar bereits vor, jedoch war ein direkter Zugriff auf diese aus unternehmensinternen
+Gründen zunächst nicht möglich. Stattdessen wurden die betreffenden Daten im
+CSV- beziehungsweise Excel-Format bereitgestellt.
+
+Da die in Abschnitt~\ref{sec:defined-sources} beschriebenen \gls{grafana}-Datenquellen
+jedoch auf \gls{mssql}-Datenbanken sowie APIs basieren, konnten diese bereitgestellten
+Dateien nicht direkt für die Entwicklung der Datenanbindung verwendet werden.
+
+Um die Entwicklung des Plugins dennoch frühzeitig testen und vorantreiben zu können,
+wurde die Erstellung künstlicher, testweise verwendeter Datenquellen zu Beginn des
+Projekts stärker priorisiert. Dadurch konnte die Entwicklung der Anwendung bereits
+fortgesetzt werden, ohne auf die endgültige Freigabe des Zugriffs auf die produktiven
+Datenquellen warten zu müssen.
