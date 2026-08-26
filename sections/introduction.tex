@@ -1,4 +1,5 @@
 \section{Ausgangssituation}
+\label{sec:inital-situation}
 
 Mitarbeitende der Primetals Technologies Austria GmbH müssen derzeit auf mehrere
 Systeme zugreifen, um Informationen über die IT-Infrastruktur des Unternehmens
@@ -10,6 +11,7 @@ diesen Systemen gearbeitet haben, berichten außerdem, dass wichtige Information
 aufgrund des fehlenden zentralen Überblicks leicht übersehen werden können.
 
 \subsection{Unternehmen}
+\label{subsec:primetals-company}
 
 Die Primetals Technologies Austria GmbH ist ein internationales Ingenieurunternehmen,
 das sich auf Technologien, Anlagen und automatisierte Lösungen für die Metallindustrie
@@ -17,6 +19,7 @@ spezialisiert. Das Unternehmen entwickelt Lösungen für die Stahlproduktion mit
 Produktivität, Nachhaltigkeit und Digitalisierung zu verbessern~\cite{primetals2026}.
 
 \subsection{Infrastrukturlandschaft}
+\label{subsec:technical-landscape}
 
 Die Infrastruktur der Primetals Technologies Austria GmbH besteht aus mehreren
 Quellen, die Informationen über unterschiedliche Unternehmensressourcen enthalten.
@@ -26,6 +29,7 @@ Webanwendungen Informationen über Geräte, Azure-Dienste und den Verbindungssta
 verschiedener Netzwerke bereit.
 
 \section{Problemstellung}
+\label{sec:problem-description}
 
 Die aktuelle Infrastruktur erfordert, dass Mitarbeitende Daten aus unabhängigen
 Quellen manuell zusammenführen, um ein vollständiges Bild der Unternehmensinfrastruktur
@@ -34,6 +38,7 @@ während der Datenanalyse. Dadurch fehlt eine verlässliche Möglichkeit, den ak
 Zustand der IT-Infrastruktur effizient zu überwachen.
 
 \section{Konzept}
+\label{sec:concept}
 
 Das vorgeschlagene Konzept basiert auf einer zentralen Anwendung, die Informationen
 aus bestehenden Quellen sammelt und aggregiert. Die gesammelten Daten werden über
@@ -44,6 +49,7 @@ bei der Identifikation von Problemen innerhalb der technischen Landschaft des
 Unternehmens unterstützt.
 
 \section{Lösungsansatz}
+\label{sec:solution-approach}
 
 Ziel ist ein \gls{grafana}-Plugin, das das Global Infrastructure Overview (GIO)-System
 implementiert. Das Plugin ist in mehrere Schichten unterteilt, um Datenverarbeitung,
@@ -68,10 +74,13 @@ Autorisierungsmechanismen abgesichert, sodass nur berechtigte Benutzer:innen auf
 zugreifen können.
 
 \section{Aufbau der Arbeit}
+\label{sec:structure-of-work}
 
-Die Arbeit ist in mehrere Kapitel gegliedert. Nach der Einleitung werden die technischen
-Grundlagen von \gls{grafana} und den benötigten Technologien vorgestellt. Dabei werden auch 
-grundlegende technische Begriffe und Konzepte erläutert, die für das Verständnis der 
-weiteren Kapitel relevant sind. Das folgende Kapitel beschreibt die Architektur und 
-Implementierung der entwickelten Lösung. Die Arbeit schließt mit einer Evaluation des 
+Die Arbeit ist in mehrere Kapitel gegliedert. Nach der Einleitung werden verwandte
+Arbeiten vorgestellt, die sich mit ähnlichen Themen und Ansätzen befassen und die
+vorliegende Arbeit thematisch einordnen. Anschließend werden die technischen
+Grundlagen von \gls{grafana} und den benötigten Technologien vorgestellt. Dabei werden
+auch grundlegende technische Begriffe und Konzepte erläutert, die für das Verständnis
+der weiteren Kapitel relevant sind. Das folgende Kapitel beschreibt die Architektur und
+Implementierung der entwickelten Lösung. Die Arbeit schließt mit einer Evaluation des
 Systems, einer Diskussion der Ergebnisse und möglichen zukünftigen Erweiterungen ab.

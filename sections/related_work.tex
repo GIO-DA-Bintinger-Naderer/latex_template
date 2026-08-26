@@ -1,5 +1,10 @@
-\chapter{Verwandte Arbeiten}
-\label{chapter:related-work}
+Die in Abschnitt~\ref{sec:organisation} beschriebene Ausgangssituation bei der Primetals
+Technologies Austria GmbH -- verteilte, technisch heterogene Datenquellen, die Mitarbeitende
+derzeit manuell zusammenführen müssen -- ist kein unternehmensspezifisches Einzelproblem,
+sondern eine wiederkehrende Herausforderung im Bereich der IT-Infrastrukturüberwachung. Die
+folgenden Abschnitte ordnen die in dieser Arbeit entwickelte Lösung in bestehende Ansätze aus
+den Bereichen Monitoring-Visualisierung, heterogene Datenintegration und zentrale
+Infrastrukturdarstellung ein.
 
 \section{Grafana als Visualisierungsschicht für Monitoring-Daten}
 \label{sec:related-grafana}
@@ -15,7 +20,8 @@ diskutiert werden~\cite{VBondar2025}. Diese Arbeit bestätigt die Eignung von
 Arbeit beschriebenen Reaktionszeitanforderung zugrunde liegt (siehe
 Abschnitt~\ref{subsec:reaction-times}), allerdings in einem wissenschaftlichen statt
 industriellen Kontext und ohne die Notwendigkeit, mehrere unabhängige, proprietäre
-Drittanbieter-Systeme über ein eigenständiges Plugin anzubinden.
+Drittanbieter-Systeme über ein eigenständiges Plugin anzubinden, wie es das in dieser
+Arbeit entwickelte GIO-System vorsieht.
 
 \section{Integration heterogener Datenquellen}
 \label{sec:related-integration}
@@ -30,10 +36,10 @@ Abfrageverarbeitung verfügen, jedoch mit höherem Implementierungs- und
 Wartungsaufwand verbunden sind, während virtuelle Integrationsansätze zunehmend an
 Bedeutung gewinnen~\cite{Putrama2024}. Diese Erkenntnis deckt sich mit der in
 Abschnitt~\ref{subsec:reaction-times} getroffenen Entscheidung für eine virtuelle
-Datenintegration innerhalb des entwickelten Plugins, bei der die vorliegende Arbeit
-den beschriebenen Zusammenhang zwischen Implementierungsaufwand und Antwortzeit im
-konkreten Anwendungsfall mehrerer Netzwerk- und Systemüberwachungsquellen praktisch
-bestätigt.
+Datenintegration innerhalb der in Abschnitt~\ref{sec:solution-approach} beschriebenen
+Datasource-Schicht des GIO-Plugins, bei der die vorliegende Arbeit den beschriebenen
+Zusammenhang zwischen Implementierungsaufwand und Antwortzeit im konkreten
+Anwendungsfall mehrerer Netzwerk- und Systemüberwachungsquellen praktisch bestätigt.
 
 \section{Zentrale Darstellung verteilter Infrastruktur}
 \label{sec:related-spog}
@@ -44,9 +50,12 @@ Infrastruktur wird in der Literatur unter anderem im Kontext des sogenannten
 hin, dass Netzwerk-Verantwortliche in modernen Unternehmensumgebungen mit sehr
 großen Mengen an Informationen umgehen müssen, und schlagen eine Visualisierungsmethode
 vor, die Übersichten generiert und dabei die für die jeweilige Nutzerin oder den
-jeweiligen Nutzer relevantesten Zusammenhänge hervorhebt~\cite{VelezRojas2013}. Der
-in dieser Arbeit entwickelte Ansatz verfolgt ein ähnliches Ziel auf Ebene einzelner
-Standorte: Anstatt sämtliche Detailinformationen gleichwertig darzustellen, werden,
-wie in Abschnitt~\ref{sec:systemmetriken} und Abschnitt~\ref{sec:netzwerkmetriken}
+jeweiligen Nutzer relevantesten Zusammenhänge hervorhebt~\cite{VelezRojas2013}. Dieser
+Bedarf spiegelt sich unmittelbar in der in Abschnitt~\ref{sec:organisation}
+beschriebenen Ausgangssituation wider, in der Mitarbeitende wichtige Informationen
+aufgrund des fehlenden zentralen Überblicks übersehen. Der in dieser Arbeit entwickelte
+Ansatz verfolgt ein ähnliches Ziel auf Ebene einzelner Standorte: Anstatt sämtliche
+Detailinformationen gleichwertig darzustellen, werden, wie in
+Abschnitt~\ref{sec:systemmetriken} und Abschnitt~\ref{sec:netzwerkmetriken}
 beschrieben, zunächst aggregierte Standortwerte präsentiert, die bei Bedarf eine
 gezielte Detailbetrachtung einzelner Systeme ermöglichen.
