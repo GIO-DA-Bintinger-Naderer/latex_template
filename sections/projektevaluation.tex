@@ -1,33 +1,41 @@
 \section{Organisation}
 \label{sec:organisation}
 
-Das Projektmanagement wurde über \gls{githubprojects} gehandhabt. Dort wurden Aufgaben in
+Das Projektmanagement wurde über \gls{githubprojects} abgewickelt. Dort wurden Aufgaben in
 Form von Issues erfasst, priorisiert und den jeweiligen Meilensteinen zugeordnet. Der
 Fortschritt einzelner Aufgaben wurde dabei über ein Kanban-Board nachverfolgt, das die
 Issues den Status \enquote{Offen}, \enquote{In Bearbeitung} und \enquote{Abgeschlossen}
-zuordnet.
+zuordnet~\cite{github2026projects}.
 
 Der eigentliche Quellcode sowie die Versionsverwaltung erfolgten hingegen über
-\gls{azuredevops}. Der Wechsel zwischen den beiden Werkzeugen war notwendig, da
-\gls{azuredevops} bei der Primetals Technologies Austria GmbH unternehmensweit als
-Standardwerkzeug für die Quellcodeverwaltung eingesetzt wird.
-
-Für die Entwicklung wurde dabei ein Feature-Branch-Workflow verwendet. Für jede neue
-Funktionalität oder Fehlerbehebung wurde ein eigener Branch von der Hauptentwicklungslinie
-abgezweigt. Nach Fertigstellung wurde der jeweilige Branch über einen Pull Request in die
-Hauptentwicklungslinie zurückgeführt. Dadurch konnte der Quellcode vor der Übernahme
-überprüft werden, ohne dabei die Hauptentwicklungslinie durch unfertige Änderungen zu
-beeinträchtigen.
+\gls{azuredevops}~\cite{microsoft2026azuredevops}. Der Wechsel zwischen den beiden
+Werkzeugen war notwendig, da \gls{azuredevops} bei der Primetals Technologies Austria GmbH
+unternehmensweit als Standardwerkzeug für die Quellcodeverwaltung eingesetzt wird, während
+\gls{githubprojects} ausschließlich für die Aufgabenverwaltung im Rahmen dieser Arbeit
+genutzt wurde.
 
 \subsection{Meilensteine}
 \label{subsec:milestones}
 
 Die Entwicklung des Plugins wurde in mehrere Meilensteine unterteilt, die jeweils einen
-inhaltlich abgeschlossenen Funktionsbereich der Anwendung abbilden. Jeder Meilenstein
-fasste dabei die zugehörigen Issues zusammen und ermöglichte dadurch eine Einschätzung
-des Fortschritts innerhalb des jeweiligen Bereichs. Durch diese Unterteilung konnte der
-Gesamtumfang des Projekts in überschaubare, nacheinander umsetzbare Abschnitte gegliedert
-werden.
+inhaltlich abgeschlossenen Funktionsbereich der Anwendung abbilden. Die folgenden
+Meilensteine wurden für dieses Projekt definiert:
+
+\begin{compactitem}
+    \item \textbf{MVP funktioniert:}
+    Implementierung einer Weltkarte, auf der Standorte und Länderansichten dargestellt werden.
+    \item \textbf{Pitch Day:}
+    Von der Schule festgelegter Präsentationstag.
+    \item \textbf{Erste Detail View funktioniert:}
+    Darstellung von Standortdaten auf tabellarischer Ebene.
+    \item \textbf{Zweite Detail View funktioniert:}
+    Darstellung detaillierterer Informationen in aussagekräftigen Diagrammen.
+    \item \textbf{Verbindungen zwischen verschiedenen Standorten anzeigen:}
+    Anzeige bestehender Verbindungen zwischen den einzelnen Standorten.
+    \item \textbf{Start Pflichtpraktikum:}
+    Beginn des im Rahmen dieser Arbeit absolvierten Pflichtpraktikums bei der Primetals
+    Technologies Austria GmbH.
+\end{compactitem}
 
 \subsection{Kommunikation}
 \label{subsec:communication}
@@ -38,22 +46,25 @@ wurden. Rückmeldungen und Anmerkungen zu einzelnen Aufgaben wurden dabei direkt
 der zugehörigen Issues in \gls{githubprojects} dokumentiert, wodurch der Verlauf einer
 Entscheidung oder Änderung auch im Nachhinein nachvollziehbar bleibt.
 
-\section{Probleme}
+\section{Herausforderungen}
 \label{sec:project-problems}
 
 Ein wesentliches Problem während der Entwicklung bestand darin, dass zu Beginn des
 Projekts kein Zugriff auf die produktiven, internen Datenquellen der Primetals
-Technologies Austria GmbH gewährt werden konnte. Die zugrunde liegenden Daten lagen dabei
-zwar bereits vor, jedoch war ein direkter Zugriff auf diese aus unternehmensinternen
-Gründen zunächst nicht möglich. Stattdessen wurden die betreffenden Daten im
-CSV- beziehungsweise Excel-Format bereitgestellt.
+Technologies Austria GmbH gewährt werden konnte. Die zugrunde liegenden Daten lagen zwar
+bereits vor, ein direkter Zugriff darauf war jedoch aus unternehmensinternen Gründen
+zunächst nicht möglich. Stattdessen wurden die betreffenden Daten im CSV- beziehungsweise
+Excel-Format bereitgestellt.
 
 Da die in Abschnitt~\ref{sec:defined-sources} beschriebenen \gls{grafana}-Datenquellen
 jedoch auf \gls{mssql}-Datenbanken sowie APIs basieren, konnten diese bereitgestellten
-Dateien nicht direkt für die Entwicklung der Datenanbindung verwendet werden.
+Dateien nicht direkt für die Entwicklung der Datenanbindung verwendet werden. Diese
+Diskrepanz zwischen den bereitgestellten Dateiformaten und den für die Anwendung
+benötigten Zugriffsarten stellt dabei eine typische Herausforderung bei der Integration
+heterogener Datenquellen dar~\cite{Putrama2024}.
 
-Um die Entwicklung des Plugins dennoch frühzeitig testen und vorantreiben zu können,
-wurde die Erstellung künstlicher, testweise verwendeter Datenquellen zu Beginn des
-Projekts stärker priorisiert. Dadurch konnte die Entwicklung der Anwendung bereits
+Um die Entwicklung des Plugins dennoch frühzeitig testen und vorantreiben zu können, wurde
+der Erstellung künstlicher, testweise verwendeter Datenquellen zu Beginn des Projekts
+höhere Priorität eingeräumt. Dadurch konnte die Entwicklung der Anwendung bereits
 fortgesetzt werden, ohne auf die endgültige Freigabe des Zugriffs auf die produktiven
 Datenquellen warten zu müssen.
