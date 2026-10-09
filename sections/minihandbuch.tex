@@ -18,7 +18,7 @@ Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand d
 
     \begin{compactitem}
         \item \textbf{\gls{sdwan}:} Dieses Panel zeigt an ob es ein Problem mit der \gls{sdwan}-Verbindung gibt.
-        \item \textbf{\gls{hci}:} Dieses Panel zeigt an ob es ein Problem mit der \gls{hci} Resource gibt.
+        \item \textbf{\gls{hci}:} Dieses Panel zeigt an ob es ein Problem mit der \gls{hci} Ressource gibt.
         \item \textbf{Server:} Dieses Panel zeigt an ob es ein Problem mit der Server-Verbindung gibt.
         \item \textbf{LAN:} Dieses Panel zeigt an ob es ein Problem mit der LAN-Verbindung gibt.
     \end{compactitem}
@@ -27,7 +27,7 @@ Auf dem Dashboard werden Informationen in Panels rechts auf dem Bildschirmrand d
     
     \begin{compactitem}
         \item \textbf{Nur aktive Standorte:} Dieser Filter zeigt nur die aktiven Standorte an.
-        \item \textbf{Hat \gls{hci}:} Dieser Filter zeigt nur die Standorte an, die eine HCI Resource lagern haben.
+        \item \textbf{Hat \gls{hci}:} Dieser Filter zeigt nur die Standorte an, die eine HCI Ressource lagern haben.
         \item \textbf{Klassifikation:} Dieser Filter zeigt nur die Standorte an, die eine bestimmte Klasse haben. 
         Dieser Filter ermöglich eine Mehrfachauswahl damit können mehrere Filter gleichzeitig angewendet werden.
         
@@ -92,9 +92,9 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
     \item \textbf{Weltkarten Ansicht:} Auf dieser Ebene werden die Standorte auf einer Weltkarte angezeigt. 
     Die Standorte werden pro Land gruppiert, die Anzahl der Standorte entscheidet über die Größe des Icons.
     Für die Farbe des Icons wird die schlechteste Einstufungsquelle des Standorts verwendet.
-    Bei einem Klick aif ein Land wird in die Standort Ansicht gewechselt, die alle Standorte des Landes anzeigt.
+    Bei einem Klick auf ein Land wird in die Standort Ansicht gewechselt, die alle Standorte des Landes anzeigt.
     \item \textbf{Standort Ansicht:} Auf dieser Ebene werden die Standorte auf einer Landkarte angezeigt.
-    Die gößere der Icons wird durch die Kritikalität der Standorte in der Region bestimmt.
+    Die Größe der Icons wird durch die Kritikalität der Standorte in der Region bestimmt.
 
     \begin{compactitem}
         \item \textbf{Stabil:} Dieser Filter zeigt nur die Standorte an, die stabil sind. Das Icon ist normal groß.
@@ -103,10 +103,10 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
     \end{compactitem}
     \todo{Hier müssen die Zustände referenziert werden.}
 
-    Bei einem Klick auf ein Icon wird in die Standort Detail Ansicht gewechselt, die alle Informationen des Standorts anzeigt.
+    Bei einem Klick auf ein Icon wird in die Standortdetailansicht gewechselt, die alle Informationen des Standorts anzeigt.
 
     \begin{compactitem}
-        \item \textbf{Standort Detail Ansicht:} Auf dieser Ebene wird ein Standort zentriert und detailliert angezeigt.
+        \item \textbf{Standortdetailansicht:} Auf dieser Ebene wird ein Standort zentriert und detailliert angezeigt.
         \label{par:standort-detailansicht}
         Es werden zu allen anderen Standorten die eine Verbindung zu dem Standort haben strichlierte Linien angezeigt, 
         die die Verbindung darstellen.
@@ -121,9 +121,8 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
         reiht sich ein weiters Panel auf der rechten Seite unter dem Verbindungsfilter ein, das die Informationen der Verbindung anzeigt.
         Auf der linken Seite des Panels wird die Appliance-ID des Empfängers angezeigt.
         Auf der rechten Seite des Panels wird die Verbindungslatenz angezeigt.
-        Die Verbindungslatenz wird ausgehend von der Quelle des Dashboards zu dem Standort berechnet. 
-    
-        Und durch die durchschnittliche Latenz der Verbindung dargestellt.
+        Die Verbindungslatenz wird ausgehend von der Quelle des Dashboards zu dem Standort berechnet
+        und durch die durchschnittliche Latenz der Verbindung dargestellt.
         Die Anzahl der Verbindungen wird durch die Anzahl der \gls{sdwan}s der beiden Standorte bestimmt.
 
         Es öffnet sich auf der linken Seite ein Panel, das alle Informationen des Standorts anzeigt.
@@ -146,13 +145,13 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
 
             \item \textbf{Netzwerk Übersicht:} Auf diesem Abschnitt werden die Standorte auf einer Netzwerkübersicht angezeigt. 
             In der Kopfzeile wird die Gesamtanzahl der \gls{sdwan}s angezeigt, die der Standort hat.
-            Der Abschnitt ist in zwei Bereiche unterteilt. Der obere Bereich zeigt den Stauts aller \gls{sdwan}s an, die der Standort hat. 
+            Der Abschnitt ist in zwei Bereiche unterteilt. Der obere Bereich zeigt den Status aller \gls{sdwan}s an, die der Standort hat. 
             Der untere Bereich zeigt den Status des Primärgerätes an.
             
             \begin{compactitem}
                 \item \textbf{Oberer Bereich:} In diesem Bereich werden die Anzahl der erreichbaren, 
                 unerreichbaren Geräte des Standorts angezeigt.
-                Außerdem wird den Benutzer:innen die Anzahl der Primäar und Backup \gls{sdwan}s angezeigt, die der Standort hat.
+                Außerdem wird den Benutzer:innen die Anzahl der Primär und Backup \gls{sdwan}s angezeigt, die der Standort hat.
                 \item \textbf{Unterer Bereich:} In diesem Bereich werden die Appliance-IDs der Primärgeräte
                 mit der durchschnittlichen Bandbreite der Verbindung angezeigt.
                 \todo{Möglicherweise muss Appliance-ID noch referenziert oder geändert werden.}
@@ -187,13 +186,13 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
             \end{compactitem}
             
             \item \textbf{\gls{hci} Ansicht:} Auf dieser Ebene werden die Standorte auf einer \gls{hci}-Übersicht angezeigt.
-            Hier werden die verwendeten die \gls{hci}-Resourcen des Standorts angezeigt.
+            Hier werden die verwendeten \gls{hci}-Ressourcen des Standorts angezeigt.
             Links stehen die Kategorien: 
-            \todo{Hier muss noch eine Beschreibung der HCI-Resourcen hinzugefügt werden. + Zitierung}
+            \todo{Hier muss noch eine Beschreibung der HCI-Ressourcen hinzugefügt werden. + Zitierung}
 
-            Rechts wird die Auslastung der \gls{hci}-Resourcen in Prozent angezeigt.
+            Rechts wird die Auslastung der \gls{hci}-Ressourcen in Prozent angezeigt.
 
-            Bei einem Klick auf die \gls{hci} Ansicht öffnet sich eine neue Seite, die die \gls{hci}-Resourcen des Standorts detailliert anzeigt.
+            Bei einem Klick auf die \gls{hci} Ansicht öffnet sich eine neue Seite, die die \gls{hci}-Ressourcen des Standorts detailliert anzeigt.
             Diese Seite ist in vier Abschnitte unterteilt.
 
             \begin{compactitem}
@@ -201,19 +200,19 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                 Es wird der \gls{location-code} des Standorts angezeigt, 
                 die Klasse des Standorts und das Datum, die Uhrzeit der letzten Aktualisierung.
 
-                \item \textbf{Auslastung:} In diesem Abschnitt wird die Auslastung der \gls{hci}-Resourcen des Standorts
+                \item \textbf{Auslastung:} In diesem Abschnitt wird die Auslastung der \gls{hci}-Ressourcen des Standorts
                 in Prozent und anhand einer Balkenanzeige angezeigt. 
-                Die Farbe der Balkenanzeige wird durch die Kritikalität der \gls{hci}-Resourcen bestimmt.
+                Die Farbe der Balkenanzeige wird durch die Kritikalität der \gls{hci}-Ressourcen bestimmt.
 
-                \item \textbf{Auslastungsverlauf:} In diesem Abschnitt wird die Auslastung der \gls{hci}-Resourcen des Standorts
+                \item \textbf{Auslastungsverlauf:} In diesem Abschnitt wird die Auslastung der \gls{hci}-Ressourcen des Standorts
                 in Prozent und anhand einer Liniendiagramm angezeigt. Um eine bessere Übersicht zu gewären wird ein D3-Linechart verwendet.
                 \todo{Zitat für D3-Linechart muss noch hinzugefügt werden.}
 
-                \item \textbf{\gls{hci} Details:} In diesem Abschnitt werden die \gls{hci}-Resourcen des Standorts detailliert angezeigt.
+                \item \textbf{\gls{hci} Details:} In diesem Abschnitt werden die \gls{hci}-Ressourcen des Standorts detailliert angezeigt.
                 
                 \begin{compactitem}
                     \item \textbf{:} .
-                    \todo{Hier muss noch eine Beschreibung der HCI-Resourcen hinzugefügt werden. + Zitierung}
+                    \todo{Hier muss noch eine Beschreibung der HCI-Ressourcen hinzugefügt werden. + Zitierung}
                 \end{compactitem}
 
             \end{compactitem}
@@ -309,7 +308,7 @@ Es gibt drei Detailebenen, die jeweils unterschiedliche Informationen anzeigen:
                     Dazu gehören die LAN-IP-Adresse des Geräts laut ~\ref{par:device-info}, die öffentliche IP-Adresse des Geräts laut \ref{par:device-info}, der Status des Geräts und der Typ des Geräts.
 
                     Wenn es sich bei dem ausgewählten Standort um einen Cloud Hub handelt ~\ref{sec:cloudhubs},
-                    werden wenn vorhanden eigene Konoten angezeigt die Netzwerksicherheitsgruppen repäsentieren.
+                    werden wenn vorhanden eigene Knoten angezeigt, die Netzwerksicherheitsgruppen repräsentieren.
                     Bei einem Klick auf eine Netzwerksicherheitsgruppe öffnet sich eine neue Seite, 
                     die die Regeln der Netzwerksicherheitsgruppe anzeigt.
                     Die Seite ist in zwei Abschnitte unterteilt.
@@ -378,7 +377,7 @@ verwendeten Detailebene immer auf der Karte angezeigt. Ihre Sichtbarkeit hängt
 somit nicht vom Zoom-Level des Dashboards ab.
 
 Die Menüs der Detailansicht überschneiden sich weitgehend mit denen der
-Standort Detail Ansicht. Die allgemeinen Standortinformationen existieren bei
+Standortdetailansicht. Die allgemeinen Standortinformationen existieren bei
 Cloud Hubs jedoch nicht in derselben Form wie bei regulären Standorten. Für die
 gemeinsamen Menüs wird auf Abschnitt~\ref{par:standort-detailansicht} verwiesen.
 Der konkrete Aufbau der Cloud-Hub-Ansicht und die VNETs-Ansicht werden in
